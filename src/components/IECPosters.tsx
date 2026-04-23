@@ -177,7 +177,7 @@ export default function IECPosters() {
       {/* Grid of Poster Folders */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
         {POSTER_FOLDERS.map((folder) => (
-          <div 
+          <div
             key={folder.id}
             onClick={() => {
               setSelectedFolder(folder);
@@ -189,8 +189,8 @@ export default function IECPosters() {
           >
             {/* Thumbnail */}
             <div className="aspect-[3/4] bg-slate-900 relative overflow-hidden">
-              <img 
-                src={folder.images[0]} 
+              <img
+                src={encodeURI(folder.images[0])}
                 alt={folder.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100"
                 onError={(e) => {
@@ -219,14 +219,14 @@ export default function IECPosters() {
 
       {/* Lightbox Modal */}
       {selectedFolder && (
-        <div 
+        <div
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-sm p-4 sm:p-8"
           onClick={(e) => {
             if (e.target === e.currentTarget) setSelectedFolder(null);
           }}
         >
           {/* Close Button */}
-          <button 
+          <button
             onClick={() => setSelectedFolder(null)}
             className="absolute top-4 right-4 sm:top-8 sm:right-8 z-[10001] w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all border border-white/10"
           >
@@ -234,14 +234,14 @@ export default function IECPosters() {
           </button>
 
           {/* Navigation Controls */}
-          <button 
+          <button
             onClick={(e) => { e.stopPropagation(); handlePrev(); }}
             className="absolute left-2 sm:left-6 z-[10001] w-12 h-12 rounded-full bg-white/5 hover:bg-white/15 flex items-center justify-center text-white transition-all hidden md:flex"
           >
             <ChevronLeft className="w-8 h-8" />
           </button>
 
-          <button 
+          <button
             onClick={(e) => { e.stopPropagation(); handleNext(); }}
             className="absolute right-2 sm:right-6 z-[10001] w-12 h-12 rounded-full bg-white/5 hover:bg-white/15 flex items-center justify-center text-white transition-all hidden md:flex"
           >
@@ -249,7 +249,7 @@ export default function IECPosters() {
           </button>
 
           {/* Image Container */}
-          <div 
+          <div
             className="relative w-full max-w-5xl h-full flex flex-col items-center justify-center"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
@@ -259,9 +259,9 @@ export default function IECPosters() {
                 <Loader2 className="w-10 h-10 text-red-500 animate-spin" />
               </div>
             )}
-            
-            <img 
-              src={selectedFolder.images[currentImageIndex]} 
+
+            <img
+              src={encodeURI(selectedFolder.images[currentImageIndex])}
               alt={`${selectedFolder.title} - Page ${currentImageIndex + 1}`}
               className={`max-w-full max-h-[80vh] object-contain shadow-2xl transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
               onLoad={() => setIsLoading(false)}
@@ -279,9 +279,9 @@ export default function IECPosters() {
                 <span className="text-slate-400 text-xs bg-white/5 px-3 py-1 rounded-full border border-white/10">
                   Page {currentImageIndex + 1} of {selectedFolder.images.length}
                 </span>
-                <a 
-                  href={selectedFolder.images[currentImageIndex]} 
-                  download 
+                <a
+                  href={encodeURI(selectedFolder.images[currentImageIndex])}
+                  download
                   className="flex items-center gap-2 text-red-400 hover:text-red-300 text-xs font-bold transition-colors"
                 >
                   <Download className="w-4 h-4" />
