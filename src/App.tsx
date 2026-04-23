@@ -16,6 +16,7 @@ import UpperMarikinaMonitor from './components/UpperMarikinaMonitor';
 import CriticalAlarmBanner from './components/CriticalAlarmBanner';
 import PagasaWeatherResources from './components/PagasaWeatherResources';
 import RizalMunicipalitiesWeather from './components/RizalMunicipalitiesWeather';
+import MaghandaVideos from './components/MaghandaVideos';
 import WeatherLinkEmbed from './components/WeatherLinkEmbed';
 
 import DashboardTabs, { DashboardTab } from './components/DashboardTabs';
@@ -178,6 +179,10 @@ function App() {
 
             {activeTab === 'municipalities' && (
               <RizalMunicipalitiesDistricts />
+            )}
+
+            {activeTab === 'iec' && (
+              <MaghandaVideos />
             )}
 
 
