@@ -91,7 +91,7 @@ const tabs: {
     id: 'iec',
     label: 'IEC',
     icon: Video,
-    description: 'Information & Educational Videos',
+    description: 'Educational Videos · Posters · Guides',
     activeBg: 'from-purple-500/25 via-purple-500/10 to-fuchsia-500/15 border-purple-400/60',
     accentColor: 'bg-purple-400',
     iconActiveBg: 'bg-purple-500/30',
