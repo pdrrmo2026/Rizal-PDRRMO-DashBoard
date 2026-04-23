@@ -235,25 +235,36 @@ export default function MaghandaVideos() {
               </button>
               
               <div 
-                className="relative max-w-5xl w-full h-full flex flex-col items-center justify-center"
+                className="relative max-w-6xl w-full h-[90vh] flex flex-col"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="w-full mb-4 flex items-center justify-between">
-                  <h3 className="text-white font-bold text-lg">{selectedPoster.title}</h3>
-                  <a 
-                    href={`${POSTER_BASE_URL}/${selectedPoster.file}`}
-                    download
-                    className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-lg transition-colors"
-                  >
-                    <Download className="w-4 h-4" /> Download Original
-                  </a>
+                <div className="w-full mb-4 flex items-center justify-between bg-black/60 backdrop-blur-md p-4 rounded-xl border border-white/10">
+                  <div>
+                    <h3 className="text-white font-bold text-lg leading-tight">{selectedPoster.title}</h3>
+                    <p className="text-slate-400 text-[10px] uppercase tracking-widest mt-1">OCD Disaster Preparedness Guidebook</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <a 
+                      href={`${POSTER_BASE_URL}/${selectedPoster.file}`}
+                      download
+                      className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-lg transition-colors"
+                    >
+                      <Download className="w-4 h-4" /> Download PDF
+                    </a>
+                    <button 
+                      className="w-10 h-10 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center border border-white/10 transition-colors"
+                      onClick={() => setSelectedPoster(null)}
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
                 </div>
                 
-                <div className="relative flex-1 w-full bg-slate-900 rounded-xl overflow-hidden shadow-2xl border border-white/5 flex items-center justify-center">
+                <div className="relative flex-1 w-full overflow-y-auto bg-slate-950 rounded-xl shadow-2xl border border-white/10 p-2 sm:p-4 flex justify-center items-start scrollbar-thin scrollbar-thumb-red-600 scrollbar-track-slate-900">
                   <img 
                     src={`${POSTER_BASE_URL}/${selectedPoster.file}`}
                     alt={selectedPoster.title}
-                    className="max-w-full max-h-full object-contain"
+                    className="w-full max-w-4xl h-auto shadow-2xl"
                   />
                 </div>
               </div>
