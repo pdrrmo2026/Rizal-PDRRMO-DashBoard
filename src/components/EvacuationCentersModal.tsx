@@ -457,23 +457,22 @@ export default function EvacuationCentersModal({
                       style={{ 
                         height: '100%', 
                         width: '100%',
-                        backgroundColor: baseMap === 'blank' ? '#0f172a' : '#000'
+                        backgroundColor: '#000'
                       }}
                       className="z-0"
                     >
-                      {baseMap !== 'blank' && (
                         <TileLayer
                           url={
                             baseMap === 'satellite' ? "https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}" :
-                            baseMap === 'roadmap' ? "https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}" :
+                            baseMap === 'streets' ? "https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}" :
                             baseMap === 'terrain' ? "https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}" :
+                            baseMap === 'traffic' ? "https://{s}.google.com/vt/lyrs=m,traffic&x={x}&y={y}&z={z}" :
                             "https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}" // hybrid default
                           }
                           maxZoom={20}
                           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
                           attribution='&copy; Google Maps'
                         />
-                      )}
                       {filteredData.map((center, idx) => (
                         <Marker 
                           key={idx} 
@@ -544,9 +543,9 @@ export default function EvacuationCentersModal({
                         {[
                           { id: 'hybrid', name: 'Hybrid' },
                           { id: 'satellite', name: 'Satellite' },
-                          { id: 'roadmap', name: 'Roadmap' },
+                          { id: 'streets', name: 'Streets' },
                           { id: 'terrain', name: 'Terrain' },
-                          { id: 'blank', name: 'Blank' }
+                          { id: 'traffic', name: 'Traffic' }
                         ].map(style => (
                           <button
                             key={style.id}
