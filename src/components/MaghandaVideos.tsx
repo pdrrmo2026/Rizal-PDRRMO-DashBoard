@@ -52,32 +52,32 @@ const VIDEOS: MaghandaVideo[] = [
     Icon: LifeBuoy,
     accent: 'from-emerald-500 to-green-700',
     hashtag: '#PanatagAngMayAlam',
-    hashtagColor: 'text-emerald-300',
+  hashtagColor: 'text-emerald-300',
     presenter: 'Dingdong Dantes',
   },
 ];
 
-const POSTER_BASE_URL = "https://raw.githubusercontent.com/pdrrmo2026/Rizal-PDRRMO-DashBoard/main/educational_posters";
-
-const POSTERS = [
-  { id: 1, file: 'OCD_Disaster_Preparedness_Guidebook_page-0001.jpg', title: 'Disaster Preparedness Guidebook - Cover' },
-  { id: 2, file: 'OCD_Disaster_Preparedness_Guidebook_page-0002.jpg', title: 'Emergency Hotlines & Contacts' },
-  { id: 3, file: 'OCD_Disaster_Preparedness_Guidebook_page-0003.jpg', title: 'Earthquake Preparedness' },
-  { id: 4, file: 'OCD_Disaster_Preparedness_Guidebook_page-0004.jpg', title: 'Fire Safety & Prevention' },
-  { id: 5, file: 'OCD_Disaster_Preparedness_Guidebook_page-0005.jpg', title: 'Flood Safety Guide' },
-  { id: 6, file: 'OCD_Disaster_Preparedness_Guidebook_page-0006.jpg', title: 'Tsunami & Storm Surge' },
-  { id: 7, file: 'OCD_Disaster_Preparedness_Guidebook_page-0007.jpg', title: 'Volcanic Eruption Awareness' },
-  { id: 8, file: 'OCD_Disaster_Preparedness_Guidebook_page-0008.jpg', title: 'Landslide Precautions' },
-  { id: 9, file: 'OCD_Disaster_Preparedness_Guidebook_page-0009.jpg', title: 'Typhoon & Heavy Rainfall' },
-  { id: 10, file: 'OCD_Disaster_Preparedness_Guidebook_page-0010.jpg', title: 'Emergency Go Bag Essentials' },
-  { id: 11, file: 'OCD_Disaster_Preparedness_Guidebook_page-0011.jpg', title: 'First Aid Basic Skills' },
-  { id: 12, file: 'OCD_Disaster_Preparedness_Guidebook_page-0012.jpg', title: 'Community Evacuation Plan' },
-  { id: 13, file: 'OCD_Disaster_Preparedness_Guidebook_page-0013.jpg', title: 'Post-Disaster Recovery' },
+const POSTER_FILES = [
+  'OCD_Disaster_Preparedness_Guidebook_page-0001.jpg',
+  'OCD_Disaster_Preparedness_Guidebook_page-0002.jpg',
+  'OCD_Disaster_Preparedness_Guidebook_page-0003.jpg',
+  'OCD_Disaster_Preparedness_Guidebook_page-0004.jpg',
+  'OCD_Disaster_Preparedness_Guidebook_page-0005.jpg',
+  'OCD_Disaster_Preparedness_Guidebook_page-0006.jpg',
+  'OCD_Disaster_Preparedness_Guidebook_page-0007.jpg',
+  'OCD_Disaster_Preparedness_Guidebook_page-0008.jpg',
+  'OCD_Disaster_Preparedness_Guidebook_page-0009.jpg',
+  'OCD_Disaster_Preparedness_Guidebook_page-0010.jpg',
+  'OCD_Disaster_Preparedness_Guidebook_page-0011.jpg',
+  'OCD_Disaster_Preparedness_Guidebook_page-0012.jpg',
+  'OCD_Disaster_Preparedness_Guidebook_page-0013.jpg',
 ];
+
+const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/pdrrmo2026/Rizal-PDRRMO-DashBoard/main/educational_posters';
 
 export default function MaghandaVideos() {
   const [activeTab, setActiveTab] = useState<'videos' | 'posters'>('videos');
-  const [selectedPoster, setSelectedPoster] = useState<typeof POSTERS[0] | null>(null);
+  const [selectedPoster, setSelectedPoster] = useState<string | null>(null);
 
   return (
     <section className="bg-gradient-to-br from-red-950/40 via-gray-900 to-slate-900 border border-red-700/40 rounded-xl p-3 sm:p-4 md:p-6 shadow-xl">
@@ -189,96 +189,109 @@ export default function MaghandaVideos() {
         </div>
       ) : (
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <div className="flex items-center gap-2 mb-4 px-2">
-            <div className="w-1.5 h-4 bg-red-500 rounded-full"></div>
-            <h3 className="text-sm font-bold text-white uppercase tracking-wide">Educational Posters</h3>
+          <div className="flex items-center justify-between mb-4 px-2">
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-4 bg-red-500 rounded-full"></div>
+              <h3 className="text-sm font-bold text-white uppercase tracking-wide">OCD Disaster Preparedness Guidebook</h3>
+            </div>
+            <span className="text-[10px] text-slate-500">{POSTER_FILES.length} Pages Available</span>
           </div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-            {POSTERS.map((poster) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 sm:gap-4">
+            {POSTER_FILES.map((filename, i) => (
               <div 
-                key={poster.id} 
-                onClick={() => setSelectedPoster(poster)}
-                className="group relative bg-gray-950 border border-slate-800 rounded-xl overflow-hidden flex flex-col aspect-[3/4] hover:border-red-500 transition-all cursor-pointer shadow-lg"
+                key={filename} 
+                onClick={() => setSelectedPoster(`${GITHUB_RAW_BASE}/${filename}`)}
+                className="group relative bg-gray-950 border border-slate-800 rounded-lg overflow-hidden flex flex-col aspect-[1/1.414] hover:border-red-500/50 transition-all cursor-pointer shadow-lg"
               >
-                <div className="flex-1 overflow-hidden relative bg-slate-900">
+                {/* Image Preview */}
+                <div className="relative flex-1 bg-slate-900 overflow-hidden">
                   <img 
-                    src={`${POSTER_BASE_URL}/${poster.file}`}
-                    alt={poster.title}
+                    src={`${GITHUB_RAW_BASE}/${filename}`} 
+                    alt={`Poster Page ${i + 1}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
-                    <div className="flex items-center gap-2 text-white text-[10px] font-bold">
-                      <PlayCircle className="w-4 h-4" /> Click to enlarge
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-3">
+                    <div className="bg-red-600 text-white text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-xl transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                      <PlayCircle className="w-3 h-3" /> View Large
                     </div>
                   </div>
                 </div>
-                <div className="p-3 bg-gray-900/80 border-t border-slate-800">
-                  <h4 className="text-[10px] font-bold text-slate-200 line-clamp-1">{poster.title}</h4>
+                
+                {/* Info Bar */}
+                <div className="px-3 py-2 bg-gray-900 flex items-center justify-between gap-2">
+                  <span className="text-[10px] font-bold text-slate-400">Page {i + 1}</span>
+                  <a 
+                    href={`${GITHUB_RAW_BASE}/${filename}`} 
+                    download 
+                    onClick={(e) => e.stopPropagation()}
+                    className="p-1 hover:text-red-400 text-slate-500 transition-colors"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                  </a>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Lightbox / Modal */}
-          {selectedPoster && (
-            <div 
-              className="fixed inset-0 z-[9999] bg-black/98 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 animate-in fade-in zoom-in duration-200"
-              onClick={() => setSelectedPoster(null)}
-            >
-              {/* Large Close Button for Accessibility */}
-              <button 
-                className="absolute top-4 right-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center shadow-2xl transition-all z-[10000] active:scale-95"
-                onClick={() => setSelectedPoster(null)}
-              >
-                <X className="w-6 h-6" />
+          {/* Detailed Guidebook Card */}
+          <div className="mt-8 p-6 rounded-xl bg-gradient-to-br from-red-600/10 to-transparent border border-red-500/20 flex flex-col md:flex-row items-center gap-6">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center shrink-0 shadow-lg shadow-red-600/20">
+              <BookOpen className="w-8 h-8 text-white" />
+            </div>
+            <div className="flex-1 text-center md:text-left">
+              <h4 className="text-sm font-bold text-white mb-1">OCD Disaster Preparedness Guidebook</h4>
+              <p className="text-xs text-slate-400 leading-relaxed max-w-3xl">This comprehensive guidebook from the Office of Civil Defense (OCD) provides essential information for community-level preparedness. Click any page to view it in full size and study the preparedness measures for various hazards including earthquakes, floods, and tropical cyclones.</p>
+            </div>
+            <div className="flex flex-col gap-2 shrink-0">
+              <button className="flex items-center justify-center gap-2 px-6 py-2.5 bg-red-600 hover:bg-red-700 text-xs font-bold text-white rounded-xl transition-all shadow-lg shadow-red-600/20">
+                <Download className="w-4 h-4" /> Download Full Guide
               </button>
-              
-              <div 
-                className="relative w-full h-full max-w-[95vw] max-h-[95vh] flex flex-col"
-                onClick={(e) => e.stopPropagation()}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Poster Lightbox Modal */}
+      {selectedPoster && (
+        <div 
+          className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 animate-in fade-in duration-300"
+          onClick={() => setSelectedPoster(null)}
+        >
+          <div 
+            className="relative w-full max-w-4xl max-h-full flex flex-col items-center gap-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button 
+              onClick={() => setSelectedPoster(null)}
+              className="absolute -top-12 right-0 p-2 text-white hover:text-red-400 transition-colors flex items-center gap-2 font-bold text-xs"
+            >
+              <X className="w-5 h-5" /> Close View
+            </button>
+            
+            <div className="relative w-full overflow-auto rounded-xl shadow-2xl border border-white/10 bg-white p-1 sm:p-2">
+              <img 
+                src={selectedPoster} 
+                alt="Selected Educational Poster"
+                className="w-full h-auto max-h-[85vh] object-contain rounded-lg shadow-inner"
+              />
+            </div>
+            
+            <div className="flex items-center gap-4">
+              <a 
+                href={selectedPoster} 
+                download
+                className="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-6 py-2.5 rounded-xl shadow-xl flex items-center gap-2 transition-all"
               >
-                {/* Header within Modal */}
-                <div className="flex items-center justify-between gap-4 mb-4 bg-gray-900/80 p-3 rounded-t-xl border-x border-t border-slate-700/50 backdrop-blur-md">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center">
-                      <ImageIcon className="w-4 h-4 text-white" />
-                    </div>
-                    <h3 className="text-white font-bold text-sm sm:text-base leading-tight truncate max-w-[50vw]">
-                      {selectedPoster.title}
-                    </h3>
-                  </div>
-                  <a 
-                    href={`${POSTER_BASE_URL}/${selectedPoster.file}`}
-                    download
-                    className="flex items-center gap-2 px-3 sm:px-5 py-2 bg-slate-800 hover:bg-red-600 text-white text-[10px] sm:text-xs font-bold rounded-lg transition-all border border-slate-700 hover:border-red-500 shadow-lg active:scale-95"
-                  >
-                    <Download className="w-3.5 h-3.5 sm:w-4 h-4" /> 
-                    <span className="hidden xs:inline">Download</span> High-Res
-                  </a>
-                </div>
-                
-                {/* High-Resolution Viewport */}
-                <div className="flex-1 w-full bg-slate-950 rounded-b-xl overflow-auto border-x border-b border-slate-700/50 shadow-2xl flex items-start justify-center custom-scrollbar">
-                  <img 
-                    src={`${POSTER_BASE_URL}/${selectedPoster.file}`}
-                    alt={selectedPoster.title}
-                    className="min-w-full sm:min-w-0 max-w-full h-auto object-contain p-1 sm:p-2"
-                    style={{ maxHeight: 'none' }} // Allow vertical scrolling if image is very tall to maintain readability
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-          
-          <div className="mt-8 p-6 rounded-xl bg-blue-500/5 border border-blue-500/20 flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
-            <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
-              <Info className="w-6 h-6 text-blue-400" />
-            </div>
-            <div>
-              <h4 className="text-sm font-bold text-blue-400 mb-1">More Posters Coming Soon</h4>
-              <p className="text-xs text-slate-400 max-w-2xl">We are currently curating high-quality educational posters and infographics from PAGASA and PDRRMO. These materials will be available for download in high-resolution PDF format soon.</p>
+                <Download className="w-4 h-4" /> Download High-Res
+              </a>
+              <button 
+                onClick={() => setSelectedPoster(null)}
+                className="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-6 py-2.5 rounded-xl shadow-xl transition-all"
+              >
+                Return to Gallery
+              </button>
             </div>
           </div>
         </div>
