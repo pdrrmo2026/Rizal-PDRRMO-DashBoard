@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { MapPin, X, Home } from 'lucide-react';
+import { MapPin, Home, Info, X, ChevronRight, Search, Download, Upload, ExternalLink, RefreshCw } from 'lucide-react';
+import { fetchMunicipalityEvacData } from '../services/githubDataService';
 import EvacuationCentersModal, { EvacuationCenter } from './EvacuationCentersModal';
 
 interface BarangayPopulation {
@@ -676,6 +677,41 @@ export default function RizalMunicipalitiesDistricts() {
     }
   }, [evacuationDataMap]);
 
+  // Automatically fetch GitHub data for all municipalities on mount
+  useEffect(() => {
+    const fetchAllData = async () => {
+      const updatedMap = { ...evacuationDataMap };
+      let hasChanges = false;
+
+      for (const municipality of RIZAL_MUNICIPALITIES) {
+        // If local data is empty, try to fetch from GitHub
+        if (!evacuationDataMap[municipality.name] || evacuationDataMap[municipality.name].length === 0) {
+          const githubData = await fetchMunicipalityEvacData(municipality.name);
+          if (githubData.length > 0) {
+            updatedMap[municipality.name] = githubData;
+            hasChanges = true;
+          }
+        }
+      }
+
+      if (hasChanges) {
+        setEvacuationDataMap(updatedMap);
+      }
+    };
+
+    fetchAllData();
+  }, []); // Only on mount
+
+  const handleManualSync = async (municipalityName: string) => {
+    const githubData = await fetchMunicipalityEvacData(municipalityName);
+    if (githubData.length > 0) {
+      setEvacuationDataMap(prev => ({
+        ...prev,
+        [municipalityName]: githubData
+      }));
+    }
+  };
+
   const formatPopulation = (value: number) => value.toLocaleString('en-PH');
 
   return (
@@ -732,13 +768,23 @@ export default function RizalMunicipalitiesDistricts() {
                     {evacuationDataMap[item.name]?.length || 0}
                   </p>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setSelectedEvacMunicipality(item)}
-                  className="rounded-md border border-cyan-500/30 bg-cyan-500/10 px-2.5 py-1 text-xs font-semibold text-cyan-300 transition-colors hover:bg-cyan-500/20 focus:outline-none focus:ring-2 focus:ring-cyan-400/70"
-                >
-                  Manage
-                </button>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => handleManualSync(item.name)}
+                    className="rounded-md border border-slate-700 bg-slate-800 p-1.5 text-slate-400 transition-colors hover:text-cyan-300 hover:bg-slate-700"
+                    title="Sync with GitHub"
+                  >
+                    <RefreshCw className="w-3 h-3" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedEvacMunicipality(item)}
+                    className="rounded-md border border-cyan-500/30 bg-cyan-500/10 px-2.5 py-1 text-xs font-semibold text-cyan-300 transition-colors hover:bg-cyan-500/20 focus:outline-none focus:ring-2 focus:ring-cyan-400/70"
+                  >
+                    Manage
+                  </button>
+                </div>
               </div>
 
                 <div className="mt-2 rounded-md border border-slate-700/70 bg-slate-900/50 px-2.5 py-2 flex items-center justify-between gap-2">
