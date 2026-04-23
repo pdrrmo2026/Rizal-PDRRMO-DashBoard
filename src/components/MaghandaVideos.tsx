@@ -190,27 +190,25 @@ export default function MaghandaVideos() {
             </p>
           </div>
         </div>
-        
+
         {/* Tab Switcher */}
         <div className="flex bg-black/40 p-1 rounded-xl border border-slate-700/50">
           <button
             onClick={() => setActiveTab('videos')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-              activeTab === 'videos' 
-                ? 'bg-red-600 text-white shadow-lg shadow-red-600/20' 
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === 'videos'
+              ? 'bg-red-600 text-white shadow-lg shadow-red-600/20'
+              : 'text-slate-400 hover:text-slate-200'
+              }`}
           >
             <Video className="w-3.5 h-3.5" />
             Videos
           </button>
           <button
             onClick={() => setActiveTab('posters')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-              activeTab === 'posters' 
-                ? 'bg-red-600 text-white shadow-lg shadow-red-600/20' 
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === 'posters'
+              ? 'bg-red-600 text-white shadow-lg shadow-red-600/20'
+              : 'text-slate-400 hover:text-slate-200'
+              }`}
           >
             <ImageIcon className="w-3.5 h-3.5" />
             Posters
@@ -273,11 +271,11 @@ export default function MaghandaVideos() {
             <div className="w-1.5 h-4 bg-red-500 rounded-full"></div>
             <h3 className="text-sm font-bold text-white uppercase tracking-wide">Educational Posters</h3>
           </div>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {POSTER_DATA.map((gallery) => (
-              <div 
-                key={gallery.id} 
+              <div
+                key={gallery.id}
                 onClick={() => {
                   setSelectedGallery(gallery);
                   setCurrentImageIndex(0);
@@ -286,8 +284,8 @@ export default function MaghandaVideos() {
               >
                 {/* Cover Image */}
                 <div className="absolute inset-0 z-0">
-                  <img 
-                    src={`/${gallery.folder}/${gallery.images[0]}`} 
+                  <img
+                    src={`/${gallery.folder}/${gallery.images[0]}`}
                     alt={gallery.title}
                     className="w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity duration-500"
                   />
@@ -305,7 +303,7 @@ export default function MaghandaVideos() {
                     <span className="text-[10px] font-bold text-slate-300 uppercase">{gallery.images.length} Pages</span>
                   </div>
                 </div>
-                
+
                 {/* Badge */}
                 <div className="absolute top-0 right-0 p-3 z-20">
                   <div className="bg-red-600 text-white text-[8px] font-bold px-2 py-0.5 rounded uppercase shadow-lg shadow-red-600/30">IEC Material</div>
@@ -313,7 +311,7 @@ export default function MaghandaVideos() {
               </div>
             ))}
           </div>
-          
+
           <div className="mt-8 p-6 rounded-xl bg-blue-500/5 border border-blue-500/20 flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
             <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
               <Info className="w-6 h-6 text-blue-400" />
@@ -328,12 +326,12 @@ export default function MaghandaVideos() {
 
       {/* Lightbox Modal */}
       {selectedGallery && (
-        <div 
+        <div
           className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center animate-in fade-in duration-300"
           onClick={closeGallery}
         >
           {/* Close Button */}
-          <button 
+          <button
             className="absolute top-6 right-6 p-3 rounded-full bg-white/5 hover:bg-red-600 text-white transition-all z-[100]"
             onClick={closeGallery}
           >
@@ -343,13 +341,13 @@ export default function MaghandaVideos() {
           {/* Navigation Arrows */}
           {selectedGallery.images.length > 1 && (
             <>
-              <button 
+              <button
                 className="absolute left-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all z-[100]"
                 onClick={(e) => { e.stopPropagation(); prevImage(); }}
               >
                 <ChevronLeft className="w-8 h-8" />
               </button>
-              <button 
+              <button
                 className="absolute right-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all z-[100]"
                 onClick={(e) => { e.stopPropagation(); nextImage(); }}
               >
@@ -359,14 +357,14 @@ export default function MaghandaVideos() {
           )}
 
           {/* Main Image Container */}
-          <div 
+          <div
             className="w-full h-full max-w-5xl p-4 sm:p-8 flex flex-col items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative w-full h-full flex items-center justify-center">
-              <img 
+              <img
                 key={currentImageIndex}
-                src={`/${selectedGallery.folder}/${selectedGallery.images[currentImageIndex]}`} 
+                src={`/${selectedGallery.folder}/${selectedGallery.images[currentImageIndex]}`}
                 alt={`${selectedGallery.title} - Page ${currentImageIndex + 1}`}
                 className="max-w-full max-h-full object-contain shadow-2xl animate-in zoom-in-95 duration-300"
               />
@@ -374,7 +372,7 @@ export default function MaghandaVideos() {
           </div>
 
           {/* Bottom Info Bar */}
-          <div 
+          <div
             className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black to-transparent p-8 flex flex-col items-center gap-3"
             onClick={(e) => e.stopPropagation()}
           >
