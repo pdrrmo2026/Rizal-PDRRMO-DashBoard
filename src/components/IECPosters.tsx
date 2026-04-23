@@ -20,12 +20,12 @@ const POSTER_FOLDERS: PosterFolder[] = [
     title: 'Earthquake Safety Guide',
     description: 'Essential steps to take before, during, and after an earthquake.',
     images: [
-      '/earthquake_guide/Community Eartquake Guide_Page_1.jpg',
-      '/earthquake_guide/Community Eartquake Guide_Page_2.jpg',
-      '/earthquake_guide/Family Earthquake Preparedness_Page_1.jpg',
-      '/earthquake_guide/Family Earthquake Preparedness_Page_2.jpg',
-      '/earthquake_guide/PEIS_final_Page_1.jpg',
-      '/earthquake_guide/PEIS_final_Page_2.jpg'
+      '/educational_posters/earthquake_guide/Community Eartquake Guide_Page_1.jpg',
+      '/educational_posters/earthquake_guide/Community Eartquake Guide_Page_2.jpg',
+      '/educational_posters/earthquake_guide/Family Earthquake Preparedness_Page_1.jpg',
+      '/educational_posters/earthquake_guide/Family Earthquake Preparedness_Page_2.jpg',
+      '/educational_posters/earthquake_guide/PEIS_final_Page_1.jpg',
+      '/educational_posters/earthquake_guide/PEIS_final_Page_2.jpg'
     ]
   },
   {
@@ -33,8 +33,8 @@ const POSTER_FOLDERS: PosterFolder[] = [
     title: 'PAGASA Website Guide',
     description: 'How to use and interpret information from the official PAGASA website.',
     images: [
-      '/PAGASA_Website_info/Website_FINAL_Page_1.jpg',
-      '/PAGASA_Website_info/Website_FINAL_Page_2.jpg'
+      '/educational_posters/PAGASA_Website_info/Website_FINAL_Page_1.jpg',
+      '/educational_posters/PAGASA_Website_info/Website_FINAL_Page_2.jpg'
     ]
   },
   {
@@ -42,12 +42,12 @@ const POSTER_FOLDERS: PosterFolder[] = [
     title: 'MGB Hazards Information',
     description: 'Information about floods, landslides, and karst subsidence from MGB.',
     images: [
-      '/MGB_posters/Flood_Page_1.jpg',
-      '/MGB_posters/Flood_Page_2.jpg',
-      '/MGB_posters/Karst_subsidence_Page_1.jpg',
-      '/MGB_posters/Karst_subsidence_Page_2.jpg',
-      '/MGB_posters/Landslie_Page_1.jpg',
-      '/MGB_posters/Landslie_Page_2.jpg'
+      '/educational_posters/MGB_posters/Flood_Page_1.jpg',
+      '/educational_posters/MGB_posters/Flood_Page_2.jpg',
+      '/educational_posters/MGB_posters/Karst_subsidence_Page_1.jpg',
+      '/educational_posters/MGB_posters/Karst_subsidence_Page_2.jpg',
+      '/educational_posters/MGB_posters/Landslie_Page_1.jpg',
+      '/educational_posters/MGB_posters/Landslie_Page_2.jpg'
     ]
   },
   {
@@ -55,10 +55,10 @@ const POSTER_FOLDERS: PosterFolder[] = [
     title: 'Fire Safety Materials',
     description: 'Information and guides for fire prevention and safety.',
     images: [
-      '/fire_information_materials/7e5b87ad-0e31-4843-8559-92e2418dfc4c.jpg',
-      '/fire_information_materials/a0e67b31-dbe9-4230-9bd6-27536c0fc906.jpg',
-      '/fire_information_materials/ba9344ba-3b6f-416a-99d8-bf5448696c55.jpg',
-      '/fire_information_materials/f780fbed-d0c3-4632-9bc8-13f8d3f14fba.jpg'
+      '/educational_posters/fire_information_materials/7e5b87ad-0e31-4843-8559-92e2418dfc4c.jpg',
+      '/educational_posters/fire_information_materials/a0e67b31-dbe9-4230-9bd6-27536c0fc906.jpg',
+      '/educational_posters/fire_information_materials/ba9344ba-3b6f-416a-99d8-bf5448696c55.jpg',
+      '/educational_posters/fire_information_materials/f780fbed-d0c3-4632-9bc8-13f8d3f14fba.jpg'
     ]
   },
   {
@@ -66,8 +66,8 @@ const POSTER_FOLDERS: PosterFolder[] = [
     title: 'Flood Awareness (Baha)',
     description: 'Educational posters about flood risks and safety measures.',
     images: [
-      '/baha_poster/Baha_final_Page_1.jpg',
-      '/baha_poster/Baha_final_Page_2.jpg'
+      '/educational_posters/baha_poster/Baha_final_Page_1.jpg',
+      '/educational_posters/baha_poster/Baha_final_Page_2.jpg'
     ]
   },
   {
@@ -75,8 +75,8 @@ const POSTER_FOLDERS: PosterFolder[] = [
     title: 'El Niño Information',
     description: 'Understanding El Niño and its impacts on weather and agriculture.',
     images: [
-      '/El_Nino/El Niño_Page_1.jpg',
-      '/El_Nino/El Niño_Page_2.jpg'
+      '/educational_posters/El_Nino/El Niño_Page_1.jpg',
+      '/educational_posters/El_Nino/El Niño_Page_2.jpg'
     ]
   },
   {
@@ -84,8 +84,8 @@ const POSTER_FOLDERS: PosterFolder[] = [
     title: 'La Niña Information',
     description: 'Preparedness measures for La Niña and increased rainfall events.',
     images: [
-      '/La_Nina/La Niña_Page_1.jpg',
-      '/La_Nina/La Niña_Page_2.jpg'
+      '/educational_posters/La_Nina/La Niña_Page_1.jpg',
+      '/educational_posters/La_Nina/La Niña_Page_2.jpg'
     ]
   },
   {
@@ -93,8 +93,8 @@ const POSTER_FOLDERS: PosterFolder[] = [
     title: 'Thunderstorm Awareness',
     description: 'Safety tips and information about thunderstorms and lightning.',
     images: [
-      '/thunderstorm/Thunderstorm_Page_1.jpg',
-      '/thunderstorm/Thunderstorm_Page_2.jpg'
+      '/educational_posters/thunderstorm/Thunderstorm_Page_1.jpg',
+      '/educational_posters/thunderstorm/Thunderstorm_Page_2.jpg'
     ]
   },
   {
@@ -102,8 +102,8 @@ const POSTER_FOLDERS: PosterFolder[] = [
     title: 'Tropical Cyclone Warnings',
     description: 'Understanding Tropical Cyclone Wind Signals (TCWS) and warnings.',
     images: [
-      '/tropical_cyclone/TCWS_Page_1.jpg',
-      '/tropical_cyclone/TCWS_Page_2.jpg'
+      '/educational_posters/tropical_cyclone/TCWS_Page_1.jpg',
+      '/educational_posters/tropical_cyclone/TCWS_Page_2.jpg'
     ]
   },
   {
@@ -111,9 +111,9 @@ const POSTER_FOLDERS: PosterFolder[] = [
     title: 'Weather Advisory Guides',
     description: 'Guides on how to interpret various weather advisories and warnings.',
     images: [
-      '/weather_advisory_poster/a043549a-5840-4900-a51b-944b8e980fd1.jpg',
-      '/weather_advisory_poster/b91b2244-983e-4927-9d1a-62389b883ec3.jpg',
-      '/weather_advisory_poster/d8f95b17-baf7-4d36-8464-d32fc5b7b667.jpg'
+      '/educational_posters/weather_advisory_poster/a043549a-5840-4900-a51b-944b8e980fd1.jpg',
+      '/educational_posters/weather_advisory_poster/b91b2244-983e-4927-9d1a-62389b883ec3.jpg',
+      '/educational_posters/weather_advisory_poster/d8f95b17-baf7-4d36-8464-d32fc5b7b667.jpg'
     ]
   }
 ];
