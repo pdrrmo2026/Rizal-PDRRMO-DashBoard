@@ -65,6 +65,10 @@ export default function HazardMaps() {
   const [activeTab, setActiveTab] = useState<HazardType | 'None'>(() => {
     return (localStorage.getItem('rizal_hazard_active_tab') as HazardType | 'None') || 'None';
   });
+
+  const [baseMap, setBaseMap] = useState<string>(() => {
+    return localStorage.getItem('rizal_map_base_type') || 'hybrid';
+  });
   
   const [layers, setLayers] = useState<Record<HazardType, HazardLayer[]>>({
     'Liquefaction': [],
@@ -141,6 +145,10 @@ export default function HazardMaps() {
   useEffect(() => {
     localStorage.setItem('rizal_hazard_active_tab', activeTab);
   }, [activeTab]);
+
+  useEffect(() => {
+    localStorage.setItem('rizal_map_base_type', baseMap);
+  }, [baseMap]);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>, type: HazardType) => {
     const file = event.target.files?.[0];
@@ -265,7 +273,7 @@ export default function HazardMaps() {
                 : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800'
             }`}
           >
-            Base Map
+            Clear Hazards
           </button>
           {HAZARD_TYPES.map(type => (
             <button
@@ -296,16 +304,28 @@ export default function HazardMaps() {
         <MapContainer 
           center={[14.6, 121.1]} // Centered on Rizal
           zoom={11} 
-          style={{ height: '100%', width: '100%' }}
+          style={{ 
+            height: '100%', 
+            width: '100%',
+            backgroundColor: baseMap === 'blank' ? '#0f172a' : '#000'
+          }}
           className="z-0"
         >
           <MapAutoZoom layers={layers} activeTab={activeTab} />
-          <TileLayer
-            url="https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}"
-            maxZoom={20}
-            subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
-            attribution='&copy; Google Maps'
-          />
+          
+          {baseMap !== 'blank' && (
+            <TileLayer
+              url={
+                baseMap === 'satellite' ? "https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}" :
+                baseMap === 'roadmap' ? "https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}" :
+                baseMap === 'terrain' ? "https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}" :
+                "https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}" // hybrid default
+              }
+              maxZoom={20}
+              subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
+              attribution='&copy; Google Maps'
+            />
+          )}
 
           {/* Administrative Boundaries */}
           {boundaries.municipalities && (
@@ -406,6 +426,31 @@ export default function HazardMaps() {
                 onChange={(e) => setGlobalOpacity(parseFloat(e.target.value))}
                 className="w-full h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
               />
+            </div>
+
+            <div className="pt-4 border-t border-white/5">
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-3">Map Style</span>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { id: 'hybrid', name: 'Hybrid' },
+                  { id: 'satellite', name: 'Satellite' },
+                  { id: 'roadmap', name: 'Roadmap' },
+                  { id: 'terrain', name: 'Terrain' },
+                  { id: 'blank', name: 'Blank' }
+                ].map(style => (
+                  <button
+                    key={style.id}
+                    onClick={() => setBaseMap(style.id)}
+                    className={`px-2 py-2 rounded-lg text-[10px] font-bold transition-all border ${
+                      baseMap === style.id 
+                        ? 'bg-cyan-600 border-cyan-500 text-white shadow-lg shadow-cyan-900/20' 
+                        : 'bg-slate-800/50 border-slate-700 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                    }`}
+                  >
+                    {style.name}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {activeTab !== 'None' && layers[activeTab].length > 0 && (

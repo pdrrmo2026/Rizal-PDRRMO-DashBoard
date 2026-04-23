@@ -53,6 +53,9 @@ export default function EvacuationCentersModal({
   const [searchQuery, setSearchQuery] = useState('');
   const [activeView, setActiveView] = useState<'table' | 'map'>('table');
   const [selectedCenter, setSelectedCenter] = useState<EvacuationCenter | null>(null);
+  const [baseMap, setBaseMap] = useState<string>(() => {
+    return localStorage.getItem('rizal_map_base_type') || 'hybrid';
+  });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const REQUIRED_HEADERS = [
@@ -451,15 +454,26 @@ export default function EvacuationCentersModal({
                     <MapContainer 
                       center={[14.5995, 121.2483]} // Approx Rizal coordinates
                       zoom={11} 
-                      style={{ height: '100%', width: '100%' }}
+                      style={{ 
+                        height: '100%', 
+                        width: '100%',
+                        backgroundColor: baseMap === 'blank' ? '#0f172a' : '#000'
+                      }}
                       className="z-0"
                     >
-                      <TileLayer
-                        url="https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}"
-                        maxZoom={20}
-                        subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
-                        attribution='&copy; Google Maps'
-                      />
+                      {baseMap !== 'blank' && (
+                        <TileLayer
+                          url={
+                            baseMap === 'satellite' ? "https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}" :
+                            baseMap === 'roadmap' ? "https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}" :
+                            baseMap === 'terrain' ? "https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}" :
+                            "https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}" // hybrid default
+                          }
+                          maxZoom={20}
+                          subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
+                          attribution='&copy; Google Maps'
+                        />
+                      )}
                       {filteredData.map((center, idx) => (
                         <Marker 
                           key={idx} 
@@ -520,6 +534,37 @@ export default function EvacuationCentersModal({
                         </Marker>
                       ))}
                     </MapContainer>
+
+                    {/* Floating Base Map Selector */}
+                    <div className="absolute bottom-6 right-6 z-[1000] flex flex-col gap-2 bg-slate-900/90 backdrop-blur-md border border-white/10 p-2 rounded-xl shadow-2xl">
+                      <div className="px-2 py-1 mb-1 border-b border-white/5">
+                        <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Base Map</span>
+                      </div>
+                      <div className="grid grid-cols-1 gap-1">
+                        {[
+                          { id: 'hybrid', name: 'Hybrid' },
+                          { id: 'satellite', name: 'Satellite' },
+                          { id: 'roadmap', name: 'Roadmap' },
+                          { id: 'terrain', name: 'Terrain' },
+                          { id: 'blank', name: 'Blank' }
+                        ].map(style => (
+                          <button
+                            key={style.id}
+                            onClick={() => {
+                              setBaseMap(style.id);
+                              localStorage.setItem('rizal_map_base_type', style.id);
+                            }}
+                            className={`px-3 py-1.5 rounded-lg text-[10px] font-bold text-left transition-all border ${
+                              baseMap === style.id 
+                                ? 'bg-cyan-600 border-cyan-500 text-white' 
+                                : 'bg-slate-800/40 border-slate-700 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                            }`}
+                          >
+                            {style.name}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
