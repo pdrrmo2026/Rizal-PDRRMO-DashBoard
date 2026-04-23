@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Video, PlayCircle, BookOpen, Waves, CloudLightning, LifeBuoy, Image as ImageIcon, Info, Download, X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Video, PlayCircle, BookOpen, Waves, CloudLightning, LifeBuoy, Image as ImageIcon, Info, Download, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 
 const PLAYLIST_ID = 'PLZHBSWDLr_J0LG_8GfuVYFyr9SKcbyBbb';
 const PANATAG_PLAYLIST_ID = 'PLVjyOQDJ5woLGq7ef4VH0bJWviaafCZJS';
@@ -57,43 +57,136 @@ const VIDEOS: MaghandaVideo[] = [
   },
 ];
 
-const POSTERS = Array.from({ length: 13 }, (_, i) => ({
-  id: `poster-${i + 1}`,
-  title: `Disaster Preparedness Guide - Page ${i + 1}`,
-  description: `OCD Disaster Preparedness Guidebook for community awareness. Page ${i + 1} of 13.`,
-  url: `https://raw.githubusercontent.com/pdrrmo2026/Rizal-PDRRMO-DashBoard/main/educational_posters/OCD_Disaster_Preparedness_Guidebook_page-${(i + 1).toString().padStart(4, '0')}.jpg`,
-  thumbnail: `https://raw.githubusercontent.com/pdrrmo2026/Rizal-PDRRMO-DashBoard/main/educational_posters/OCD_Disaster_Preparedness_Guidebook_page-${(i + 1).toString().padStart(4, '0')}.jpg`,
+const POSTERS_BASE_URL = "https://raw.githubusercontent.com/pdrrmo2026/Rizal-PDRRMO-DashBoard/main/educational_posters";
+
+const POSTER_PAGES = Array.from({ length: 13 }, (_, i) => ({
+  id: `page-${i + 1}`,
+  url: `${POSTERS_BASE_URL}/OCD_Disaster_Preparedness_Guidebook_page-${(i + 1).toString().padStart(4, '0')}.jpg`,
+  title: `OCD Disaster Preparedness Guidebook`,
+  page: i + 1,
+  description: 'Official Disaster Preparedness Guidebook from the Office of Civil Defense (OCD).'
 }));
 
-export default function MaghandaVideos() {
-  const [activeTab, setActiveTab] = useState<'videos' | 'posters'>('videos');
-  const [selectedPosterIndex, setSelectedPosterIndex] = useState<number | null>(null);
-  const [zoom, setZoom] = useState(1);
+function PostersLightbox({ isOpen, onClose, pages }: { isOpen: boolean, onClose: () => void, pages: typeof POSTER_PAGES }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleNext = useCallback(() => {
-    if (selectedPosterIndex !== null) {
-      setSelectedPosterIndex((prev) => (prev! + 1) % POSTERS.length);
-      setZoom(1);
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      setCurrentIndex(0); // Reset to first page when opening
+    } else {
+      document.body.style.overflow = 'auto';
     }
-  }, [selectedPosterIndex]);
-
-  const handlePrev = useCallback(() => {
-    if (selectedPosterIndex !== null) {
-      setSelectedPosterIndex((prev) => (prev! - 1 + POSTERS.length) % POSTERS.length);
-      setZoom(1);
-    }
-  }, [selectedPosterIndex]);
+    return () => { document.body.style.overflow = 'auto'; };
+  }, [isOpen]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (selectedPosterIndex === null) return;
-      if (e.key === 'Escape') setSelectedPosterIndex(null);
-      if (e.key === 'ArrowRight') handleNext();
-      if (e.key === 'ArrowLeft') handlePrev();
+      if (!isOpen) return;
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight') setCurrentIndex((prev) => (prev + 1) % pages.length);
+      if (e.key === 'ArrowLeft') setCurrentIndex((prev) => (prev - 1 + pages.length) % pages.length);
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedPosterIndex, handleNext, handlePrev]);
+  }, [isOpen, onClose, pages.length]);
+
+  if (!isOpen) return null;
+
+  const next = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % pages.length);
+  };
+
+  const prev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + pages.length) % pages.length);
+  };
+
+  return (
+    <div 
+      className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center animate-in fade-in duration-300"
+      onClick={onClose}
+    >
+      {/* Close button */}
+      <button 
+        className="absolute top-6 right-6 text-white/50 hover:text-white p-3 transition-colors z-[10001] bg-white/5 hover:bg-white/10 rounded-full"
+        onClick={onClose}
+      >
+        <X className="w-8 h-8" />
+      </button>
+
+      {/* Page counter */}
+      <div className="absolute top-8 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs font-bold tracking-widest uppercase">
+        {currentIndex + 1} / {pages.length}
+      </div>
+      
+      {/* Navigation Arrows */}
+      <button 
+        className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 text-white/40 hover:text-white p-5 transition-all z-[10001] bg-white/5 hover:bg-white/10 hover:scale-110 rounded-full group"
+        onClick={prev}
+      >
+        <ChevronLeft className="w-8 h-8 sm:w-12 sm:h-12 group-active:scale-90 transition-transform" />
+      </button>
+      
+      <button 
+        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 text-white/40 hover:text-white p-5 transition-all z-[10001] bg-white/5 hover:bg-white/10 hover:scale-110 rounded-full group"
+        onClick={next}
+      >
+        <ChevronRight className="w-8 h-8 sm:w-12 sm:h-12 group-active:scale-90 transition-transform" />
+      </button>
+
+      {/* Main Image View */}
+      <div 
+        className="relative w-full h-[80vh] flex flex-col items-center justify-center p-4 sm:p-12"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="relative max-w-full max-h-full flex items-center justify-center group">
+          <img 
+            key={currentIndex}
+            src={pages[currentIndex].url} 
+            alt={`Page ${currentIndex + 1}`}
+            className="max-w-full max-h-[75vh] object-contain shadow-2xl rounded-sm animate-in fade-in zoom-in-95 duration-500 select-none pointer-events-none border border-white/5"
+          />
+          
+          {/* Swipe Hint (Mobile) */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md text-[10px] text-white/40 font-bold uppercase tracking-tighter sm:hidden">
+            <ChevronLeft className="w-3 h-3" /> Swipe <ChevronRight className="w-3 h-3" />
+          </div>
+        </div>
+        
+        {/* Caption */}
+        <div className="mt-8 text-center max-w-2xl px-6">
+           <h4 className="text-white font-bold text-lg sm:text-xl tracking-tight">
+             {pages[currentIndex].title}
+           </h4>
+           <p className="text-white/40 text-xs sm:text-sm mt-2 leading-relaxed">
+             {pages[currentIndex].description}
+           </p>
+        </div>
+      </div>
+      
+      {/* Thumbnails preview (optional, hidden on small screens) */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-2 p-2 rounded-xl bg-white/5 border border-white/10 max-w-[90vw] overflow-x-auto no-scrollbar">
+        {pages.map((p, idx) => (
+          <button
+            key={p.id}
+            onClick={(e) => { e.stopPropagation(); setCurrentIndex(idx); }}
+            className={`relative shrink-0 w-10 h-14 rounded-sm overflow-hidden border-2 transition-all ${
+              currentIndex === idx ? 'border-red-500 scale-110' : 'border-transparent opacity-40 hover:opacity-100'
+            }`}
+          >
+            <img src={p.url} className="w-full h-full object-cover" />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function MaghandaVideos() {
+  const [activeTab, setActiveTab] = useState<'videos' | 'posters'>('videos');
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   return (
     <section className="bg-gradient-to-br from-red-950/40 via-gray-900 to-slate-900 border border-red-700/40 rounded-xl p-3 sm:p-4 md:p-6 shadow-xl">
@@ -210,113 +303,81 @@ export default function MaghandaVideos() {
             <h3 className="text-sm font-bold text-white uppercase tracking-wide">Educational Posters</h3>
           </div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
-            {POSTERS.map((poster, index) => (
-              <div 
-                key={poster.id} 
-                onClick={() => setSelectedPosterIndex(index)}
-                className="group relative bg-gray-950/60 border border-slate-700/50 rounded-xl overflow-hidden flex flex-col aspect-[3/4] hover:border-red-500/50 transition-all cursor-pointer ring-offset-black hover:ring-2 ring-red-500/30"
-              >
-                <div className="absolute inset-0 bg-slate-900 overflow-hidden">
-                  <img 
-                    src={poster.thumbnail} 
-                    alt={poster.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity" />
-                </div>
-                
-                <div className="absolute inset-0 flex flex-col justify-end p-3">
-                  <h4 className="text-[10px] font-bold text-white mb-1 drop-shadow-md">{poster.title}</h4>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[8px] text-slate-300 font-medium">Page {index + 1}</span>
-                    <div className="p-1 rounded-md bg-white/10 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Maximize2 className="w-3 h-3 text-white" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Lightbox Modal */}
-          {selectedPosterIndex !== null && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {/* Guidebook Main Card */}
             <div 
-              className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200"
-              onClick={() => setSelectedPosterIndex(null)}
+              onClick={() => setIsLightboxOpen(true)}
+              className="group relative bg-gray-950/60 border border-slate-700/50 rounded-2xl overflow-hidden flex flex-col hover:border-red-500/50 transition-all cursor-pointer shadow-2xl"
             >
-              {/* Controls */}
-              <div className="absolute top-4 right-4 flex items-center gap-2 z-10" onClick={e => e.stopPropagation()}>
-                <button 
-                  onClick={() => setZoom(prev => Math.min(prev + 0.2, 3))}
-                  className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
-                  title="Zoom In"
-                >
-                  <ZoomIn className="w-5 h-5" />
-                </button>
-                <button 
-                  onClick={() => setZoom(prev => Math.max(prev - 0.2, 0.5))}
-                  className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
-                  title="Zoom Out"
-                >
-                  <ZoomOut className="w-5 h-5" />
-                </button>
-                <button 
-                  onClick={() => setSelectedPosterIndex(null)}
-                  className="p-2 rounded-full bg-red-600/80 hover:bg-red-600 text-white transition-colors ml-2"
-                  title="Close (Esc)"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+              {/* Thumbnail Container */}
+              <div className="relative aspect-[3/4] overflow-hidden bg-slate-900">
+                <img 
+                  src={POSTER_PAGES[0].url} 
+                  alt="OCD Guidebook" 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+                
+                {/* Overlay UI */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                  <div className="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center shadow-xl mb-3">
+                    <Maximize2 className="w-8 h-8 text-white" />
+                  </div>
+                  <span className="text-white text-xs font-bold uppercase tracking-widest">Click to View Guidebook</span>
+                </div>
+
+                {/* Page Count Badge */}
+                <div className="absolute top-4 right-4 px-2 py-1 rounded bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-bold text-white flex items-center gap-1.5">
+                  <ImageIcon className="w-3 h-3 text-red-400" />
+                  13 PAGES
+                </div>
               </div>
 
-              {/* Navigation */}
-              <button 
-                onClick={(e) => { e.stopPropagation(); handlePrev(); }}
-                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/5 hover:bg-white/15 text-white transition-all z-10 border border-white/10"
-              >
-                <ChevronLeft className="w-8 h-8" />
-              </button>
-              <button 
-                onClick={(e) => { e.stopPropagation(); handleNext(); }}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/5 hover:bg-white/15 text-white transition-all z-10 border border-white/10"
-              >
-                <ChevronRight className="w-8 h-8" />
-              </button>
-
-              {/* Image Container */}
-              <div 
-                className="relative max-w-full max-h-full transition-transform duration-200 cursor-grab active:cursor-grabbing"
-                style={{ transform: `scale(${zoom})` }}
-                onClick={e => e.stopPropagation()}
-              >
-                <img 
-                  src={POSTERS[selectedPosterIndex].url} 
-                  alt={POSTERS[selectedPosterIndex].title}
-                  className="max-w-[90vw] max-h-[85vh] object-contain shadow-2xl rounded-sm ring-1 ring-white/10"
-                />
+              {/* Content */}
+              <div className="p-5 flex-1 flex flex-col">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
+                  <span className="text-[10px] font-bold text-red-400 uppercase tracking-widest">IEC Material</span>
+                </div>
+                <h4 className="text-sm font-bold text-white mb-2 group-hover:text-red-400 transition-colors">
+                  OCD Disaster Preparedness Guidebook
+                </h4>
+                <p className="text-xs text-slate-400 leading-relaxed line-clamp-3 mb-4">
+                  Comprehensive guidebook from the Office of Civil Defense covering essential safety protocols for various disaster scenarios.
+                </p>
                 
-                {/* Info Overlay (Optional) */}
-                <div className="absolute bottom-[-40px] left-0 right-0 text-center">
-                  <p className="text-white text-sm font-semibold">{POSTERS[selectedPosterIndex].title}</p>
-                  <p className="text-slate-400 text-xs">Image {selectedPosterIndex + 1} of {POSTERS.length}</p>
+                <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <BookOpen className="w-3.5 h-3.5 text-slate-500" />
+                    <span className="text-[10px] text-slate-500 font-medium">Educational Resource</span>
+                  </div>
+                  <button className="p-2 rounded-lg bg-slate-900 hover:bg-red-600 transition-colors group/btn">
+                    <Download className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white" />
+                  </button>
                 </div>
               </div>
             </div>
-          )}
+          </div>
           
-          <div className="mt-8 p-6 rounded-xl bg-blue-500/5 border border-blue-500/20 flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
-            <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
-              <Info className="w-6 h-6 text-blue-400" />
+          <div className="mt-10 p-8 rounded-2xl bg-gradient-to-r from-blue-600/10 to-transparent border border-blue-500/20 flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+            <div className="w-14 h-14 rounded-2xl bg-blue-500/20 flex items-center justify-center shrink-0 shadow-lg border border-blue-500/30">
+              <Info className="w-8 h-8 text-blue-400" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-blue-400 mb-1">More Posters Coming Soon</h4>
-              <p className="text-xs text-slate-400 max-w-2xl">We are currently curating high-quality educational posters and infographics from PAGASA and PDRRMO. These materials will be available for download in high-resolution PDF format soon.</p>
+              <h4 className="text-base font-bold text-blue-400 mb-1">Stay Informed, Stay Prepared</h4>
+              <p className="text-sm text-slate-400 max-w-3xl leading-relaxed">
+                We are continuously updating our IEC materials. The OCD Disaster Preparedness Guidebook is our primary educational resource for community safety. Check back regularly for new posters and localized infographics from Rizal PDRRMO.
+              </p>
             </div>
           </div>
         </div>
       )}
+
+      <PostersLightbox 
+        isOpen={isLightboxOpen} 
+        onClose={() => setIsLightboxOpen(false)} 
+        pages={POSTER_PAGES} 
+      />
 
       <div className="text-[11px] text-gray-500 text-center pt-4 mt-2 border-t border-slate-800">
         Sources: PAGASA-DOST Official YouTube Channel (#MAGHANDA) · #PanatagAngMayAlam Campaign
