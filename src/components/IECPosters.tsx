@@ -29,25 +29,25 @@ const POSTER_FOLDERS: PosterFolder[] = [
     ]
   },
   {
-    id: 'PAGASA_Website_info',
+    id: 'pagasa_website_info',
     title: 'PAGASA Website Guide',
     description: 'How to use and interpret information from the official PAGASA website.',
     images: [
-      '/educational_posters/PAGASA_Website_info/Website_FINAL_Page_1.jpg',
-      '/educational_posters/PAGASA_Website_info/Website_FINAL_Page_2.jpg'
+      '/educational_posters/pagasa_website_info/Website_FINAL_Page_1.jpg',
+      '/educational_posters/pagasa_website_info/Website_FINAL_Page_2.jpg'
     ]
   },
   {
-    id: 'MGB_posters',
+    id: 'mgb_posters',
     title: 'MGB Hazards Information',
     description: 'Information about floods, landslides, and karst subsidence from MGB.',
     images: [
-      '/educational_posters/MGB_posters/Flood_Page_1.jpg',
-      '/educational_posters/MGB_posters/Flood_Page_2.jpg',
-      '/educational_posters/MGB_posters/Karst_subsidence_Page_1.jpg',
-      '/educational_posters/MGB_posters/Karst_subsidence_Page_2.jpg',
-      '/educational_posters/MGB_posters/Landslie_Page_1.jpg',
-      '/educational_posters/MGB_posters/Landslie_Page_2.jpg'
+      '/educational_posters/mgb_posters/Flood_Page_1.jpg',
+      '/educational_posters/mgb_posters/Flood_Page_2.jpg',
+      '/educational_posters/mgb_posters/Karst_subsidence_Page_1.jpg',
+      '/educational_posters/mgb_posters/Karst_subsidence_Page_2.jpg',
+      '/educational_posters/mgb_posters/Landslie_Page_1.jpg',
+      '/educational_posters/mgb_posters/Landslie_Page_2.jpg'
     ]
   },
   {
@@ -71,21 +71,21 @@ const POSTER_FOLDERS: PosterFolder[] = [
     ]
   },
   {
-    id: 'El_Nino',
+    id: 'el_nino',
     title: 'El Niño Information',
     description: 'Understanding El Niño and its impacts on weather and agriculture.',
     images: [
-      '/educational_posters/El_Nino/El Niño_Page_1.jpg',
-      '/educational_posters/El_Nino/El Niño_Page_2.jpg'
+      '/educational_posters/el_nino/El Niño_Page_1.jpg',
+      '/educational_posters/el_nino/El Niño_Page_2.jpg'
     ]
   },
   {
-    id: 'La_Nina',
+    id: 'la_nina',
     title: 'La Niña Information',
     description: 'Preparedness measures for La Niña and increased rainfall events.',
     images: [
-      '/educational_posters/La_Nina/La Niña_Page_1.jpg',
-      '/educational_posters/La_Nina/La Niña_Page_2.jpg'
+      '/educational_posters/la_nina/La Niña_Page_1.jpg',
+      '/educational_posters/la_nina/La Niña_Page_2.jpg'
     ]
   },
   {
