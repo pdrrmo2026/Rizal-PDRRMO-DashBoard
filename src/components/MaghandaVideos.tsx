@@ -224,47 +224,48 @@ export default function MaghandaVideos() {
           {/* Lightbox / Modal */}
           {selectedPoster && (
             <div 
-              className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 animate-in fade-in zoom-in duration-300"
+              className="fixed inset-0 z-[9999] bg-black/98 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 animate-in fade-in zoom-in duration-200"
               onClick={() => setSelectedPoster(null)}
             >
+              {/* Large Close Button for Accessibility */}
               <button 
-                className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center border border-white/10 transition-colors z-10"
+                className="absolute top-4 right-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center shadow-2xl transition-all z-[10000] active:scale-95"
                 onClick={() => setSelectedPoster(null)}
               >
                 <X className="w-6 h-6" />
               </button>
               
               <div 
-                className="relative max-w-6xl w-full h-[90vh] flex flex-col"
+                className="relative w-full h-full max-w-[95vw] max-h-[95vh] flex flex-col"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="w-full mb-4 flex items-center justify-between bg-black/60 backdrop-blur-md p-4 rounded-xl border border-white/10">
-                  <div>
-                    <h3 className="text-white font-bold text-lg leading-tight">{selectedPoster.title}</h3>
-                    <p className="text-slate-400 text-[10px] uppercase tracking-widest mt-1">OCD Disaster Preparedness Guidebook</p>
-                  </div>
+                {/* Header within Modal */}
+                <div className="flex items-center justify-between gap-4 mb-4 bg-gray-900/80 p-3 rounded-t-xl border-x border-t border-slate-700/50 backdrop-blur-md">
                   <div className="flex items-center gap-3">
-                    <a 
-                      href={`${POSTER_BASE_URL}/${selectedPoster.file}`}
-                      download
-                      className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-lg transition-colors"
-                    >
-                      <Download className="w-4 h-4" /> Download PDF
-                    </a>
-                    <button 
-                      className="w-10 h-10 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center border border-white/10 transition-colors"
-                      onClick={() => setSelectedPoster(null)}
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
+                    <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center">
+                      <ImageIcon className="w-4 h-4 text-white" />
+                    </div>
+                    <h3 className="text-white font-bold text-sm sm:text-base leading-tight truncate max-w-[50vw]">
+                      {selectedPoster.title}
+                    </h3>
                   </div>
+                  <a 
+                    href={`${POSTER_BASE_URL}/${selectedPoster.file}`}
+                    download
+                    className="flex items-center gap-2 px-3 sm:px-5 py-2 bg-slate-800 hover:bg-red-600 text-white text-[10px] sm:text-xs font-bold rounded-lg transition-all border border-slate-700 hover:border-red-500 shadow-lg active:scale-95"
+                  >
+                    <Download className="w-3.5 h-3.5 sm:w-4 h-4" /> 
+                    <span className="hidden xs:inline">Download</span> High-Res
+                  </a>
                 </div>
                 
-                <div className="relative flex-1 w-full overflow-y-auto bg-slate-950 rounded-xl shadow-2xl border border-white/10 p-2 sm:p-4 flex justify-center items-start scrollbar-thin scrollbar-thumb-red-600 scrollbar-track-slate-900">
+                {/* High-Resolution Viewport */}
+                <div className="flex-1 w-full bg-slate-950 rounded-b-xl overflow-auto border-x border-b border-slate-700/50 shadow-2xl flex items-start justify-center custom-scrollbar">
                   <img 
                     src={`${POSTER_BASE_URL}/${selectedPoster.file}`}
                     alt={selectedPoster.title}
-                    className="w-full max-w-4xl h-auto shadow-2xl"
+                    className="min-w-full sm:min-w-0 max-w-full h-auto object-contain p-1 sm:p-2"
+                    style={{ maxHeight: 'none' }} // Allow vertical scrolling if image is very tall to maintain readability
                   />
                 </div>
               </div>
