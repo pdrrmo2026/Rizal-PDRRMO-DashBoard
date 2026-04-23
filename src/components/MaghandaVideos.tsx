@@ -57,26 +57,27 @@ const VIDEOS: MaghandaVideo[] = [
   },
 ];
 
-const POSTER_BASE_URL = 'https://raw.githubusercontent.com/pdrrmo2026/Rizal-PDRRMO-DashBoard/main/educational_posters';
+const POSTER_BASE_URL = "https://raw.githubusercontent.com/pdrrmo2026/Rizal-PDRRMO-DashBoard/main/educational_posters";
 
 const POSTERS = [
-  { id: 1, title: 'Guidebook Cover', file: 'OCD_Disaster_Preparedness_Guidebook_page-0001.jpg' },
-  { id: 2, title: 'Emergency Hotlines', file: 'OCD_Disaster_Preparedness_Guidebook_page-0002.jpg' },
-  { id: 3, title: 'Earthquake Safety', file: 'OCD_Disaster_Preparedness_Guidebook_page-0003.jpg' },
-  { id: 4, title: 'Tsunami Awareness', file: 'OCD_Disaster_Preparedness_Guidebook_page-0004.jpg' },
-  { id: 5, title: 'Flood Preparedness', file: 'OCD_Disaster_Preparedness_Guidebook_page-0005.jpg' },
-  { id: 6, title: 'Volcanic Eruption', file: 'OCD_Disaster_Preparedness_Guidebook_page-0006.jpg' },
-  { id: 7, title: 'Landslide Warning', file: 'OCD_Disaster_Preparedness_Guidebook_page-0007.jpg' },
-  { id: 8, title: 'Typhoon Safety', file: 'OCD_Disaster_Preparedness_Guidebook_page-0008.jpg' },
-  { id: 9, title: 'Fire Safety', file: 'OCD_Disaster_Preparedness_Guidebook_page-0009.jpg' },
-  { id: 10, title: 'Storm Surge', file: 'OCD_Disaster_Preparedness_Guidebook_page-0010.jpg' },
-  { id: 11, title: 'Drought Awareness', file: 'OCD_Disaster_Preparedness_Guidebook_page-0011.jpg' },
-  { id: 12, title: 'Basic First Aid', file: 'OCD_Disaster_Preparedness_Guidebook_page-0012.jpg' },
-  { id: 13, title: 'Family Preparedness', file: 'OCD_Disaster_Preparedness_Guidebook_page-0013.jpg' },
+  { id: 1, file: 'OCD_Disaster_Preparedness_Guidebook_page-0001.jpg', title: 'Disaster Preparedness Guidebook - Cover' },
+  { id: 2, file: 'OCD_Disaster_Preparedness_Guidebook_page-0002.jpg', title: 'Emergency Hotlines & Contacts' },
+  { id: 3, file: 'OCD_Disaster_Preparedness_Guidebook_page-0003.jpg', title: 'Earthquake Preparedness' },
+  { id: 4, file: 'OCD_Disaster_Preparedness_Guidebook_page-0004.jpg', title: 'Fire Safety & Prevention' },
+  { id: 5, file: 'OCD_Disaster_Preparedness_Guidebook_page-0005.jpg', title: 'Flood Safety Guide' },
+  { id: 6, file: 'OCD_Disaster_Preparedness_Guidebook_page-0006.jpg', title: 'Tsunami & Storm Surge' },
+  { id: 7, file: 'OCD_Disaster_Preparedness_Guidebook_page-0007.jpg', title: 'Volcanic Eruption Awareness' },
+  { id: 8, file: 'OCD_Disaster_Preparedness_Guidebook_page-0008.jpg', title: 'Landslide Precautions' },
+  { id: 9, file: 'OCD_Disaster_Preparedness_Guidebook_page-0009.jpg', title: 'Typhoon & Heavy Rainfall' },
+  { id: 10, file: 'OCD_Disaster_Preparedness_Guidebook_page-0010.jpg', title: 'Emergency Go Bag Essentials' },
+  { id: 11, file: 'OCD_Disaster_Preparedness_Guidebook_page-0011.jpg', title: 'First Aid Basic Skills' },
+  { id: 12, file: 'OCD_Disaster_Preparedness_Guidebook_page-0012.jpg', title: 'Community Evacuation Plan' },
+  { id: 13, file: 'OCD_Disaster_Preparedness_Guidebook_page-0013.jpg', title: 'Post-Disaster Recovery' },
 ];
 
 export default function MaghandaVideos() {
   const [activeTab, setActiveTab] = useState<'videos' | 'posters'>('videos');
+  const [selectedPoster, setSelectedPoster] = useState<typeof POSTERS[0] | null>(null);
 
   return (
     <section className="bg-gradient-to-br from-red-950/40 via-gray-900 to-slate-900 border border-red-700/40 rounded-xl p-3 sm:p-4 md:p-6 shadow-xl">
@@ -193,65 +194,79 @@ export default function MaghandaVideos() {
             <h3 className="text-sm font-bold text-white uppercase tracking-wide">Educational Posters</h3>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {POSTERS.map((poster) => (
-              <div key={poster.id} className="group relative bg-gray-950/60 border border-slate-700/50 rounded-xl overflow-hidden flex flex-col hover:border-red-500/50 transition-all shadow-lg hover:shadow-red-500/10">
-                {/* Image Preview */}
-                <div className="aspect-[3/4] relative overflow-hidden bg-slate-900 flex items-center justify-center">
+              <div 
+                key={poster.id} 
+                onClick={() => setSelectedPoster(poster)}
+                className="group relative bg-gray-950 border border-slate-800 rounded-xl overflow-hidden flex flex-col aspect-[3/4] hover:border-red-500 transition-all cursor-pointer shadow-lg"
+              >
+                <div className="flex-1 overflow-hidden relative bg-slate-900">
                   <img 
-                    src={`${POSTER_BASE_URL}/${poster.file}`} 
+                    src={`${POSTER_BASE_URL}/${poster.file}`}
                     alt={poster.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  {/* Overlay on hover */}
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
-                    <a 
-                      href={`${POSTER_BASE_URL}/${poster.file}`} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="p-3 rounded-full bg-red-600 text-white hover:bg-red-500 transition-colors shadow-xl"
-                      title="View Full Size"
-                    >
-                      <ExternalLink className="w-5 h-5" />
-                    </a>
-                    <a 
-                      href={`${POSTER_BASE_URL}/${poster.file}`} 
-                      download 
-                      className="p-3 rounded-full bg-slate-800 text-white hover:bg-slate-700 transition-colors shadow-xl border border-slate-600"
-                      title="Download Image"
-                    >
-                      <Download className="w-5 h-5" />
-                    </a>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+                    <div className="flex items-center gap-2 text-white text-[10px] font-bold">
+                      <PlayCircle className="w-4 h-4" /> Click to enlarge
+                    </div>
                   </div>
                 </div>
-
-                {/* Info */}
-                <div className="p-3 border-t border-slate-800 bg-gray-900/80">
-                  <h4 className="text-[11px] font-bold text-white uppercase tracking-wider line-clamp-1">{poster.title}</h4>
-                  <p className="text-[9px] text-slate-500 mt-0.5">OCD Disaster Preparedness Guide</p>
-                </div>
-
-                {/* Label */}
-                <div className="absolute top-2 right-2">
-                  <div className="bg-red-600/90 backdrop-blur-sm text-white text-[8px] font-black px-2 py-0.5 rounded shadow-lg uppercase tracking-tighter">
-                    IEC Poster
-                  </div>
+                <div className="p-3 bg-gray-900/80 border-t border-slate-800">
+                  <h4 className="text-[10px] font-bold text-slate-200 line-clamp-1">{poster.title}</h4>
                 </div>
               </div>
             ))}
           </div>
+
+          {/* Lightbox / Modal */}
+          {selectedPoster && (
+            <div 
+              className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 animate-in fade-in zoom-in duration-300"
+              onClick={() => setSelectedPoster(null)}
+            >
+              <button 
+                className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center border border-white/10 transition-colors z-10"
+                onClick={() => setSelectedPoster(null)}
+              >
+                <X className="w-6 h-6" />
+              </button>
+              
+              <div 
+                className="relative max-w-5xl w-full h-full flex flex-col items-center justify-center"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="w-full mb-4 flex items-center justify-between">
+                  <h3 className="text-white font-bold text-lg">{selectedPoster.title}</h3>
+                  <a 
+                    href={`${POSTER_BASE_URL}/${selectedPoster.file}`}
+                    download
+                    className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-lg transition-colors"
+                  >
+                    <Download className="w-4 h-4" /> Download Original
+                  </a>
+                </div>
+                
+                <div className="relative flex-1 w-full bg-slate-900 rounded-xl overflow-hidden shadow-2xl border border-white/5 flex items-center justify-center">
+                  <img 
+                    src={`${POSTER_BASE_URL}/${selectedPoster.file}`}
+                    alt={selectedPoster.title}
+                    className="max-w-full max-h-full object-contain"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
           
-          <div className="mt-8 p-6 rounded-xl bg-red-500/5 border border-red-500/20 flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
-            <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center shrink-0">
-              <BookOpen className="w-6 h-6 text-red-400" />
+          <div className="mt-8 p-6 rounded-xl bg-blue-500/5 border border-blue-500/20 flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
+            <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
+              <Info className="w-6 h-6 text-blue-400" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-red-400 mb-1">OCD Disaster Preparedness Guidebook</h4>
-              <p className="text-xs text-slate-400 max-w-2xl">
-                These posters are sourced from the Office of Civil Defense (OCD) Disaster Preparedness Guidebook. 
-                They provide essential information for community awareness and family safety during various disaster scenarios.
-              </p>
+              <h4 className="text-sm font-bold text-blue-400 mb-1">More Posters Coming Soon</h4>
+              <p className="text-xs text-slate-400 max-w-2xl">We are currently curating high-quality educational posters and infographics from PAGASA and PDRRMO. These materials will be available for download in high-resolution PDF format soon.</p>
             </div>
           </div>
         </div>
