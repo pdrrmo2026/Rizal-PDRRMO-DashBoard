@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { Video, PlayCircle, BookOpen, Waves, CloudLightning, LifeBuoy, Image as ImageIcon, Info, Download, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
+import { Video, PlayCircle, BookOpen, Waves, CloudLightning, LifeBuoy, Image as ImageIcon, Info, Download, X, ChevronLeft, ChevronRight, Maximize2, FileText, ExternalLink } from 'lucide-react';
 
 const PLAYLIST_ID = 'PLZHBSWDLr_J0LG_8GfuVYFyr9SKcbyBbb';
 const PANATAG_PLAYLIST_ID = 'PLVjyOQDJ5woLGq7ef4VH0bJWviaafCZJS';
@@ -184,9 +183,65 @@ function PostersLightbox({ isOpen, onClose, pages }: { isOpen: boolean, onClose:
   );
 }
 
+function PDFViewer({ isOpen, onClose, url, title }: { isOpen: boolean, onClose: () => void, url: string, title: string }) {
+  if (!isOpen) return null;
+  
+  // Use Google Docs viewer for embedding PDF reliably
+  const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`;
+
+  return (
+    <div 
+      className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-4 sm:p-10 animate-in fade-in duration-300"
+      onClick={onClose}
+    >
+      <div 
+        className="relative w-full max-w-5xl h-full bg-slate-900 rounded-2xl overflow-hidden border border-white/10 flex flex-col shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-slate-950/50">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white">
+              <FileText className="w-5 h-5" />
+            </div>
+            <h4 className="text-white font-bold text-sm sm:text-base truncate max-w-[200px] sm:max-w-md">{title}</h4>
+          </div>
+          <div className="flex items-center gap-2">
+            <a 
+              href={url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="p-2 text-slate-400 hover:text-white transition-colors"
+              title="Open in new tab"
+            >
+              <ExternalLink className="w-5 h-5" />
+            </a>
+            <button 
+              onClick={onClose}
+              className="p-2 text-slate-400 hover:text-white transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+        <div className="flex-1 bg-slate-800">
+          <iframe 
+            src={viewerUrl} 
+            className="w-full h-full border-none"
+            title="PDF Viewer"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function MaghandaVideos() {
   const [activeTab, setActiveTab] = useState<'videos' | 'posters'>('videos');
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [isPDFOpen, setIsPDFOpen] = useState(false);
+  const [activePDF, setActivePDF] = useState({ url: '', title: '' });
+
+  const BAHA_POSTER_URL = "https://raw.githubusercontent.com/pdrrmo2026/Rizal-PDRRMO-DashBoard/main/baha_poster/Baha_final.pdf";
 
   return (
     <section className="bg-gradient-to-br from-red-950/40 via-gray-900 to-slate-900 border border-red-700/40 rounded-xl p-3 sm:p-4 md:p-6 shadow-xl">
@@ -357,6 +412,66 @@ export default function MaghandaVideos() {
                 </div>
               </div>
             </div>
+
+            {/* Baha Final Poster Card (PDF) */}
+            <div 
+              onClick={() => {
+                setActivePDF({ url: BAHA_POSTER_URL, title: 'Baha Final Poster' });
+                setIsPDFOpen(true);
+              }}
+              className="group relative bg-gray-950/60 border border-slate-700/50 rounded-2xl overflow-hidden flex flex-col hover:border-red-500/50 transition-all cursor-pointer shadow-2xl"
+            >
+              {/* Thumbnail Container */}
+              <div className="relative aspect-[3/4] overflow-hidden bg-gradient-to-br from-slate-800 to-slate-950 flex items-center justify-center">
+                <div className="flex flex-col items-center gap-4 group-hover:scale-110 transition-transform duration-500">
+                  <div className="w-24 h-32 bg-slate-900 border-2 border-slate-700 rounded-lg flex items-center justify-center relative shadow-2xl overflow-hidden">
+                    <FileText className="w-12 h-12 text-slate-600 group-hover:text-red-400 transition-colors" />
+                    <div className="absolute top-0 right-0 w-8 h-8 bg-slate-800 border-b border-l border-slate-700 rounded-bl-lg"></div>
+                  </div>
+                  <div className="px-4 py-1.5 rounded-full bg-red-600/10 border border-red-600/30 text-[10px] font-bold text-red-400 uppercase tracking-widest">
+                    PDF Material
+                  </div>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60"></div>
+                
+                {/* Overlay UI */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                  <div className="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center shadow-xl mb-3">
+                    <FileText className="w-8 h-8 text-white" />
+                  </div>
+                  <span className="text-white text-xs font-bold uppercase tracking-widest">Click to View PDF</span>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-5 flex-1 flex flex-col">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
+                  <span className="text-[10px] font-bold text-red-400 uppercase tracking-widest">IEC Poster</span>
+                </div>
+                <h4 className="text-sm font-bold text-white mb-2 group-hover:text-red-400 transition-colors">
+                  Baha Final Poster
+                </h4>
+                <p className="text-xs text-slate-400 leading-relaxed line-clamp-3 mb-4">
+                  Official flood awareness and community preparedness poster for the #PanatagAngMayAlam campaign.
+                </p>
+                
+                <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Download className="w-3.5 h-3.5 text-slate-500" />
+                    <span className="text-[10px] text-slate-500 font-medium">Educational PDF</span>
+                  </div>
+                  <a 
+                    href={BAHA_POSTER_URL}
+                    download
+                    onClick={(e) => e.stopPropagation()}
+                    className="p-2 rounded-lg bg-slate-900 hover:bg-red-600 transition-colors group/btn"
+                  >
+                    <Download className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white" />
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
           
           <div className="mt-10 p-8 rounded-2xl bg-gradient-to-r from-blue-600/10 to-transparent border border-blue-500/20 flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
@@ -377,6 +492,13 @@ export default function MaghandaVideos() {
         isOpen={isLightboxOpen} 
         onClose={() => setIsLightboxOpen(false)} 
         pages={POSTER_PAGES} 
+      />
+
+      <PDFViewer
+        isOpen={isPDFOpen}
+        onClose={() => setIsPDFOpen(false)}
+        url={activePDF.url}
+        title={activePDF.title}
       />
 
       <div className="text-[11px] text-gray-500 text-center pt-4 mt-2 border-t border-slate-800">
