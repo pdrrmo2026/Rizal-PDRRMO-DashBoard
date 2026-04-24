@@ -33,63 +33,39 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 border-t border-gray-800 mt-8 sm:mt-12">
       <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 max-w-7xl">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {/* Emergency Contacts */}
-          <div>
-            <h3 className="text-sm font-semibold text-gray-200 mb-3 flex items-center gap-2">
-              <Phone className="w-4 h-4 text-red-400" />
-              Emergency Contacts
-            </h3>
-            <ul className="space-y-2">
-              {CONTACTS.map((c) => (
-                <li key={c.label}>
-                  <a
-                    href={`tel:${c.tel.replace(/\s+/g, '')}`}
-                    className="flex items-start gap-2 text-xs sm:text-sm text-gray-400 hover:text-red-300 active:text-red-200 transition-colors min-h-[28px]"
-                  >
-                    <Phone className="w-3.5 h-3.5 text-red-400 shrink-0 mt-0.5" />
-                    <span className="break-anywhere">
-                      <span className="text-gray-300">{c.label}:</span>{' '}
-                      <span className="font-mono">{c.display}</span>
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Coverage Areas */}
-          <div>
-            <h3 className="text-sm font-semibold text-gray-200 mb-3 flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-blue-400" />
-              Coverage Areas
-            </h3>
-            <ul className="space-y-2">
-              {AREAS.map((a) => (
-                <li key={a} className="flex items-start gap-2 text-xs sm:text-sm text-gray-400">
-                  <MapPin className="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5" />
-                  <span>{a}</span>
-                </li>
-              ))}
-            </ul>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-start">
+          {/* Emergency Contacts & Coverage Image */}
+          <div className="lg:col-span-2">
+            <div className="bg-gray-950/40 border border-gray-800 rounded-xl overflow-hidden shadow-lg group">
+              <img
+                src="/emergency_contact_numbers.jpg"
+                alt="Emergency Contact Numbers and Coverage Areas"
+                className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+              />
+            </div>
+            <p className="text-[10px] text-gray-500 mt-2 italic flex items-center gap-1">
+              <Phone className="w-3 h-3" /> Source: Rizal PDRRMO Official Directory
+            </p>
           </div>
 
           {/* Data Sources */}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <h3 className="text-sm font-semibold text-gray-200 mb-3 flex items-center gap-2">
+          <div className="bg-gray-950/20 p-4 rounded-xl border border-gray-800/50">
+            <h3 className="text-sm font-semibold text-gray-200 mb-4 flex items-center gap-2">
               <ExternalLink className="w-4 h-4 text-cyan-400" />
               Data Sources
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {SOURCES.map((s) => (
                 <li key={s.url}>
                   <a
                     href={s.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-start gap-2 text-xs sm:text-sm text-blue-400 hover:text-blue-300 active:text-blue-200 transition-colors min-h-[28px] break-anywhere"
+                    className="flex items-start gap-3 text-xs sm:text-sm text-blue-400 hover:text-blue-300 active:text-blue-200 transition-colors group"
                   >
-                    <ExternalLink className="w-3 h-3 shrink-0 mt-0.5" />
+                    <div className="w-6 h-6 rounded bg-blue-500/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-blue-500/20 transition-colors">
+                      <ExternalLink className="w-3 h-3" />
+                    </div>
                     <span>{s.label}</span>
                   </a>
                 </li>
