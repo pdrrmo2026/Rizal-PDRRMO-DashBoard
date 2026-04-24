@@ -87,20 +87,7 @@ const tabs: {
     dotColor: 'bg-emerald-400',
     glow: 'shadow-[0_0_20px_-4px_rgba(52,211,153,0.4)]',
   },
-  {
-    id: 'iec',
-    label: 'IEC',
-    icon: Video,
-    description: 'Information & Educational Videos',
-    activeBg: 'from-purple-500/25 via-purple-500/10 to-fuchsia-500/15 border-purple-400/60',
-    accentColor: 'bg-purple-400',
-    iconActiveBg: 'bg-purple-500/30',
-    iconActiveText: 'text-purple-300',
-    dotColor: 'bg-purple-400',
-    glow: 'shadow-[0_0_20px_-4px_rgba(168,85,247,0.4)]',
-  },
-];
-
+ 
 export default function DashboardTabs({ activeTab, onChange }: DashboardTabsProps) {
   return (
     <aside className="w-full md:w-56 lg:w-64 xl:w-72 md:flex-shrink-0">
