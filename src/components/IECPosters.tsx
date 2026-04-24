@@ -10,105 +10,169 @@ interface Poster {
 
 const POSTERS: Poster[] = [
   {
-    id: 'flood-safety-tips',
-    title: 'Flood Safety Tips',
-    description: 'Essential steps to take before, during, and after a flood event to ensure family safety.',
-    imageUrl: 'https://images.unsplash.com/photo-1547683905-f686c993aae5?auto=format&fit=crop&q=80&w=800',
-    category: 'Safety Guide'
+    id: 'baha-poster',
+    title: 'Flood (Baha) Guide',
+    description: 'PAGASA Flood Forecasting and Warning System.',
+    imageUrl: '/educational_posters/baha_poster/Baha_final_Page_1.jpg',
+    category: 'Flood'
   },
   {
-    id: 'emergency-kit',
-    title: 'Emergency Go-Bag Essentials',
-    description: 'A checklist of items every household should have ready in their emergency survival kit.',
-    imageUrl: 'https://images.unsplash.com/photo-1583209814683-c023dd293cc6?auto=format&fit=crop&q=80&w=800',
-    category: 'Preparedness'
+    id: 'earthquake-guide',
+    title: 'Earthquake Guide',
+    description: 'Family and Community Earthquake Preparedness.',
+    imageUrl: '/educational_posters/earthquake_guide/Community Eartquake Guide_Page_1.jpg',
+    category: 'Earthquake'
   },
   {
-    id: 'evacuation-routes',
-    title: 'Understanding Evacuation Signs',
-    description: 'Guide to recognizing and following official evacuation route markers and assembly point signs.',
-    imageUrl: 'https://images.unsplash.com/photo-1506704918332-13ad5ecefe9a?auto=format&fit=crop&q=80&w=800',
-    category: 'Evacuation'
+    id: 'el-nino',
+    title: 'El Niño Advisory',
+    description: 'Understanding and preparing for El Niño.',
+    imageUrl: '/educational_posters/el_niño/El Niño_Page_1.jpg',
+    category: 'Climate'
+  },
+  {
+    id: 'la-nina',
+    title: 'La Niña Advisory',
+    description: 'Understanding and preparing for La Niña.',
+    imageUrl: '/educational_posters/la_niña/La Niña_Page_1.jpg',
+    category: 'Climate'
+  },
+  {
+    id: 'thunderstorm',
+    title: 'Thunderstorm',
+    description: 'Thunderstorm and Heavy Rainfall warnings.',
+    imageUrl: '/educational_posters/thunderstorm/Thunderstorm_Page_1.jpg',
+    category: 'Weather'
+  },
+  {
+    id: 'tropical-cyclone',
+    title: 'Tropical Cyclone',
+    description: 'Tropical Cyclone Wind Signal (TCWS) guide.',
+    imageUrl: '/educational_posters/tropical_cyclone/TCWS_Page_1.jpg',
+    category: 'Typhoon'
+  },
+  {
+    id: 'fire-info',
+    title: 'Fire Safety',
+    description: 'Information materials for fire safety.',
+    imageUrl: '/educational_posters/fire_information_materials/7e5b87ad-0e31-4843-8559-92e2418dfc4c.jpg',
+    category: 'Fire'
+  },
+  {
+    id: 'mgb-flood',
+    title: 'MGB Flood Poster',
+    description: 'Mines and Geosciences Bureau Flood awareness.',
+    imageUrl: '/educational_posters/mgb_posters/Flood_Page_1.jpg',
+    category: 'MGB'
+  },
+  {
+    id: 'mgb-landslide',
+    title: 'MGB Landslide',
+    description: 'Mines and Geosciences Bureau Landslide awareness.',
+    imageUrl: '/educational_posters/mgb_posters/Landslie_Page_1.jpg',
+    category: 'MGB'
+  },
+  {
+    id: 'ocd-guidebook',
+    title: 'OCD Guidebook',
+    description: 'Disaster Preparedness Guidebook by OCD.',
+    imageUrl: '/educational_posters/ocd_disaster_preparedness_guidebook/OCD_Disaster_Preparedness_Guidebook_page-0001.jpg',
+    category: 'OCD'
+  },
+  {
+    id: 'pagasa-website',
+    title: 'PAGASA Website',
+    description: 'Guide to using the PAGASA website.',
+    imageUrl: '/educational_posters/pagasa_website_info/Website_FINAL_Page_1.jpg',
+    category: 'Info'
+  },
+  {
+    id: 'weather-advisory',
+    title: 'Weather Advisory',
+    description: 'Understanding weather advisories.',
+    imageUrl: '/educational_posters/weather_advisory_poster/a043549a-5840-4900-a51b-944b8e980fd1.jpg',
+    category: 'Weather'
   }
 ];
 
 export default function IECPosters({ renderTabs }: { renderTabs?: React.ReactNode }) {
   return (
-    <section className="bg-gradient-to-br from-indigo-950/40 via-gray-900 to-slate-900 border border-indigo-700/40 rounded-xl p-3 sm:p-4 md:p-6 shadow-xl">
-      {renderTabs && <div className="mb-6">{renderTabs}</div>}
-      
+    <section className="bg-gradient-to-br from-indigo-950/40 via-gray-900 to-slate-900 border border-indigo-700/40 rounded-xl p-3 sm:p-4 md:p-5 shadow-xl">
+      {renderTabs && <div className="mb-4">{renderTabs}</div>}
+
       {/* Header */}
       <div className="flex items-start justify-between flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-5">
         <div className="flex items-start gap-2 sm:gap-3 min-w-0 flex-1">
-          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-indigo-600 to-blue-800 flex items-center justify-center text-white shadow-lg shrink-0">
-            <Image className="w-5 h-5 sm:w-7 sm:h-7" />
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-indigo-600 to-blue-800 flex items-center justify-center text-white shadow-lg shrink-0">
+            <Image className="w-4 h-4 sm:w-5 sm:h-5" />
           </div>
           <div className="min-w-0">
-            <h2 className="text-base sm:text-lg md:text-xl font-bold text-white leading-tight">
-              IEC Awareness Posters & Infographics
+            <h2 className="text-sm sm:text-base md:text-lg font-bold text-white leading-tight">
+              IEC Awareness Posters
             </h2>
-            <p className="text-[11px] sm:text-sm text-gray-400 mt-1">
-              Visual guides and safety information for public awareness.
+            <p className="text-[10px] sm:text-xs text-gray-400 mt-0.5">
+              Visual safety guides for public awareness.
             </p>
           </div>
         </div>
         <div className="flex gap-2">
-          <button className="text-[10px] sm:text-xs px-2 sm:px-3 py-1 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 inline-flex items-center gap-1 hover:bg-indigo-500/25 transition-colors">
-            <Search className="w-3 h-3" /> View All
+          <button className="text-[9px] sm:text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 inline-flex items-center gap-1 hover:bg-indigo-500/25 transition-colors">
+            <Search className="w-2.5 h-2.5" /> View All
           </button>
         </div>
       </div>
 
-      {/* Posters grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+      {/* Posters grid - 5+ per row on large screens */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3 md:gap-4">
         {POSTERS.map((poster) => (
           <article
             key={poster.id}
-            className="bg-gray-950/60 border border-slate-700/50 rounded-xl overflow-hidden flex flex-col group hover:border-indigo-500/50 transition-all duration-300"
+            className="bg-gray-950/60 border border-slate-700/50 rounded-lg overflow-hidden flex flex-col group hover:border-indigo-500/50 transition-all duration-300"
           >
             {/* Image container */}
-            <div className="relative aspect-[4/5] overflow-hidden bg-gray-900">
-              <img 
-                src={poster.imageUrl} 
+            <div className="relative aspect-[3/4] overflow-hidden bg-gray-900">
+              <img
+                src={poster.imageUrl}
                 alt={poster.title}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent opacity-60" />
-              
-              <div className="absolute top-3 left-3">
-                <span className="px-2 py-1 rounded-md bg-indigo-600/80 backdrop-blur-sm text-[10px] font-bold text-white uppercase tracking-wider">
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-950/80 via-transparent to-transparent opacity-60" />
+
+              <div className="absolute top-1.5 left-1.5">
+                <span className="px-1.5 py-0.5 rounded bg-indigo-600/80 backdrop-blur-sm text-[8px] font-bold text-white uppercase tracking-wider">
                   {poster.category}
                 </span>
               </div>
 
-              <div className="absolute bottom-3 right-3 flex gap-2">
-                <button className="p-2 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-colors shadow-lg">
-                  <Download className="w-4 h-4" />
+              <div className="absolute bottom-1.5 right-1.5 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <button className="p-1.5 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-colors shadow-lg">
+                  <Download className="w-3 h-3" />
                 </button>
-                <button className="p-2 rounded-full bg-indigo-600/80 backdrop-blur-md text-white hover:bg-indigo-700 transition-colors shadow-lg">
-                  <ExternalLink className="w-4 h-4" />
+                <button className="p-1.5 rounded-full bg-indigo-600/80 backdrop-blur-md text-white hover:bg-indigo-700 transition-colors shadow-lg">
+                  <ExternalLink className="w-3 h-3" />
                 </button>
               </div>
             </div>
 
             {/* Content */}
-            <div className="p-4">
-              <h3 className="font-bold text-white text-sm sm:text-base mb-1 group-hover:text-indigo-300 transition-colors">
+            <div className="p-2 sm:p-2.5 flex-1 flex flex-col">
+              <h3 className="font-bold text-white text-[11px] sm:text-xs mb-0.5 group-hover:text-indigo-300 transition-colors line-clamp-1">
                 {poster.title}
               </h3>
-              <p className="text-xs text-gray-400 leading-relaxed line-clamp-2 mb-3">
+              <p className="text-[10px] text-gray-500 leading-tight line-clamp-2 mb-2 flex-1">
                 {poster.description}
               </p>
-              <div className="flex items-center gap-2 text-[10px] text-gray-500">
-                <MapPin className="w-3 h-3" /> Rizal PDRRMO Official Resource
+              <div className="flex items-center gap-1 text-[9px] text-gray-600">
+                <MapPin className="w-2.5 h-2.5" /> PDRRMO
               </div>
             </div>
           </article>
         ))}
       </div>
 
-      <div className="text-[11px] text-gray-500 text-center pt-4 mt-6 border-t border-slate-800">
-        All materials are property of Rizal PDRRMO and partner agencies. For distribution purposes only.
+      <div className="text-[9px] text-gray-600 text-center pt-3 mt-4 border-t border-slate-800">
+        Rizal PDRRMO Official Educational Resources
       </div>
     </section>
   );
