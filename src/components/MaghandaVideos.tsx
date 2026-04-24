@@ -1,4 +1,4 @@
-import { Video, PlayCircle, BookOpen, Waves, CloudLightning, LifeBuoy } from 'lucide-react';
+import { Video, PlayCircle, BookOpen, Waves, CloudLightning, LifeBuoy, Activity, ShieldAlert } from 'lucide-react';
 
 const PLAYLIST_ID = 'PLZHBSWDLr_J0LG_8GfuVYFyr9SKcbyBbb';
 const PANATAG_PLAYLIST_ID = 'PLVjyOQDJ5woLGq7ef4VH0bJWviaafCZJS';
@@ -18,6 +18,44 @@ type MaghandaVideo = {
 
 const VIDEOS: MaghandaVideo[] = [
   {
+    id: 'typhoon-prep',
+    title: 'Preparing Before a Typhoon Arrives',
+    shortTitle: 'Typhoon Prep',
+    description:
+      'A disaster preparedness guide featuring Dingdong Dantes, reminding viewers to "Listen, Lock, and Leave" before a typhoon arrives.',
+    embedSrc: `https://www.youtube.com/embed/br6areC8QYM?rel=0&modestbranding=1`,
+    Icon: ShieldAlert,
+    accent: 'from-blue-500 to-indigo-700',
+    hashtag: '#PanatagAngMayAlam',
+    hashtagColor: 'text-blue-300',
+    presenter: 'Dingdong Dantes',
+  },
+  {
+    id: 'the-big-one',
+    title: 'Ready ka ba para sa The Big One?',
+    shortTitle: 'Earthquake Prep',
+    description:
+      'This video emphasizes the importance of being prepared for "The Big One," a potential high-magnitude earthquake in the Philippines.',
+    embedSrc: `https://www.youtube.com/embed/bq_xyBhngGo?rel=0&modestbranding=1`,
+    Icon: Activity,
+    accent: 'from-orange-600 to-red-800',
+    hashtag: '#PanatagAngMayAlam',
+    hashtagColor: 'text-orange-300',
+  },
+  {
+    id: 'flood-warning',
+    title: 'Alamin ang Flood Warning System',
+    shortTitle: 'Flood Warning',
+    description:
+      'Dingdong Dantes explains the color-coded rainfall warning systems (Yellow, Orange, and Red) from DOST-PAGASA and when to take action.',
+    embedSrc: `https://www.youtube.com/embed/q97b8jQ83gk?rel=0&modestbranding=1`,
+    Icon: Waves,
+    accent: 'from-cyan-500 to-blue-700',
+    hashtag: '#PanatagAngMayAlam',
+    hashtagColor: 'text-cyan-300',
+    presenter: 'Dingdong Dantes',
+  },
+  {
     id: 'ffws',
     title: 'Flood Forecasting and Warning System (FFWS)',
     shortTitle: 'FFWS',
@@ -34,7 +72,7 @@ const VIDEOS: MaghandaVideo[] = [
     title: 'Heavy Rainfall and Thunderstorm Warning System',
     shortTitle: 'Heavy Rainfall & Thunderstorm',
     description:
-      'Understand PAGASA\'s color-coded rainfall warnings (Yellow, Orange, Red) and thunderstorm advisories for community awareness, preparedness, and emergency response.',
+      'Understand PAGASA\'s color-coded rainfall warnings (Yellow, Orange, Red) and thunderstorm advisories for community awareness.',
     embedSrc: `https://www.youtube.com/embed/videoseries?list=${PLAYLIST_ID}&index=2&rel=0&modestbranding=1`,
     Icon: CloudLightning,
     accent: 'from-amber-500 to-orange-700',
@@ -46,7 +84,7 @@ const VIDEOS: MaghandaVideo[] = [
     title: 'Flood Safety Reminders',
     shortTitle: 'Flood Safety',
     description:
-      'Hosted by Dingdong Dantes, this video shares essential flood safety reminders — when to evacuate, what to prepare, and how to keep your family safe before, during, and after a flood event.',
+      'Essential flood safety reminders — when to evacuate, what to prepare, and how to keep your family safe during a flood event.',
     embedSrc: `https://www.youtube.com/embed/DmC1hYhT6p0?list=${PANATAG_PLAYLIST_ID}&rel=0&modestbranding=1`,
     Icon: LifeBuoy,
     accent: 'from-emerald-500 to-green-700',
@@ -69,7 +107,7 @@ export default function MaghandaVideos({ renderTabs }: { renderTabs?: React.Reac
           </div>
           <div className="min-w-0">
             <h2 className="text-base sm:text-lg md:text-xl font-bold text-white leading-tight">
-              Flood Preparedness Educational Videos
+              Disaster Preparedness Educational Videos
             </h2>
             <p className="text-[11px] sm:text-sm text-gray-400 mt-1">
               <span className="text-red-300 font-semibold">#MAGHANDA</span> ·{' '}
@@ -87,7 +125,7 @@ export default function MaghandaVideos({ renderTabs }: { renderTabs?: React.Reac
         {VIDEOS.map((v) => (
           <article
             key={v.id}
-            className="bg-gray-950/60 border border-slate-700/50 rounded-xl overflow-hidden flex flex-col"
+            className="bg-gray-950/60 border border-slate-700/50 rounded-xl overflow-hidden flex flex-col hover:border-red-500/30 transition-all duration-300"
           >
             {/* Title bar */}
             <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-700/50 bg-gray-900/50">
@@ -140,7 +178,7 @@ export default function MaghandaVideos({ renderTabs }: { renderTabs?: React.Reac
       </div>
 
       <div className="text-[11px] text-gray-500 text-center pt-4 mt-2 border-t border-slate-800">
-        Sources: PAGASA-DOST Official YouTube Channel (#MAGHANDA) · #PanatagAngMayAlam Campaign
+        Sources: NDRRMC · PAGASA-DOST · OCD · PHIVOLCS · MGB YouTube Channels
       </div>
     </section>
   );
