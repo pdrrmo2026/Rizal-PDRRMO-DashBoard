@@ -1,4 +1,5 @@
-import { Image, ExternalLink, Download, Search, MapPin } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Image, ExternalLink, Download, Search, MapPin, X } from 'lucide-react';
 
 interface Poster {
   id: string;
@@ -96,6 +97,19 @@ const POSTERS: Poster[] = [
 ];
 
 export default function IECPosters({ renderTabs }: { renderTabs?: React.ReactNode }) {
+  const [selectedPoster, setSelectedPoster] = useState<Poster | null>(null);
+
+  // Close modal on ESC key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedPoster(null);
+    };
+    if (selectedPoster) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedPoster]);
+
   return (
     <section className="bg-gradient-to-br from-indigo-950/40 via-gray-900 to-slate-900 border border-indigo-700/40 rounded-xl p-3 sm:p-4 md:p-5 shadow-xl">
       {renderTabs && <div className="mb-4">{renderTabs}</div>}
@@ -127,7 +141,8 @@ export default function IECPosters({ renderTabs }: { renderTabs?: React.ReactNod
         {POSTERS.map((poster) => (
           <article
             key={poster.id}
-            className="bg-gray-950/60 border border-slate-700/50 rounded-lg overflow-hidden flex flex-col group hover:border-indigo-500/50 transition-all duration-300"
+            onClick={() => setSelectedPoster(poster)}
+            className="bg-gray-950/60 border border-slate-700/50 rounded-lg overflow-hidden flex flex-col group hover:border-indigo-500/50 transition-all duration-300 cursor-pointer"
           >
             {/* Image container */}
             <div className="relative aspect-[3/4] overflow-hidden bg-gray-900">
@@ -174,6 +189,58 @@ export default function IECPosters({ renderTabs }: { renderTabs?: React.ReactNod
       <div className="text-[9px] text-gray-600 text-center pt-3 mt-4 border-t border-slate-800">
         Rizal PDRRMO Official Educational Resources
       </div>
+
+      {/* Full Resolution Modal Viewer */}
+      {selectedPoster && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10 bg-gray-950/90 backdrop-blur-md animate-in fade-in duration-300"
+          onClick={() => setSelectedPoster(null)}
+        >
+          {/* Close Button */}
+          <button
+            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-[110]"
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedPoster(null);
+            }}
+          >
+            <X className="w-6 h-6" />
+          </button>
+
+          {/* Modal Content */}
+          <div
+            className="relative max-w-full max-h-full flex flex-col items-center animate-in zoom-in-95 duration-300 ease-out"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative group bg-gray-900 rounded-lg overflow-hidden shadow-2xl border border-white/10">
+              <img
+                src={selectedPoster.imageUrl}
+                alt={selectedPoster.title}
+                className="max-w-full max-h-[85vh] object-contain shadow-2xl"
+              />
+
+              {/* Bottom bar in modal */}
+              <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-white font-bold text-base sm:text-lg">{selectedPoster.title}</h3>
+                    <p className="text-gray-300 text-xs sm:text-sm">{selectedPoster.category} · Rizal PDRRMO</p>
+                  </div>
+                  <a
+                    href={selectedPoster.imageUrl}
+                    download
+                    className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-semibold transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Download className="w-4 h-4" />
+                    Download
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
