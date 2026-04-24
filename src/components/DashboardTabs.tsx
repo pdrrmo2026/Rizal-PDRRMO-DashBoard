@@ -2,11 +2,11 @@ import { CloudRain, Activity, Waves, MapPin, ChevronRight, Map, Video } from 'lu
 
 export type DashboardTab =
   | 'weather'
-  | 'flood-rainfall'
-  | 'hazard-maps'
   | 'earthquake'
+  | 'flood-rainfall'
   | 'municipalities'
-  | 'iec';
+  | 'iec'
+  | 'hazard-maps';
 
 interface DashboardTabsProps {
   activeTab: DashboardTab;
@@ -91,7 +91,7 @@ const tabs: {
     id: 'iec',
     label: 'IEC',
     icon: Video,
-    description: 'Education Videos · Safety Posters',
+    description: 'Educational Videos · Awareness Posters',
     activeBg: 'from-purple-500/25 via-purple-500/10 to-fuchsia-500/15 border-purple-400/60',
     accentColor: 'bg-purple-400',
     iconActiveBg: 'bg-purple-500/30',

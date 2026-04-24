@@ -23,10 +23,10 @@ import DashboardTabs, { DashboardTab } from './components/DashboardTabs';
 import EarthquakeMonitoring from './components/EarthquakeMonitoring';
 import RizalMunicipalitiesDistricts from './components/RizalMunicipalitiesDistricts';
 import HazardMaps from './components/HazardMaps';
-
-import { Video, Image as ImageIcon } from 'lucide-react';
-import Footer from './components/Footer';
 import IECPosters from './components/IECPosters';
+import { Video, Image } from 'lucide-react';
+
+import Footer from './components/Footer';
 
 interface StationData {
   station: StationLocation;
@@ -44,6 +44,7 @@ function App() {
   const [, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<DashboardTab>('weather');
+  const [iecSubTab, setIecSubTab] = useState<'videos' | 'posters'>('videos');
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -120,8 +121,6 @@ function App() {
     .map((d) => d.station.name);
   const isCritical = criticalStationNames.length > 0;
 
-  const [iecSubTab, setIecSubTab] = useState<'videos' | 'posters'>('videos');
-
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
       <CriticalAlarmBanner
@@ -187,41 +186,46 @@ function App() {
 
             {activeTab === 'iec' && (
               <div className="flex flex-col lg:flex-row gap-6">
-                {/* Nested Sidebar */}
-                <div className="w-full lg:w-48 xl:w-56 shrink-0">
-                  <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-2 space-y-1">
+                {/* Secondary Sidebar Tabs for IEC */}
+                <div className="lg:w-48 xl:w-56 flex-shrink-0">
+                  <div className="flex lg:flex-col gap-2 p-1 bg-gray-900/40 border border-gray-800/60 rounded-xl">
                     <button
                       onClick={() => setIecSubTab('videos')}
-                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all duration-200 flex-1 lg:flex-none ${
                         iecSubTab === 'videos'
-                          ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30'
-                          : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50 border border-transparent'
+                          ? 'bg-purple-600 text-white shadow-lg shadow-purple-900/40 translate-x-1'
+                          : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/60'
                       }`}
                     >
-                      <Video className="w-4 h-4" />
-                      Videos
+                      <Video className="w-4 h-4 shrink-0" />
+                      <span>Videos</span>
                     </button>
                     <button
                       onClick={() => setIecSubTab('posters')}
-                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all duration-200 flex-1 lg:flex-none ${
                         iecSubTab === 'posters'
-                          ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30'
-                          : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50 border border-transparent'
+                          ? 'bg-purple-600 text-white shadow-lg shadow-purple-900/40 translate-x-1'
+                          : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/60'
                       }`}
                     >
-                      <ImageIcon className="w-4 h-4" />
-                      Posters
+                      <Image className="w-4 h-4 shrink-0" />
+                      <span>Posters</span>
                     </button>
+                  </div>
+                  
+                  <div className="hidden lg:block mt-4 p-4 rounded-xl bg-purple-900/10 border border-purple-800/20">
+                    <p className="text-[11px] text-purple-300 leading-relaxed">
+                      Access our library of educational materials designed to improve disaster awareness and community resilience.
+                    </p>
                   </div>
                 </div>
 
-                {/* Content Area */}
-                <div className="flex-1 min-w-0">
+                {/* Sub-tab Content */}
+                <div className="flex-1 min-w-0 animate-in fade-in slide-in-from-bottom-2 duration-500">
                   {iecSubTab === 'videos' ? <MaghandaVideos /> : <IECPosters />}
                 </div>
               </div>
             )}
-
 
 
 
