@@ -181,7 +181,7 @@ function App() {
               <RizalMunicipalitiesDistricts />
             )}
 
-            {activeTab === 'iec' && (
+            {activeTab === 'iec' && null (
               <MaghandaVideos />
             )}
 
