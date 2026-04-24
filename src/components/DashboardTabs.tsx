@@ -87,8 +87,8 @@ const tabs: {
     dotColor: 'bg-emerald-400',
     glow: 'shadow-[0_0_20px_-4px_rgba(52,211,153,0.4)]',
   },
- 
-export default function DashboardTabs({ activeTab, onChange }: DashboardTabsProps) {
+];
+  export default function DashboardTabs({ activeTab, onChange }: DashboardTabsProps) {
   return (
     <aside className="w-full md:w-56 lg:w-64 xl:w-72 md:flex-shrink-0">
       <div className="md:sticky md:top-3 bg-gray-900/60 border border-gray-800 rounded-xl p-3 sm:p-4 backdrop-blur-md shadow-xl">
