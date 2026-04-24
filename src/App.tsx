@@ -26,7 +26,6 @@ import HazardMaps from './components/HazardMaps';
 import IECPosters from './components/IECPosters';
 import { Video, Image } from 'lucide-react';
 
-import Footer from './components/Footer';
 
 interface StationData {
   station: StationLocation;
@@ -254,7 +253,6 @@ function App() {
         </div>
       </div>
       
-      <Footer />
     </div>
   );
 }
