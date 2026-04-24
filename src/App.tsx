@@ -185,45 +185,66 @@ function App() {
             )}
 
             {activeTab === 'iec' && (
-              <div className="flex flex-col lg:flex-row gap-6">
-                {/* Secondary Sidebar Tabs for IEC */}
-                <div className="lg:w-48 xl:w-56 flex-shrink-0">
-                  <div className="flex lg:flex-col gap-2 p-1 bg-gray-900/40 border border-gray-800/60 rounded-xl">
-                    <button
-                      onClick={() => setIecSubTab('videos')}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all duration-200 flex-1 lg:flex-none ${
-                        iecSubTab === 'videos'
-                          ? 'bg-purple-600 text-white shadow-lg shadow-purple-900/40 translate-x-1'
-                          : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/60'
-                      }`}
-                    >
-                      <Video className="w-4 h-4 shrink-0" />
-                      <span>Videos</span>
-                    </button>
-                    <button
-                      onClick={() => setIecSubTab('posters')}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all duration-200 flex-1 lg:flex-none ${
-                        iecSubTab === 'posters'
-                          ? 'bg-purple-600 text-white shadow-lg shadow-purple-900/40 translate-x-1'
-                          : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/60'
-                      }`}
-                    >
-                      <Image className="w-4 h-4 shrink-0" />
-                      <span>Posters</span>
-                    </button>
-                  </div>
-                  
-                  <div className="hidden lg:block mt-4 p-4 rounded-xl bg-purple-900/10 border border-purple-800/20">
-                    <p className="text-[11px] text-purple-300 leading-relaxed">
-                      Access our library of educational materials designed to improve disaster awareness and community resilience.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Sub-tab Content */}
-                <div className="flex-1 min-w-0 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                  {iecSubTab === 'videos' ? <MaghandaVideos /> : <IECPosters />}
-                </div>
+              <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+                {iecSubTab === 'videos' ? (
+                  <MaghandaVideos 
+                    renderTabs={
+                      <div className="flex items-center gap-1.5 p-1 bg-gray-950/50 border border-red-500/20 rounded-xl w-fit backdrop-blur-sm">
+                        <button
+                          onClick={() => setIecSubTab('videos')}
+                          className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                            iecSubTab === 'videos'
+                              ? 'bg-red-600 text-white shadow-lg shadow-red-900/40'
+                              : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'
+                          }`}
+                        >
+                          <Video className="w-3.5 h-3.5" />
+                          Videos
+                        </button>
+                        <button
+                          onClick={() => setIecSubTab('posters')}
+                          className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                            iecSubTab === 'posters'
+                              ? 'bg-red-600/20 text-gray-400'
+                              : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'
+                          }`}
+                        >
+                          <Image className="w-3.5 h-3.5" />
+                          Posters
+                        </button>
+                      </div>
+                    } 
+                  />
+                ) : (
+                  <IECPosters 
+                    renderTabs={
+                      <div className="flex items-center gap-1.5 p-1 bg-gray-950/50 border border-indigo-500/20 rounded-xl w-fit backdrop-blur-sm">
+                        <button
+                          onClick={() => setIecSubTab('videos')}
+                          className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                            iecSubTab === 'videos'
+                              ? 'bg-indigo-600/20 text-gray-400'
+                              : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'
+                          }`}
+                        >
+                          <Video className="w-3.5 h-3.5" />
+                          Videos
+                        </button>
+                        <button
+                          onClick={() => setIecSubTab('posters')}
+                          className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                            iecSubTab === 'posters'
+                              ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/40'
+                              : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'
+                          }`}
+                        >
+                          <Image className="w-3.5 h-3.5" />
+                          Posters
+                        </button>
+                      </div>
+                    }
+                  />
+                )}
               </div>
             )}
 

@@ -56,9 +56,11 @@ const VIDEOS: MaghandaVideo[] = [
   },
 ];
 
-export default function MaghandaVideos() {
+export default function MaghandaVideos({ renderTabs }: { renderTabs?: React.ReactNode }) {
   return (
     <section className="bg-gradient-to-br from-red-950/40 via-gray-900 to-slate-900 border border-red-700/40 rounded-xl p-3 sm:p-4 md:p-6 shadow-xl">
+      {renderTabs && <div className="mb-6">{renderTabs}</div>}
+
       {/* Header */}
       <div className="flex items-start justify-between flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-5">
         <div className="flex items-start gap-2 sm:gap-3 min-w-0 flex-1">
