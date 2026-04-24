@@ -93,8 +93,8 @@ export default function MaghandaVideos() {
               </p>
             </div>
           </div>
-          
-          <a 
+
+          <a
             href="https://www.youtube.com/hashtag/panatagangmayalam"
             target="_blank"
             rel="noopener noreferrer"
