@@ -24,7 +24,9 @@ import EarthquakeMonitoring from './components/EarthquakeMonitoring';
 import RizalMunicipalitiesDistricts from './components/RizalMunicipalitiesDistricts';
 import HazardMaps from './components/HazardMaps';
 
+import { Video, Image as ImageIcon } from 'lucide-react';
 import Footer from './components/Footer';
+import IECPosters from './components/IECPosters';
 
 interface StationData {
   station: StationLocation;
@@ -118,6 +120,8 @@ function App() {
     .map((d) => d.station.name);
   const isCritical = criticalStationNames.length > 0;
 
+  const [iecSubTab, setIecSubTab] = useState<'videos' | 'posters'>('videos');
+
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
       <CriticalAlarmBanner
@@ -181,9 +185,43 @@ function App() {
               <RizalMunicipalitiesDistricts />
             )}
 
-            {activeTab === 'iec' && null (
-              <MaghandaVideos />
+            {activeTab === 'iec' && (
+              <div className="flex flex-col lg:flex-row gap-6">
+                {/* Nested Sidebar */}
+                <div className="w-full lg:w-48 xl:w-56 shrink-0">
+                  <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-2 space-y-1">
+                    <button
+                      onClick={() => setIecSubTab('videos')}
+                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+                        iecSubTab === 'videos'
+                          ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30'
+                          : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50 border border-transparent'
+                      }`}
+                    >
+                      <Video className="w-4 h-4" />
+                      Videos
+                    </button>
+                    <button
+                      onClick={() => setIecSubTab('posters')}
+                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+                        iecSubTab === 'posters'
+                          ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30'
+                          : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50 border border-transparent'
+                      }`}
+                    >
+                      <ImageIcon className="w-4 h-4" />
+                      Posters
+                    </button>
+                  </div>
+                </div>
+
+                {/* Content Area */}
+                <div className="flex-1 min-w-0">
+                  {iecSubTab === 'videos' ? <MaghandaVideos /> : <IECPosters />}
+                </div>
+              </div>
             )}
+
 
 
 
