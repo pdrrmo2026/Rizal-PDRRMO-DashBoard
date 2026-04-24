@@ -271,13 +271,14 @@ export default function IECPosters({ renderTabs }: { renderTabs?: React.ReactNod
 
           {/* Close Button */}
           <button
-            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-[110] border border-white/10"
+            className="absolute top-6 right-6 p-2.5 rounded-full bg-red-600 text-white hover:bg-red-700 hover:scale-110 transition-all z-[120] border-2 border-white/20 shadow-2xl group"
             onClick={(e) => {
               e.stopPropagation();
               setSelectedPoster(null);
             }}
+            title="Close (Esc)"
           >
-            <X className="w-6 h-6" />
+            <X className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
           </button>
 
           {/* Modal Content */}
