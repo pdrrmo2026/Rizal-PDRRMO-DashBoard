@@ -269,17 +269,6 @@ export default function IECPosters({ renderTabs }: { renderTabs?: React.ReactNod
             </>
           )}
 
-          {/* Close Button */}
-          <button
-            className="absolute top-6 right-6 p-2.5 rounded-full bg-red-600 text-white hover:bg-red-700 hover:scale-110 transition-all z-[120] border-2 border-white/20 shadow-2xl group"
-            onClick={(e) => {
-              e.stopPropagation();
-              setSelectedPoster(null);
-            }}
-            title="Close (Esc)"
-          >
-            <X className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
-          </button>
 
           {/* Modal Content */}
           <div
@@ -287,6 +276,18 @@ export default function IECPosters({ renderTabs }: { renderTabs?: React.ReactNod
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative group bg-gray-900 rounded-lg overflow-hidden shadow-2xl border border-white/10">
+              {/* Close Button on Image */}
+              <button
+                className="absolute top-2 right-2 p-1.5 rounded-full bg-black/60 text-white hover:bg-red-600 transition-colors z-[120] border border-white/20 backdrop-blur-sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedPoster(null);
+                }}
+                title="Close"
+              >
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+
               <img
                 key={selectedPoster.images[currentImageIndex]}
                 src={selectedPoster.images[currentImageIndex]}
