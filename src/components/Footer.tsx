@@ -1,18 +1,8 @@
-import { Phone, MapPin, ExternalLink } from 'lucide-react';
+import { MapPin, ExternalLink } from 'lucide-react';
+import EmergencyContacts from './EmergencyContacts';
 
-type Contact = { label: string; tel: string; display: string };
 type Area = string;
 type Source = { label: string; url: string };
-
-const CONTACTS: Contact[] = [
-  { label: 'NDRRMC Hotline', tel: '911', display: '911' },
-  { label: 'PAGASA', tel: '+6328284-0800', display: '(02) 8284-0800' },
-  { label: 'Antipolo CDRRMO', tel: '+6328650-6790', display: '(02) 8650-6790' },
-  { label: 'Marikina CDRRMO', tel: '+6328942-4053', display: '(02) 8942-4053' },
-  { label: 'LLDA Hotline', tel: '+6328641-4025', display: '(02) 8641-4025' },
-  { label: 'Rizal PDRRMO', tel: '+6328539-1721', display: '8539-1721' },
-  { label: 'Laguna Provincial DRRMO', tel: '+63427112222', display: '(042) 711-2222' },
-];
 
 const AREAS: Area[] = [
   'Antipolo City, Rizal',
@@ -34,28 +24,9 @@ export default function Footer() {
     <footer className="bg-gray-900 border-t border-gray-800 mt-8 sm:mt-12">
       <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 max-w-7xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {/* Emergency Contacts */}
-          <div>
-            <h3 className="text-sm font-semibold text-gray-200 mb-3 flex items-center gap-2">
-              <Phone className="w-4 h-4 text-red-400" />
-              Emergency Contacts
-            </h3>
-            <ul className="space-y-2">
-              {CONTACTS.map((c) => (
-                <li key={c.label}>
-                  <a
-                    href={`tel:${c.tel.replace(/\s+/g, '')}`}
-                    className="flex items-start gap-2 text-xs sm:text-sm text-gray-400 hover:text-red-300 active:text-red-200 transition-colors min-h-[28px]"
-                  >
-                    <Phone className="w-3.5 h-3.5 text-red-400 shrink-0 mt-0.5" />
-                    <span className="break-anywhere">
-                      <span className="text-gray-300">{c.label}:</span>{' '}
-                      <span className="font-mono">{c.display}</span>
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
+          {/* Emergency Contacts Infographic */}
+          <div className="lg:col-span-1">
+            <EmergencyContacts />
           </div>
 
           {/* Coverage Areas */}

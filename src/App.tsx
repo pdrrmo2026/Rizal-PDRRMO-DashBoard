@@ -24,7 +24,6 @@ import EarthquakeMonitoring from './components/EarthquakeMonitoring';
 import RizalMunicipalitiesDistricts from './components/RizalMunicipalitiesDistricts';
 import HazardMaps from './components/HazardMaps';
 import IECPosters from './components/IECPosters';
-import EmergencyContacts from './components/EmergencyContacts';
 import { Video, Image } from 'lucide-react';
 
 import Footer from './components/Footer';
@@ -247,10 +246,6 @@ function App() {
                   />
                 )}
               </div>
-            )}
-
-            {activeTab === 'emergency-contacts' && (
-              <EmergencyContacts />
             )}
 
 
