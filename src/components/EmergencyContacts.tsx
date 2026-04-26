@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Phone, X, ZoomIn, ZoomOut } from 'lucide-react';
+import { Phone, X, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 
 export default function EmergencyContacts() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [scale, setScale] = useState(1);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [hasDragged, setHasDragged] = useState(false);
 
   const imageUrl = "https://raw.githubusercontent.com/pdrrmo2026/Rizal-PDRRMO-DashBoard/main/emergency_contact_numbers.jpg";
 
@@ -18,10 +22,13 @@ export default function EmergencyContacts() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isModalOpen]);
 
-  // Reset scale when modal closes
+  // Reset scale & position when modal closes
   useEffect(() => {
     if (!isModalOpen) {
       setScale(1);
+      setPosition({ x: 0, y: 0 });
+      setIsDragging(false);
+      setHasDragged(false);
     }
   }, [isModalOpen]);
 
@@ -32,7 +39,43 @@ export default function EmergencyContacts() {
 
   const handleZoomOut = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setScale(prev => Math.max(prev - 0.5, 0.5));
+    setScale(prev => {
+      const newScale = Math.max(prev - 0.5, 1);
+      if (newScale === 1) setPosition({ x: 0, y: 0 });
+      return newScale;
+    });
+  };
+
+  const handleResetZoom = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setScale(1);
+    setPosition({ x: 0, y: 0 });
+  };
+
+  // Panning logic
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (scale <= 1) return;
+    e.preventDefault();
+    setIsDragging(true);
+    setHasDragged(false);
+    setDragStart({ x: e.clientX - position.x, y: e.clientY - position.y });
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging || scale <= 1) return;
+    setHasDragged(true);
+    setPosition({
+      x: e.clientX - dragStart.x,
+      y: e.clientY - dragStart.y
+    });
+  };
+
+  const handleMouseUp = () => {
+    if (isDragging) setIsDragging(false);
+  };
+
+  const handleMouseLeave = () => {
+    if (isDragging) setIsDragging(false);
   };
 
   return (
@@ -76,8 +119,18 @@ export default function EmergencyContacts() {
       {/* Full View Modal */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-300"
-          onClick={() => setIsModalOpen(false)}
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-300 overflow-hidden"
+          onClick={(e) => {
+            if (hasDragged) {
+              setHasDragged(false);
+              return;
+            }
+            if (e.target === e.currentTarget) setIsModalOpen(false);
+          }}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
         >
           {/* Controls - Upper Left */}
           <div className="absolute top-4 left-4 sm:top-6 sm:left-6 flex items-center gap-2 sm:gap-3 z-[210] animate-in slide-in-from-top-4 duration-500 delay-100 fade-in fill-mode-both">
@@ -92,12 +145,20 @@ export default function EmergencyContacts() {
               <button
                 onClick={handleZoomOut}
                 className="p-2.5 sm:p-3 text-white hover:bg-white/10 transition-colors disabled:opacity-30 disabled:hover:bg-transparent"
-                disabled={scale <= 0.5}
+                disabled={scale <= 1}
                 title="Zoom Out"
               >
                 <ZoomOut className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
-              <span className="text-amber-400 text-xs sm:text-sm font-bold px-1 sm:px-2 min-w-[3.5rem] sm:min-w-[4rem] text-center select-none">
+              <button
+                onClick={handleResetZoom}
+                className="p-2.5 sm:p-3 text-white hover:bg-white/10 transition-colors disabled:opacity-30 disabled:hover:bg-transparent border-l border-r border-white/10"
+                disabled={scale === 1}
+                title="Reset Zoom"
+              >
+                <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+              <span className="text-amber-400 text-xs sm:text-sm font-bold px-2 sm:px-3 min-w-[3.5rem] sm:min-w-[4rem] text-center select-none">
                 {Math.round(scale * 100)}%
               </span>
               <button
@@ -113,22 +174,29 @@ export default function EmergencyContacts() {
 
           {/* Modal Image Container */}
           <div
-            className="w-full h-full overflow-auto flex items-center justify-center p-4 sm:p-8 custom-scrollbar"
-            onClick={(e) => {
-              if (e.target === e.currentTarget) setIsModalOpen(false);
-            }}
+            className={`w-full h-full flex items-center justify-center p-4 sm:p-8 ${
+              scale > 1 ? (isDragging ? 'cursor-grabbing' : 'cursor-grab') : ''
+            }`}
           >
             <img
               src={imageUrl}
               alt="Emergency Contact Numbers Full View"
-              className="max-w-none transition-transform duration-200 ease-out shadow-2xl rounded-sm sm:rounded-lg"
+              className={`max-w-none shadow-2xl rounded-sm sm:rounded-lg ${
+                isDragging ? 'transition-none' : 'transition-transform duration-200 ease-out'
+              }`}
               style={{
-                transform: `scale(${scale})`,
+                transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
                 transformOrigin: 'center center',
-                maxHeight: scale === 1 ? '90vh' : 'none',
-                maxWidth: scale === 1 ? '100%' : 'none'
+                maxHeight: '90vh',
+                maxWidth: '90vw'
               }}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (hasDragged) {
+                  setHasDragged(false);
+                }
+              }}
+              onDragStart={(e) => e.preventDefault()}
               onError={(e) => {
                 (e.target as HTMLImageElement).src = '/emergency_contact_numbers.jpg';
               }}
