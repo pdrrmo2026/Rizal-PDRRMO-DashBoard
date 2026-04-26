@@ -24,6 +24,7 @@ import EarthquakeMonitoring from './components/EarthquakeMonitoring';
 import RizalMunicipalitiesDistricts from './components/RizalMunicipalitiesDistricts';
 import HazardMaps from './components/HazardMaps';
 import IECPosters from './components/IECPosters';
+import Footer from './components/Footer';
 import { Video, Image } from 'lucide-react';
 
 
@@ -231,6 +232,7 @@ function App() {
         </div>
       </div>
       
+      <Footer />
     </div>
   );
 }
