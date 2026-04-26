@@ -1,4 +1,4 @@
-import { CloudRain, Activity, Waves, MapPin, ChevronRight, Map, Video } from 'lucide-react';
+import { CloudRain, Activity, Waves, MapPin, ChevronRight, Map, Video, Phone } from 'lucide-react';
 
 export type DashboardTab =
   | 'weather'
@@ -6,7 +6,8 @@ export type DashboardTab =
   | 'flood-rainfall'
   | 'municipalities'
   | 'iec'
-  | 'hazard-maps';
+  | 'hazard-maps'
+  | 'emergency-contacts';
 
 interface DashboardTabsProps {
   activeTab: DashboardTab;
@@ -98,6 +99,18 @@ const tabs: {
     iconActiveText: 'text-purple-300',
     dotColor: 'bg-purple-400',
     glow: 'shadow-[0_0_20px_-4px_rgba(168,85,247,0.4)]',
+  },
+  {
+    id: 'emergency-contacts',
+    label: 'Emergency Contacts',
+    icon: Phone,
+    description: 'Hotlines · Rescue · Police · Fire',
+    activeBg: 'from-amber-500/25 via-amber-500/10 to-yellow-500/15 border-amber-400/60',
+    accentColor: 'bg-amber-400',
+    iconActiveBg: 'bg-amber-500/30',
+    iconActiveText: 'text-amber-300',
+    dotColor: 'bg-amber-400',
+    glow: 'shadow-[0_0_20px_-4px_rgba(251,191,36,0.4)]',
   },
 ];
 

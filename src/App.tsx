@@ -23,6 +23,7 @@ import DashboardTabs, { DashboardTab } from './components/DashboardTabs';
 import EarthquakeMonitoring from './components/EarthquakeMonitoring';
 import RizalMunicipalitiesDistricts from './components/RizalMunicipalitiesDistricts';
 import HazardMaps from './components/HazardMaps';
+import EmergencyContacts from './components/EmergencyContacts';
 import IECPosters from './components/IECPosters';
 import Footer from './components/Footer';
 import { Video, Image } from 'lucide-react';
@@ -182,6 +183,10 @@ function App() {
 
             {activeTab === 'municipalities' && (
               <RizalMunicipalitiesDistricts />
+            )}
+
+            {activeTab === 'emergency-contacts' && (
+              <EmergencyContacts />
             )}
 
             {activeTab === 'iec' && (
