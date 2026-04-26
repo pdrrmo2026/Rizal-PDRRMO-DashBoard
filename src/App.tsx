@@ -185,65 +185,43 @@ function App() {
 
             {activeTab === 'iec' && (
               <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-                {iecSubTab === 'videos' ? (
-                  <MaghandaVideos 
-                    renderTabs={
-                      <div className="flex items-center gap-1.5 p-1 bg-gray-950/50 border border-red-500/20 rounded-xl w-fit backdrop-blur-sm">
-                        <button
-                          onClick={() => setIecSubTab('videos')}
-                          className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                            iecSubTab === 'videos'
-                              ? 'bg-red-600 text-white shadow-lg shadow-red-900/40'
-                              : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'
-                          }`}
-                        >
-                          <Video className="w-3.5 h-3.5" />
-                          Videos
-                        </button>
-                        <button
-                          onClick={() => setIecSubTab('posters')}
-                          className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                            iecSubTab === 'posters'
-                              ? 'bg-red-600/20 text-gray-400'
-                              : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'
-                          }`}
-                        >
-                          <Image className="w-3.5 h-3.5" />
-                          Posters
-                        </button>
-                      </div>
-                    } 
-                  />
-                ) : (
-                  <IECPosters 
-                    renderTabs={
-                      <div className="flex items-center gap-1.5 p-1 bg-gray-950/50 border border-indigo-500/20 rounded-xl w-fit backdrop-blur-sm">
-                        <button
-                          onClick={() => setIecSubTab('videos')}
-                          className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                            iecSubTab === 'videos'
-                              ? 'bg-indigo-600/20 text-gray-400'
-                              : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'
-                          }`}
-                        >
-                          <Video className="w-3.5 h-3.5" />
-                          Videos
-                        </button>
-                        <button
-                          onClick={() => setIecSubTab('posters')}
-                          className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                            iecSubTab === 'posters'
-                              ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/40'
-                              : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'
-                          }`}
-                        >
-                          <Image className="w-3.5 h-3.5" />
-                          Posters
-                        </button>
-                      </div>
-                    }
-                  />
-                )}
+                {(() => {
+                  const isVideos = iecSubTab === 'videos';
+                  const themeColor = isVideos ? 'red' : 'indigo';
+                  
+                  const tabs = (
+                    <div className={`flex items-center gap-1.5 p-1 bg-gray-950/50 border ${isVideos ? 'border-red-500/20' : 'border-indigo-500/20'} rounded-xl w-fit backdrop-blur-sm`}>
+                      <button
+                        onClick={() => setIecSubTab('videos')}
+                        className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                          iecSubTab === 'videos'
+                            ? isVideos ? 'bg-red-600 text-white shadow-lg shadow-red-900/40' : 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/40'
+                            : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'
+                        }`}
+                      >
+                        <Video className="w-3.5 h-3.5" />
+                        Videos
+                      </button>
+                      <button
+                        onClick={() => setIecSubTab('posters')}
+                        className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                          iecSubTab === 'posters'
+                            ? !isVideos ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/40' : 'bg-red-600 text-white shadow-lg shadow-red-900/40'
+                            : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'
+                        }`}
+                      >
+                        <Image className="w-3.5 h-3.5" />
+                        Posters
+                      </button>
+                    </div>
+                  );
+
+                  return isVideos ? (
+                    <MaghandaVideos renderTabs={tabs} />
+                  ) : (
+                    <IECPosters renderTabs={tabs} />
+                  );
+                })()}
               </div>
             )}
 
