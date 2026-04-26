@@ -73,6 +73,18 @@ export default function EmergencyContacts() {
         </div>
       </div>
 
+      <div className="mb-8 rounded-xl overflow-hidden border border-gray-800 shadow-lg bg-black/40">
+        <img 
+          src="https://raw.githubusercontent.com/pdrrmo2026/Rizal-PDRRMO-DashBoard/main/emergency_contact_numbers.jpg" 
+          alt="Emergency Contact Numbers" 
+          className="w-full h-auto object-contain max-h-[80vh]"
+          onError={(e) => {
+             // Fallback to local public folder if raw github URL fails or it's run locally
+             (e.target as HTMLImageElement).src = '/emergency_contact_numbers.jpg';
+          }}
+        />
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {EMERGENCY_CONTACTS.map((contact) => (
           <div key={contact.id} className="bg-gray-950/50 border border-gray-800/60 rounded-xl p-4 hover:border-amber-500/30 hover:bg-gray-800/50 transition-colors group">
