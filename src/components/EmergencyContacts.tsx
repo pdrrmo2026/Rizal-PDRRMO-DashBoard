@@ -174,16 +174,14 @@ export default function EmergencyContacts() {
 
           {/* Modal Image Container */}
           <div
-            className={`w-full h-full flex items-center justify-center p-4 sm:p-8 ${
-              scale > 1 ? (isDragging ? 'cursor-grabbing' : 'cursor-grab') : ''
-            }`}
+            className={`w-full h-full flex items-center justify-center p-4 sm:p-8 ${scale > 1 ? (isDragging ? 'cursor-grabbing' : 'cursor-grab') : ''
+              }`}
           >
             <img
               src={imageUrl}
               alt="Emergency Contact Numbers Full View"
-              className={`max-w-none shadow-2xl rounded-sm sm:rounded-lg ${
-                isDragging ? 'transition-none' : 'transition-transform duration-200 ease-out'
-              }`}
+              className={`max-w-none shadow-2xl rounded-sm sm:rounded-lg ${isDragging ? 'transition-none' : 'transition-transform duration-200 ease-out'
+                }`}
               style={{
                 transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
                 transformOrigin: 'center center',

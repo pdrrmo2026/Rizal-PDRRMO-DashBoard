@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Image, ExternalLink, Download, Search, MapPin, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Image, ExternalLink, Download, Search, MapPin, X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 
 interface Poster {
   id: string;
@@ -134,35 +134,99 @@ export default function IECPosters({ renderTabs }: { renderTabs?: React.ReactNod
   const [selectedPoster, setSelectedPoster] = useState<Poster | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  const [scale, setScale] = useState(1);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [hasDragged, setHasDragged] = useState(false);
+
+  const resetZoomPan = useCallback(() => {
+    setScale(1);
+    setPosition({ x: 0, y: 0 });
+    setIsDragging(false);
+    setHasDragged(false);
+  }, []);
+
   const handleNext = useCallback((e?: React.MouseEvent | KeyboardEvent) => {
     e?.stopPropagation();
     if (selectedPoster) {
       setCurrentImageIndex((prev) => (prev + 1) % selectedPoster.images.length);
+      resetZoomPan();
     }
-  }, [selectedPoster]);
+  }, [selectedPoster, resetZoomPan]);
 
   const handlePrev = useCallback((e?: React.MouseEvent | KeyboardEvent) => {
     e?.stopPropagation();
     if (selectedPoster) {
       setCurrentImageIndex((prev) => (prev - 1 + selectedPoster.images.length) % selectedPoster.images.length);
+      resetZoomPan();
     }
-  }, [selectedPoster]);
+  }, [selectedPoster, resetZoomPan]);
 
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!selectedPoster) return;
-      if (e.key === 'Escape') setSelectedPoster(null);
+      if (e.key === 'Escape') {
+        setSelectedPoster(null);
+        resetZoomPan();
+      }
       if (e.key === 'ArrowRight') handleNext(e);
       if (e.key === 'ArrowLeft') handlePrev(e);
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedPoster, handleNext, handlePrev]);
+  }, [selectedPoster, handleNext, handlePrev, resetZoomPan]);
 
   const openModal = (poster: Poster) => {
     setSelectedPoster(poster);
     setCurrentImageIndex(0);
+    resetZoomPan();
+  };
+
+  const handleZoomIn = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setScale(prev => Math.min(prev + 0.5, 4));
+  };
+
+  const handleZoomOut = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setScale(prev => {
+      const newScale = Math.max(prev - 0.5, 1);
+      if (newScale === 1) setPosition({ x: 0, y: 0 });
+      return newScale;
+    });
+  };
+
+  const handleResetZoom = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    resetZoomPan();
+  };
+
+  // Panning logic
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (scale <= 1) return;
+    e.preventDefault();
+    setIsDragging(true);
+    setHasDragged(false);
+    setDragStart({ x: e.clientX - position.x, y: e.clientY - position.y });
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging || scale <= 1) return;
+    setHasDragged(true);
+    setPosition({
+      x: e.clientX - dragStart.x,
+      y: e.clientY - dragStart.y
+    });
+  };
+
+  const handleMouseUp = () => {
+    if (isDragging) setIsDragging(false);
+  };
+
+  const handleMouseLeave = () => {
+    if (isDragging) setIsDragging(false);
   };
 
   return (
@@ -248,20 +312,77 @@ export default function IECPosters({ renderTabs }: { renderTabs?: React.ReactNod
       {/* Full Resolution Modal Viewer */}
       {selectedPoster && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10 bg-gray-950/90 backdrop-blur-md animate-in fade-in duration-300"
-          onClick={() => setSelectedPoster(null)}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-gray-950/95 backdrop-blur-md animate-in fade-in duration-300 overflow-hidden"
+          onClick={(e) => {
+            if (hasDragged) {
+              setHasDragged(false);
+              return;
+            }
+            if (e.target === e.currentTarget) {
+              setSelectedPoster(null);
+              resetZoomPan();
+            }
+          }}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
         >
+          {/* Controls - Upper Left */}
+          <div className="absolute top-4 left-4 sm:top-6 sm:left-6 flex items-center gap-2 sm:gap-3 z-[120]">
+            <button
+              className="p-2.5 sm:p-3 rounded-full bg-gray-900/80 text-white hover:bg-red-600 transition-colors border border-white/10 backdrop-blur-md shadow-2xl group"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedPoster(null);
+                resetZoomPan();
+              }}
+              title="Close (ESC)"
+            >
+              <X className="w-5 h-5 sm:w-6 sm:h-6 group-hover:rotate-90 transition-transform duration-300" />
+            </button>
+            <div className="flex items-center bg-gray-900/80 border border-white/10 backdrop-blur-md rounded-full overflow-hidden shadow-2xl">
+              <button
+                onClick={handleZoomOut}
+                className="p-2.5 sm:p-3 text-white hover:bg-white/10 transition-colors disabled:opacity-30 disabled:hover:bg-transparent"
+                disabled={scale <= 1}
+                title="Zoom Out"
+              >
+                <ZoomOut className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+              <button
+                onClick={handleResetZoom}
+                className="p-2.5 sm:p-3 text-white hover:bg-white/10 transition-colors disabled:opacity-30 disabled:hover:bg-transparent border-l border-r border-white/10"
+                disabled={scale === 1}
+                title="Reset Zoom"
+              >
+                <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+              <span className="text-indigo-400 text-xs sm:text-sm font-bold px-2 sm:px-3 min-w-[3.5rem] sm:min-w-[4rem] text-center select-none">
+                {Math.round(scale * 100)}%
+              </span>
+              <button
+                onClick={handleZoomIn}
+                className="p-2.5 sm:p-3 text-white hover:bg-white/10 transition-colors disabled:opacity-30 disabled:hover:bg-transparent"
+                disabled={scale >= 4}
+                title="Zoom In"
+              >
+                <ZoomIn className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+            </div>
+          </div>
+
           {/* Navigation Arrows */}
           {selectedPoster.images.length > 1 && (
             <>
               <button
-                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/40 text-white hover:bg-black/60 transition-all z-[110] border border-white/10 hidden sm:flex"
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-gray-900/80 text-white hover:bg-indigo-600 transition-all z-[110] border border-white/10 hidden sm:flex backdrop-blur-md"
                 onClick={handlePrev}
               >
                 <ChevronLeft className="w-8 h-8" />
               </button>
               <button
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/40 text-white hover:bg-black/60 transition-all z-[110] border border-white/10 hidden sm:flex"
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-gray-900/80 text-white hover:bg-indigo-600 transition-all z-[110] border border-white/10 hidden sm:flex backdrop-blur-md"
                 onClick={handleNext}
               >
                 <ChevronRight className="w-8 h-8" />
@@ -269,58 +390,57 @@ export default function IECPosters({ renderTabs }: { renderTabs?: React.ReactNod
             </>
           )}
 
-
-          {/* Modal Content */}
+          {/* Modal Image Container */}
           <div
-            className="relative max-w-full max-h-full flex flex-col items-center animate-in zoom-in-95 duration-300 ease-out"
-            onClick={(e) => e.stopPropagation()}
+            className={`w-full h-full flex items-center justify-center p-4 sm:p-12 pb-24 sm:pb-32 ${scale > 1 ? (isDragging ? 'cursor-grabbing' : 'cursor-grab') : ''
+              }`}
           >
-            <div className="relative group bg-gray-900 rounded-lg overflow-hidden shadow-2xl border border-white/10">
-              {/* Close Button on Image */}
-              <button
-                className="absolute top-2 right-2 p-1.5 rounded-full bg-black/60 text-white hover:bg-red-600 transition-colors z-[120] border border-white/20 backdrop-blur-sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedPoster(null);
-                }}
-                title="Close"
-              >
-                <X className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
+            <img
+              key={selectedPoster.images[currentImageIndex]}
+              src={selectedPoster.images[currentImageIndex]}
+              alt={`${selectedPoster.title} - Page ${currentImageIndex + 1}`}
+              className={`max-w-none shadow-2xl rounded-sm sm:rounded-lg ${isDragging ? 'transition-none' : 'transition-transform duration-200 ease-out animate-in fade-in zoom-in-95'
+                }`}
+              style={{
+                transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
+                transformOrigin: 'center center',
+                maxHeight: '85vh',
+                maxWidth: '90vw'
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (hasDragged) {
+                  setHasDragged(false);
+                }
+              }}
+              onDragStart={(e) => e.preventDefault()}
+            />
+          </div>
 
-              <img
-                key={selectedPoster.images[currentImageIndex]}
-                src={selectedPoster.images[currentImageIndex]}
-                alt={`${selectedPoster.title} - Page ${currentImageIndex + 1}`}
-                className="max-w-full max-h-[85vh] object-contain shadow-2xl animate-in fade-in zoom-in-95 duration-500"
-              />
-
-              {/* Bottom bar in modal */}
-              <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/90 to-transparent">
-                <div className="flex items-center justify-between">
-                  <div className="min-w-0">
-                    <h3 className="text-white font-bold text-sm sm:text-lg truncate">{selectedPoster.title}</h3>
-                    <p className="text-gray-300 text-[10px] sm:text-xs">
-                      Page {currentImageIndex + 1} of {selectedPoster.images.length} · {selectedPoster.category}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {/* Mobile Navigation */}
-                    <div className="flex sm:hidden items-center gap-1 bg-black/40 rounded-lg p-1 border border-white/10 mr-2">
-                      <button onClick={handlePrev} className="p-1 hover:bg-white/10 rounded"><ChevronLeft className="w-4 h-4" /></button>
-                      <button onClick={handleNext} className="p-1 hover:bg-white/10 rounded"><ChevronRight className="w-4 h-4" /></button>
-                    </div>
-                    <a
-                      href={selectedPoster.images[currentImageIndex]}
-                      download
-                      className="flex items-center gap-2 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-[10px] sm:text-xs font-semibold transition-colors shrink-0"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <Download className="w-3.5 h-3.5" />
-                      <span className="hidden xs:inline">Download</span>
-                    </a>
-                  </div>
+          {/* Bottom bar in modal */}
+          <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-gray-950 via-gray-950/90 to-transparent z-[120] pointer-events-none">
+            <div className="flex items-center justify-between max-w-[1600px] mx-auto pointer-events-auto">
+              <div className="min-w-0">
+                <h3 className="text-white font-bold text-sm sm:text-lg truncate">{selectedPoster.title}</h3>
+                <p className="text-indigo-300 font-medium text-[10px] sm:text-xs">
+                  Page {currentImageIndex + 1} of {selectedPoster.images.length} <span className="text-gray-500 font-normal">· {selectedPoster.category}</span>
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                {/* Mobile Navigation */}
+                <div className="flex sm:hidden items-center gap-1 bg-gray-900/80 rounded-lg p-1 border border-white/10 mr-2 backdrop-blur-md">
+                  <button onClick={handlePrev} className="p-1 hover:bg-white/10 text-white rounded"><ChevronLeft className="w-4 h-4" /></button>
+                  <button onClick={handleNext} className="p-1 hover:bg-white/10 text-white rounded"><ChevronRight className="w-4 h-4" /></button>
                 </div>
+                <a
+                  href={selectedPoster.images[currentImageIndex]}
+                  download
+                  className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-[10px] sm:text-xs font-semibold transition-colors shrink-0 shadow-lg"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <span className="hidden xs:inline">Download</span>
+                </a>
               </div>
             </div>
           </div>
