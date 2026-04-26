@@ -656,7 +656,7 @@ export default function RizalMunicipalitiesDistricts() {
   const [selectedMunicipality, setSelectedMunicipality] = useState<MunicipalityProfile | null>(null);
   const [selectedFloodRiskMunicipality, setSelectedFloodRiskMunicipality] = useState<MunicipalityProfile | null>(null);
   const [selectedEvacMunicipality, setSelectedEvacMunicipality] = useState<MunicipalityProfile | null>(null);
-  
+
   // Load data from LocalStorage on mount
   const [evacuationDataMap, setEvacuationDataMap] = useState<Record<string, EvacuationCenter[]>>(() => {
     try {
@@ -680,34 +680,62 @@ export default function RizalMunicipalitiesDistricts() {
   // Automatically fetch GitHub data for all municipalities on mount
   useEffect(() => {
     const fetchAllData = async () => {
-      const updatedMap = { ...evacuationDataMap };
-      let hasChanges = false;
-
       for (const municipality of RIZAL_MUNICIPALITIES) {
         // If local data is empty, try to fetch from GitHub
         if (!evacuationDataMap[municipality.name] || evacuationDataMap[municipality.name].length === 0) {
           const githubData = await fetchMunicipalityEvacData(municipality.name);
           if (githubData.length > 0) {
-            updatedMap[municipality.name] = githubData;
-            hasChanges = true;
+            const mappedData = githubData.map(item => ({
+              name: item.name,
+              location: item.location,
+              capacity_individuals: Number(item.capacity) || 0,
+              capacity_family: Number(item.capacityFamily) || 0,
+              floor_area: Number(item.floorArea) || 0,
+              type: item.type,
+              features: item.features,
+              proximity: item.proximity,
+              source_of_water: item.waterSource,
+              remarks: item.remarks,
+              lat: item.lat,
+              lng: item.lng,
+              contact_person_and_number: item.contact
+            }));
+
+            setEvacuationDataMap(prev => ({
+              ...prev,
+              [municipality.name]: mappedData
+            }));
           }
         }
-      }
-
-      if (hasChanges) {
-        setEvacuationDataMap(updatedMap);
       }
     };
 
     fetchAllData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only on mount
 
   const handleManualSync = async (municipalityName: string) => {
     const githubData = await fetchMunicipalityEvacData(municipalityName);
     if (githubData.length > 0) {
+      const mappedData = githubData.map(item => ({
+        name: item.name,
+        location: item.location,
+        capacity_individuals: Number(item.capacity) || 0,
+        capacity_family: Number(item.capacityFamily) || 0,
+        floor_area: Number(item.floorArea) || 0,
+        type: item.type,
+        features: item.features,
+        proximity: item.proximity,
+        source_of_water: item.waterSource,
+        remarks: item.remarks,
+        lat: item.lat,
+        lng: item.lng,
+        contact_person_and_number: item.contact
+      }));
+
       setEvacuationDataMap(prev => ({
         ...prev,
-        [municipalityName]: githubData
+        [municipalityName]: mappedData
       }));
     }
   };
@@ -787,7 +815,7 @@ export default function RizalMunicipalitiesDistricts() {
                 </div>
               </div>
 
-                <div className="mt-2 rounded-md border border-slate-700/70 bg-slate-900/50 px-2.5 py-2 flex items-center justify-between gap-2">
+              <div className="mt-2 rounded-md border border-slate-700/70 bg-slate-900/50 px-2.5 py-2 flex items-center justify-between gap-2">
                 <p className="text-slate-400 uppercase tracking-wide text-[11px] sm:text-xs">Flood:</p>
                 <button
                   type="button"
@@ -937,15 +965,15 @@ export default function RizalMunicipalitiesDistricts() {
                       })();
 
                       return (
-                      <div
-                        key={barangay.name}
-                        className={`rounded-md border px-2 py-1.5 text-xs font-medium ${floodRiskNeutralStyle} flex items-center justify-between gap-2`}
-                      >
-                        <span>{barangay.name}</span>
-                        {hazardLabel && (
-                          <span className="font-semibold text-slate-900">{hazardLabel}</span>
-                        )}
-                      </div>
+                        <div
+                          key={barangay.name}
+                          className={`rounded-md border px-2 py-1.5 text-xs font-medium ${floodRiskNeutralStyle} flex items-center justify-between gap-2`}
+                        >
+                          <span>{barangay.name}</span>
+                          {hazardLabel && (
+                            <span className="font-semibold text-slate-900">{hazardLabel}</span>
+                          )}
+                        </div>
                       );
                     })}
                   </div>

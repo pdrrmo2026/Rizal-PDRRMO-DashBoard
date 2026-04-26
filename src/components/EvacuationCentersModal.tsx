@@ -1,6 +1,6 @@
 import React, { useState, useRef, useMemo } from 'react';
-import { 
-  X, Upload, Download, FileSpreadsheet, AlertCircle, Trash2, 
+import {
+  X, Upload, Download, FileSpreadsheet, AlertCircle, Trash2,
   Loader2, Search, Map as MapIcon, Table as TableIcon,
   Info, Navigation, Users, Home, Maximize2, MapPin
 } from 'lucide-react';
@@ -59,12 +59,12 @@ export default function EvacuationCentersModal({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const REQUIRED_HEADERS = [
-    'name', 'location', 'capacity', 'capacity_in_family', 'floor_area', 
+    'name', 'location', 'capacity', 'capacity_in_family', 'floor_area',
     'type', 'features', 'proximity', 'source_of_water', 'remarks', 'lat', 'lng', 'contact_person_and_number'
   ];
 
   const filteredData = useMemo(() => {
-    return data.filter(center => 
+    return data.filter(center =>
       center.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       center.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
       center.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -93,7 +93,7 @@ export default function EvacuationCentersModal({
       try {
         const text = e.target?.result as string;
         const rows = text.split(/\r?\n/).filter(row => row.trim() !== '');
-        
+
         if (rows.length < 2) {
           throw new Error('CSV file is empty or missing data rows.');
         }
@@ -217,11 +217,11 @@ export default function EvacuationCentersModal({
   };
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-[60] bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 animate-in fade-in duration-300"
       onClick={onClose}
     >
-      <div 
+      <div
         className="w-full max-w-6xl h-full max-h-[90vh] rounded-2xl border border-slate-700 bg-slate-900 shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 duration-300"
         onClick={(e) => e.stopPropagation()}
       >
@@ -263,7 +263,7 @@ export default function EvacuationCentersModal({
                 className="w-full bg-slate-950 border border-slate-700 rounded-lg py-2 pl-9 pr-4 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/40"
               />
             </div>
-            
+
             <div className="flex bg-slate-950 border border-slate-700 rounded-lg p-1">
               <button
                 onClick={() => setActiveView('table')}
@@ -388,7 +388,7 @@ export default function EvacuationCentersModal({
                                 {idx + 1}
                               </td>
                               <td className="px-6 py-5">
-                                <div 
+                                <div
                                   onClick={() => setSelectedCenter(center)}
                                   className="text-sm font-bold text-white hover:text-cyan-400 transition-colors cursor-pointer whitespace-normal min-w-[150px]"
                                 >
@@ -432,7 +432,7 @@ export default function EvacuationCentersModal({
                                 </div>
                               </td>
                               <td className="px-6 py-5 whitespace-nowrap text-right">
-                                <a 
+                                <a
                                   href={`https://www.google.com/maps/search/?api=1&query=${center.lat},${center.lng}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
@@ -451,31 +451,31 @@ export default function EvacuationCentersModal({
                   </div>
                 ) : (
                   <div className="h-full w-full bg-slate-950">
-                    <MapContainer 
+                    <MapContainer
                       center={[14.5995, 121.2483]} // Approx Rizal coordinates
-                      zoom={11} 
-                      style={{ 
-                        height: '100%', 
+                      zoom={11}
+                      style={{
+                        height: '100%',
                         width: '100%',
                         backgroundColor: '#000'
                       }}
                       className="z-0"
                     >
-                        <TileLayer
-                          url={
-                            baseMap === 'satellite' ? "https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}" :
+                      <TileLayer
+                        url={
+                          baseMap === 'satellite' ? "https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}" :
                             baseMap === 'streets' ? "https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}" :
-                            baseMap === 'terrain' ? "https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}" :
-                            baseMap === 'traffic' ? "https://{s}.google.com/vt/lyrs=m,traffic&x={x}&y={y}&z={z}" :
-                            "https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}" // hybrid default
-                          }
-                          maxZoom={20}
-                          subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
-                          attribution='&copy; Google Maps'
-                        />
+                              baseMap === 'terrain' ? "https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}" :
+                                baseMap === 'traffic' ? "https://{s}.google.com/vt/lyrs=m,traffic&x={x}&y={y}&z={z}" :
+                                  "https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}" // hybrid default
+                        }
+                        maxZoom={20}
+                        subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
+                        attribution='&copy; Google Maps'
+                      />
                       {filteredData.map((center, idx) => (
-                        <Marker 
-                          key={idx} 
+                        <Marker
+                          key={idx}
                           position={[center.lat, center.lng]}
                           eventHandlers={{ click: () => setSelectedCenter(center) }}
                         >
@@ -483,7 +483,7 @@ export default function EvacuationCentersModal({
                             <div className="p-2 min-w-[320px]">
                               <h4 className="font-extrabold text-slate-900 text-lg mb-1 leading-tight">{center.name}</h4>
                               <p className="text-xs text-slate-500 mb-4 leading-relaxed font-medium">{center.location}</p>
-                              
+
                               <div className="grid grid-cols-2 gap-3 mb-4">
                                 <div className="bg-emerald-50 p-3 rounded-xl border border-emerald-100 text-center shadow-sm">
                                   <div className="text-[10px] text-emerald-600 font-black uppercase tracking-wider mb-1">Individuals</div>
@@ -521,8 +521,8 @@ export default function EvacuationCentersModal({
                                   <span className="text-cyan-700 font-black text-sm bg-cyan-50 p-2.5 rounded-lg border border-cyan-100">{center.contact_person_and_number}</span>
                                 </div>
                               </div>
-                              
-                              <button 
+
+                              <button
                                 onClick={() => setSelectedCenter(center)}
                                 className="w-full mt-5 py-3 bg-slate-900 text-white rounded-xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-cyan-600 transition-all shadow-lg active:scale-95"
                               >
@@ -553,11 +553,10 @@ export default function EvacuationCentersModal({
                               setBaseMap(style.id);
                               localStorage.setItem('rizal_map_base_type', style.id);
                             }}
-                            className={`px-3 py-1.5 rounded-lg text-[10px] font-bold text-left transition-all border ${
-                              baseMap === style.id 
-                                ? 'bg-cyan-600 border-cyan-500 text-white' 
+                            className={`px-3 py-1.5 rounded-lg text-[10px] font-bold text-left transition-all border ${baseMap === style.id
+                                ? 'bg-cyan-600 border-cyan-500 text-white'
                                 : 'bg-slate-800/40 border-slate-700 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
-                            }`}
+                              }`}
                           >
                             {style.name}
                           </button>
@@ -578,7 +577,7 @@ export default function EvacuationCentersModal({
                   <Info className="w-4 h-4 text-cyan-400" />
                   Center Details
                 </h4>
-                <button 
+                <button
                   onClick={() => setSelectedCenter(null)}
                   className="p-1.5 hover:bg-slate-800 rounded-lg text-slate-400"
                 >
@@ -655,7 +654,7 @@ export default function EvacuationCentersModal({
                   </div>
                 </section>
 
-                <button 
+                <button
                   onClick={() => {
                     const url = `https://www.google.com/maps?q=${selectedCenter.lat},${selectedCenter.lng}`;
                     window.open(url, '_blank');
