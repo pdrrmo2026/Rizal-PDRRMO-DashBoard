@@ -649,8 +649,8 @@ export default function EvacuationCentersModal({
                       <Users className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-sm font-bold text-white leading-tight">{selectedCenter.contact_person_and_number.split('|')[0] || selectedCenter.contact_person_and_number}</div>
-                      <div className="text-xs text-cyan-500 font-mono mt-0.5">{selectedCenter.contact_person_and_number.split('|')[1] || ''}</div>
+                      <div className="text-sm font-bold text-white leading-tight">{(selectedCenter.contact_person_and_number || '').split('|')[0] || selectedCenter.contact_person_and_number || 'N/A'}</div>
+                      <div className="text-xs text-cyan-500 font-mono mt-0.5">{(selectedCenter.contact_person_and_number || '').split('|')[1] || ''}</div>
                     </div>
                   </div>
                 </section>
