@@ -450,7 +450,7 @@ export default function EvacuationCentersModal({
                     </div>
                   </div>
                 ) : (
-                  <div className="relative h-full bg-slate-950">
+                  <div className="h-full w-full bg-slate-950">
                     <MapContainer
                       center={[14.5995, 121.2483]} // Approx Rizal coordinates
                       zoom={11}
@@ -513,6 +513,10 @@ export default function EvacuationCentersModal({
                                   <span className="text-blue-700 font-black text-sm bg-blue-50 p-2.5 rounded-lg border border-blue-100">{center.source_of_water}</span>
                                 </div>
                                 <div className="flex flex-col gap-1.5 pt-1">
+                                  <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-widest">Additional Remarks</span>
+                                  <span className="text-slate-600 italic bg-amber-500/5 p-2.5 rounded-lg border border-amber-500/10">{center.remarks}</span>
+                                </div>
+                                <div className="flex flex-col gap-1.5 pt-1">
                                   <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-widest">Primary Contact</span>
                                   <span className="text-cyan-700 font-black text-sm bg-cyan-50 p-2.5 rounded-lg border border-cyan-100">{center.contact_person_and_number}</span>
                                 </div>
@@ -550,8 +554,8 @@ export default function EvacuationCentersModal({
                               localStorage.setItem('rizal_map_base_type', style.id);
                             }}
                             className={`px-3 py-1.5 rounded-lg text-[10px] font-bold text-left transition-all border ${baseMap === style.id
-                              ? 'bg-cyan-600 border-cyan-500 text-white'
-                              : 'bg-slate-800/40 border-slate-700 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                                ? 'bg-cyan-600 border-cyan-500 text-white'
+                                : 'bg-slate-800/40 border-slate-700 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
                               }`}
                           >
                             {style.name}
@@ -559,112 +563,14 @@ export default function EvacuationCentersModal({
                         ))}
                       </div>
                     </div>
-
-                    {/* Map overlay detail panel */}
-                    {selectedCenter && activeView === 'map' && (
-                      <div className="absolute top-0 right-0 h-full w-80 z-[1000] bg-slate-900/95 backdrop-blur-xl border-l border-slate-700 overflow-y-auto animate-in slide-in-from-right duration-300 shadow-2xl">
-                        <div className="sticky top-0 p-4 border-b border-slate-700/60 bg-slate-900/90 backdrop-blur flex items-center justify-between">
-                          <h4 className="font-bold text-white flex items-center gap-2">
-                            <Info className="w-4 h-4 text-cyan-400" />
-                            Center Details
-                          </h4>
-                          <button
-                            onClick={() => setSelectedCenter(null)}
-                            className="p-1.5 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-colors"
-                          >
-                            <X className="w-4 h-4" />
-                          </button>
-                        </div>
-
-                        <div className="p-5 space-y-5">
-                          <section>
-                            <h5 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Identification</h5>
-                            <div className="space-y-1">
-                              <div className="text-lg font-bold text-white leading-snug">{selectedCenter.name}</div>
-                              <div className="flex items-start gap-2 text-sm text-slate-400">
-                                <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-rose-500" />
-                                {selectedCenter.location}
-                              </div>
-                            </div>
-                          </section>
-
-                          <div className="grid grid-cols-2 gap-3">
-                            <div className="p-3 bg-slate-950/50 rounded-xl border border-slate-800 text-center">
-                              <div className="text-[10px] font-bold text-slate-500 uppercase mb-1">Individuals</div>
-                              <div className="text-2xl font-black text-emerald-400">{selectedCenter.capacity_individuals}</div>
-                            </div>
-                            <div className="p-3 bg-slate-950/50 rounded-xl border border-slate-800 text-center">
-                              <div className="text-[10px] font-bold text-slate-500 uppercase mb-1">Families</div>
-                              <div className="text-2xl font-black text-amber-400">{selectedCenter.capacity_family}</div>
-                            </div>
-                          </div>
-
-                          <section className="space-y-3">
-                            <div className="flex items-center justify-between text-sm">
-                              <span className="text-slate-500 flex items-center gap-2"><Home className="w-4 h-4" /> Type</span>
-                              <span className="text-white font-bold">{selectedCenter.type}</span>
-                            </div>
-                            <div className="flex items-center justify-between text-sm">
-                              <span className="text-slate-500 flex items-center gap-2"><Maximize2 className="w-4 h-4" /> Area</span>
-                              <span className="text-cyan-400 font-bold font-mono">{selectedCenter.floor_area} sqm</span>
-                            </div>
-                            <div className="flex items-center justify-between text-sm">
-                              <span className="text-slate-500 flex items-center gap-2"><Navigation className="w-4 h-4" /> Proximity</span>
-                              <span className="text-white font-bold text-right max-w-[55%]">{selectedCenter.proximity}</span>
-                            </div>
-                            <div className="flex items-center justify-between text-sm">
-                              <span className="text-blue-400 flex items-center gap-2">💧 Water</span>
-                              <span className="text-white font-bold">{selectedCenter.source_of_water}</span>
-                            </div>
-                          </section>
-
-                          <section>
-                            <h5 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Remarks</h5>
-                            <div className="p-3 bg-rose-500/5 rounded-lg text-sm text-slate-400 border border-rose-500/10">
-                              {selectedCenter.remarks || 'No additional remarks.'}
-                            </div>
-                          </section>
-
-                          <section>
-                            <h5 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Features & Facilities</h5>
-                            <div className="p-3 bg-slate-800/30 rounded-lg text-sm text-slate-300 italic border border-slate-700/30 leading-relaxed">
-                              "{selectedCenter.features}"
-                            </div>
-                          </section>
-
-                          <section className="pt-4 border-t border-slate-800">
-                            <h5 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Emergency Contact</h5>
-                            <div className="flex items-center gap-3 p-3 bg-cyan-500/5 border border-cyan-500/10 rounded-xl">
-                              <div className="w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-400 shrink-0">
-                                <Users className="w-5 h-5" />
-                              </div>
-                              <div>
-                                <div className="text-sm font-bold text-white leading-tight">{selectedCenter.contact_person_and_number.split('|')[0] || selectedCenter.contact_person_and_number}</div>
-                                <div className="text-xs text-cyan-500 font-mono mt-0.5">{selectedCenter.contact_person_and_number.split('|')[1] || ''}</div>
-                              </div>
-                            </div>
-                          </section>
-
-                          <button
-                            onClick={() => {
-                              const url = `https://www.google.com/maps?q=${selectedCenter.lat},${selectedCenter.lng}`;
-                              window.open(url, '_blank');
-                            }}
-                            className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all border border-slate-700"
-                          >
-                            View in Google Maps
-                          </button>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 )}
               </div>
             )}
           </div>
 
-          {/* Detail Side Panel (table view only — map view has its own overlay) */}
-          {selectedCenter && activeView === 'table' && (
+          {/* Detail Side Panel */}
+          {selectedCenter && (
             <div className="w-80 border-l border-slate-700 bg-slate-900/50 backdrop-blur-xl animate-in slide-in-from-right duration-300 overflow-y-auto">
               <div className="sticky top-0 p-4 border-b border-slate-700/60 bg-slate-900/80 backdrop-blur flex items-center justify-between">
                 <h4 className="font-bold text-white flex items-center gap-2">
