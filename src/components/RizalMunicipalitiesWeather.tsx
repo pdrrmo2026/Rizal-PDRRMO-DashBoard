@@ -63,10 +63,10 @@ function getWindDirection(deg: number | null): string {
 // Heat Index category — correct thresholds
 function getHeatIndexInfo(c: number | null): { label: string; color: string; dot: string; bg: string; border: string; warning: string } {
   if (c === null) return { label: 'N/A', color: 'text-slate-400', dot: 'bg-slate-500', bg: 'bg-slate-700/30', border: 'border-slate-600/30', warning: '' };
-  if (c < 33)  return { label: 'Normal',   color: 'text-green-400',  dot: 'bg-green-500',  bg: 'bg-green-900/20',  border: 'border-green-500/30',  warning: 'Comfortable' };
-  if (c <= 41) return { label: 'Caution',  color: 'text-yellow-400', dot: 'bg-yellow-400', bg: 'bg-yellow-900/20', border: 'border-yellow-500/30', warning: 'Fatigue possible' };
-  if (c <= 51) return { label: 'Danger',   color: 'text-orange-400', dot: 'bg-orange-500', bg: 'bg-orange-900/20', border: 'border-orange-500/30', warning: 'Heat cramps possible' };
-  return       { label: 'Extreme',  color: 'text-red-400',    dot: 'bg-red-500',    bg: 'bg-red-900/20',    border: 'border-red-500/30',    warning: 'Heat stroke imminent' };
+  if (c < 33) return { label: 'Normal', color: 'text-green-400', dot: 'bg-green-500', bg: 'bg-green-900/20', border: 'border-green-500/30', warning: 'Comfortable' };
+  if (c <= 41) return { label: 'Caution', color: 'text-yellow-400', dot: 'bg-yellow-400', bg: 'bg-yellow-900/20', border: 'border-yellow-500/30', warning: 'Fatigue possible' };
+  if (c <= 51) return { label: 'Danger', color: 'text-orange-400', dot: 'bg-orange-500', bg: 'bg-orange-900/20', border: 'border-orange-500/30', warning: 'Heat cramps possible' };
+  return { label: 'Extreme', color: 'text-red-400', dot: 'bg-red-500', bg: 'bg-red-900/20', border: 'border-red-500/30', warning: 'Heat stroke imminent' };
 }
 
 // US AQI categories (per EPA standard)
@@ -351,15 +351,14 @@ export default function RizalMunicipalitiesWeather() {
                       <div className="bg-slate-900/50 rounded px-1.5 py-1.5 text-center">
                         <div className="text-[8px] text-blue-300 uppercase font-semibold tracking-wider">Rainfall</div>
                         <div
-                          className={`text-[11px] sm:text-xs font-bold ${
-                            (m.precipitation ?? 0) > 7.5
+                          className={`text-[11px] sm:text-xs font-bold ${(m.precipitation ?? 0) > 7.5
                               ? 'text-red-400'
                               : (m.precipitation ?? 0) > 2.5
-                              ? 'text-orange-300'
-                              : (m.precipitation ?? 0) > 0
-                              ? 'text-yellow-300'
-                              : 'text-white'
-                          }`}
+                                ? 'text-orange-300'
+                                : (m.precipitation ?? 0) > 0
+                                  ? 'text-yellow-300'
+                                  : 'text-white'
+                            }`}
                         >
                           {(m.precipitation ?? 0).toFixed(1)}<span className="text-[8px] text-slate-400 ml-0.5">mm</span>
                         </div>

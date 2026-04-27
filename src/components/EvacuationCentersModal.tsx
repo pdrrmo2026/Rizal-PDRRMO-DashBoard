@@ -1,23 +1,12 @@
-import React, { useState, useRef, useMemo, useEffect } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import {
   X, Upload, Download, FileSpreadsheet, AlertCircle, Trash2,
   Loader2, Search, Map as MapIcon, Table as TableIcon,
   Info, Navigation, Users, Home, Maximize2, MapPin
 } from 'lucide-react';
-import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-
-// Flies map to selected center without reloading
-function MapFlyTo({ center }: { center: [number, number] | null }) {
-  const map = useMap();
-  useEffect(() => {
-    if (center) {
-      map.flyTo(center, Math.max(map.getZoom(), 15), { animate: true, duration: 0.8 });
-    }
-  }, [center, map]);
-  return null;
-}
 
 // Fix for default marker icon in Leaflet + React
 // @ts-ignore
@@ -461,7 +450,7 @@ export default function EvacuationCentersModal({
                     </div>
                   </div>
                 ) : (
-                  <div className="h-full w-full bg-slate-950">
+                  <div className="relative h-full bg-slate-950">
                     <MapContainer
                       center={[14.5995, 121.2483]} // Approx Rizal coordinates
                       zoom={11}
@@ -484,34 +473,61 @@ export default function EvacuationCentersModal({
                         subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
                         attribution='&copy; Google Maps'
                       />
-                      <MapFlyTo center={selectedCenter ? [selectedCenter.lat, selectedCenter.lng] : null} />
-                      {filteredData.map((center, idx) => {
-                        const isSelected = selectedCenter?.name === center.name && selectedCenter?.lat === center.lat;
-                        // Use a highlighted icon for the selected marker
-                        const markerIcon = isSelected
-                          ? L.divIcon({
-                              className: '',
-                              html: `<div style="width:28px;height:28px;background:#06b6d4;border:3px solid white;border-radius:50%;box-shadow:0 0 0 4px rgba(6,182,212,0.35),0 2px 8px rgba(0,0,0,0.5);transition:all 0.2s;"></div>`,
-                              iconSize: [28, 28],
-                              iconAnchor: [14, 14],
-                            })
-                          : L.divIcon({
-                              className: '',
-                              html: `<div style="width:20px;height:20px;background:#3b82f6;border:2px solid white;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.4);transition:all 0.2s;"></div>`,
-                              iconSize: [20, 20],
-                              iconAnchor: [10, 10],
-                            });
-                        return (
-                          <Marker
-                            key={idx}
-                            position={[center.lat, center.lng]}
-                            icon={markerIcon}
-                            eventHandlers={{
-                              click: () => setSelectedCenter(isSelected ? null : center),
-                            }}
-                          />
-                        );
-                      })}
+                      {filteredData.map((center, idx) => (
+                        <Marker
+                          key={idx}
+                          position={[center.lat, center.lng]}
+                          eventHandlers={{ click: () => setSelectedCenter(center) }}
+                        >
+                          <Popup className="custom-popup">
+                            <div className="p-2 min-w-[320px]">
+                              <h4 className="font-extrabold text-slate-900 text-lg mb-1 leading-tight">{center.name}</h4>
+                              <p className="text-xs text-slate-500 mb-4 leading-relaxed font-medium">{center.location}</p>
+
+                              <div className="grid grid-cols-2 gap-3 mb-4">
+                                <div className="bg-emerald-50 p-3 rounded-xl border border-emerald-100 text-center shadow-sm">
+                                  <div className="text-[10px] text-emerald-600 font-black uppercase tracking-wider mb-1">Individuals</div>
+                                  <div className="text-xl font-black text-emerald-700">{center.capacity_individuals}</div>
+                                </div>
+                                <div className="bg-amber-50 p-3 rounded-xl border border-amber-100 text-center shadow-sm">
+                                  <div className="text-[10px] text-amber-600 font-black uppercase tracking-wider mb-1">Families</div>
+                                  <div className="text-xl font-black text-amber-700">{center.capacity_family}</div>
+                                </div>
+                              </div>
+
+                              <div className="space-y-3 text-xs pt-4 border-t border-slate-100">
+                                <div className="flex flex-col gap-1.5">
+                                  <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-widest">Features & Facilities</span>
+                                  <span className="text-slate-700 italic leading-relaxed bg-slate-50 p-2.5 rounded-lg border border-slate-100">"{center.features}"</span>
+                                </div>
+                                <div className="flex flex-col gap-1.5">
+                                  <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-widest">Neighborhood Proximity</span>
+                                  <span className="text-slate-800 font-semibold">{center.proximity}</span>
+                                </div>
+                                <div className="flex flex-col gap-1.5 pt-1">
+                                  <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-widest">Additional Remarks</span>
+                                  <span className="text-slate-600 italic bg-amber-500/5 p-2.5 rounded-lg border border-amber-500/10">{center.remarks || "N/A"}</span>
+                                </div>
+                                <div className="flex flex-col gap-1.5 pt-1">
+                                  <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-widest">Source of Water</span>
+                                  <span className="text-blue-700 font-black text-sm bg-blue-50 p-2.5 rounded-lg border border-blue-100">{center.source_of_water}</span>
+                                </div>
+                                <div className="flex flex-col gap-1.5 pt-1">
+                                  <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-widest">Primary Contact</span>
+                                  <span className="text-cyan-700 font-black text-sm bg-cyan-50 p-2.5 rounded-lg border border-cyan-100">{center.contact_person_and_number}</span>
+                                </div>
+                              </div>
+
+                              <button
+                                onClick={() => setSelectedCenter(center)}
+                                className="w-full mt-5 py-3 bg-slate-900 text-white rounded-xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-cyan-600 transition-all shadow-lg active:scale-95"
+                              >
+                                Manage Detailed Profile
+                              </button>
+                            </div>
+                          </Popup>
+                        </Marker>
+                      ))}
                     </MapContainer>
 
                     {/* Floating Base Map Selector */}
@@ -544,11 +560,11 @@ export default function EvacuationCentersModal({
                       </div>
                     </div>
 
-                    {/* Detail overlay panel on map */}
+                    {/* Map overlay detail panel */}
                     {selectedCenter && activeView === 'map' && (
-                      <div className="absolute top-4 right-4 z-[1000] w-80 max-h-[calc(90vh-180px)] flex flex-col rounded-2xl border border-slate-600 bg-slate-900/95 backdrop-blur-xl shadow-2xl overflow-hidden animate-in slide-in-from-right duration-300">
-                        <div className="sticky top-0 px-4 py-3 border-b border-slate-700/60 bg-slate-900/90 backdrop-blur flex items-center justify-between shrink-0">
-                          <h4 className="font-bold text-white flex items-center gap-2 text-sm">
+                      <div className="absolute top-0 right-0 h-full w-80 z-[1000] bg-slate-900/95 backdrop-blur-xl border-l border-slate-700 overflow-y-auto animate-in slide-in-from-right duration-300 shadow-2xl">
+                        <div className="sticky top-0 p-4 border-b border-slate-700/60 bg-slate-900/90 backdrop-blur flex items-center justify-between">
+                          <h4 className="font-bold text-white flex items-center gap-2">
                             <Info className="w-4 h-4 text-cyan-400" />
                             Center Details
                           </h4>
@@ -560,85 +576,81 @@ export default function EvacuationCentersModal({
                           </button>
                         </div>
 
-                        <div className="overflow-y-auto p-4 space-y-5">
-                          {/* Identity */}
+                        <div className="p-5 space-y-5">
                           <section>
-                            <h5 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Identification</h5>
-                            <div className="text-base font-bold text-white leading-snug mb-1">{selectedCenter.name}</div>
-                            <div className="flex items-start gap-2 text-xs text-slate-400">
-                              <MapPin className="w-3.5 h-3.5 shrink-0 mt-0.5 text-rose-500" />
-                              {selectedCenter.location}
+                            <h5 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Identification</h5>
+                            <div className="space-y-1">
+                              <div className="text-lg font-bold text-white leading-snug">{selectedCenter.name}</div>
+                              <div className="flex items-start gap-2 text-sm text-slate-400">
+                                <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-rose-500" />
+                                {selectedCenter.location}
+                              </div>
                             </div>
                           </section>
 
-                          {/* Capacity */}
-                          <div className="grid grid-cols-2 gap-2">
-                            <div className="p-3 bg-emerald-500/10 rounded-xl border border-emerald-500/20 text-center">
-                              <div className="text-[10px] font-bold text-emerald-400 uppercase mb-1">Individuals</div>
-                              <div className="text-xl font-black text-emerald-300">{selectedCenter.capacity_individuals}</div>
+                          <div className="grid grid-cols-2 gap-3">
+                            <div className="p-3 bg-slate-950/50 rounded-xl border border-slate-800 text-center">
+                              <div className="text-[10px] font-bold text-slate-500 uppercase mb-1">Individuals</div>
+                              <div className="text-2xl font-black text-emerald-400">{selectedCenter.capacity_individuals}</div>
                             </div>
-                            <div className="p-3 bg-amber-500/10 rounded-xl border border-amber-500/20 text-center">
-                              <div className="text-[10px] font-bold text-amber-400 uppercase mb-1">Families</div>
-                              <div className="text-xl font-black text-amber-300">{selectedCenter.capacity_family}</div>
+                            <div className="p-3 bg-slate-950/50 rounded-xl border border-slate-800 text-center">
+                              <div className="text-[10px] font-bold text-slate-500 uppercase mb-1">Families</div>
+                              <div className="text-2xl font-black text-amber-400">{selectedCenter.capacity_family}</div>
                             </div>
                           </div>
 
-                          {/* Details */}
                           <section className="space-y-3">
-                            <div className="flex items-center justify-between text-xs">
-                              <span className="text-slate-500 flex items-center gap-1.5"><Home className="w-3.5 h-3.5" /> Type</span>
+                            <div className="flex items-center justify-between text-sm">
+                              <span className="text-slate-500 flex items-center gap-2"><Home className="w-4 h-4" /> Type</span>
                               <span className="text-white font-bold">{selectedCenter.type}</span>
                             </div>
-                            <div className="flex items-center justify-between text-xs">
-                              <span className="text-slate-500 flex items-center gap-1.5"><Maximize2 className="w-3.5 h-3.5" /> Area</span>
+                            <div className="flex items-center justify-between text-sm">
+                              <span className="text-slate-500 flex items-center gap-2"><Maximize2 className="w-4 h-4" /> Area</span>
                               <span className="text-cyan-400 font-bold font-mono">{selectedCenter.floor_area} sqm</span>
                             </div>
-                            <div className="flex items-center justify-between text-xs">
-                              <span className="text-slate-500 flex items-center gap-1.5"><Navigation className="w-3.5 h-3.5" /> Proximity</span>
-                              <span className="text-white font-bold text-right max-w-[150px]">{selectedCenter.proximity}</span>
+                            <div className="flex items-center justify-between text-sm">
+                              <span className="text-slate-500 flex items-center gap-2"><Navigation className="w-4 h-4" /> Proximity</span>
+                              <span className="text-white font-bold text-right max-w-[55%]">{selectedCenter.proximity}</span>
                             </div>
-                            <div className="flex items-center justify-between text-xs">
-                              <span className="text-blue-400">💧 Water</span>
+                            <div className="flex items-center justify-between text-sm">
+                              <span className="text-blue-400 flex items-center gap-2">💧 Water</span>
                               <span className="text-white font-bold">{selectedCenter.source_of_water}</span>
                             </div>
                           </section>
 
-                          {/* Features */}
+                          <section>
+                            <h5 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Remarks</h5>
+                            <div className="p-3 bg-rose-500/5 rounded-lg text-sm text-slate-400 border border-rose-500/10">
+                              {selectedCenter.remarks || 'No additional remarks.'}
+                            </div>
+                          </section>
+
                           <section>
                             <h5 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Features & Facilities</h5>
-                            <div className="p-3 bg-slate-800/50 rounded-lg text-xs text-slate-300 italic border border-slate-700/40 leading-relaxed">
+                            <div className="p-3 bg-slate-800/30 rounded-lg text-sm text-slate-300 italic border border-slate-700/30 leading-relaxed">
                               "{selectedCenter.features}"
                             </div>
                           </section>
 
-                          {/* Remarks */}
-                          {selectedCenter.remarks && (
-                            <section>
-                              <h5 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Remarks</h5>
-                              <div className="p-3 bg-rose-500/5 rounded-lg text-xs text-slate-400 border border-rose-500/10">
-                                {selectedCenter.remarks}
-                              </div>
-                            </section>
-                          )}
-
-                          {/* Contact */}
-                          <section className="pt-3 border-t border-slate-800">
-                            <h5 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Emergency Contact</h5>
+                          <section className="pt-4 border-t border-slate-800">
+                            <h5 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Emergency Contact</h5>
                             <div className="flex items-center gap-3 p-3 bg-cyan-500/5 border border-cyan-500/10 rounded-xl">
-                              <div className="w-8 h-8 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-400 shrink-0">
-                                <Users className="w-4 h-4" />
+                              <div className="w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-400 shrink-0">
+                                <Users className="w-5 h-5" />
                               </div>
-                              <div className="min-w-0">
-                                <div className="text-xs font-bold text-white leading-tight truncate">{selectedCenter.contact_person_and_number.split('|')[0] || selectedCenter.contact_person_and_number}</div>
-                                <div className="text-[10px] text-cyan-500 font-mono mt-0.5">{selectedCenter.contact_person_and_number.split('|')[1] || ''}</div>
+                              <div>
+                                <div className="text-sm font-bold text-white leading-tight">{selectedCenter.contact_person_and_number.split('|')[0] || selectedCenter.contact_person_and_number}</div>
+                                <div className="text-xs text-cyan-500 font-mono mt-0.5">{selectedCenter.contact_person_and_number.split('|')[1] || ''}</div>
                               </div>
                             </div>
                           </section>
 
-                          {/* Google Maps link */}
                           <button
-                            onClick={() => window.open(`https://www.google.com/maps?q=${selectedCenter.lat},${selectedCenter.lng}`, '_blank')}
-                            className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all border border-slate-700"
+                            onClick={() => {
+                              const url = `https://www.google.com/maps?q=${selectedCenter.lat},${selectedCenter.lng}`;
+                              window.open(url, '_blank');
+                            }}
+                            className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all border border-slate-700"
                           >
                             View in Google Maps
                           </button>
@@ -651,7 +663,7 @@ export default function EvacuationCentersModal({
             )}
           </div>
 
-          {/* Detail Side Panel — table view only; map view uses its own overlay */}
+          {/* Detail Side Panel (table view only — map view has its own overlay) */}
           {selectedCenter && activeView === 'table' && (
             <div className="w-80 border-l border-slate-700 bg-slate-900/50 backdrop-blur-xl animate-in slide-in-from-right duration-300 overflow-y-auto">
               <div className="sticky top-0 p-4 border-b border-slate-700/60 bg-slate-900/80 backdrop-blur flex items-center justify-between">
