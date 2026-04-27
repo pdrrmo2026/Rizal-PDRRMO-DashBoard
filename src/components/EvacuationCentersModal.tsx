@@ -479,59 +479,7 @@ export default function EvacuationCentersModal({
                           key={idx}
                           position={[center.lat, center.lng]}
                           eventHandlers={{ click: () => setSelectedCenter(center) }}
-                        >
-                          <Popup className="custom-popup">
-                            <div className="p-2 min-w-[320px]">
-                              <h4 className="font-extrabold text-slate-900 text-lg mb-1 leading-tight">{center.name}</h4>
-                              <p className="text-xs text-slate-500 mb-4 leading-relaxed font-medium">{center.location}</p>
-
-                              <div className="grid grid-cols-2 gap-3 mb-4">
-                                <div className="bg-emerald-50 p-3 rounded-xl border border-emerald-100 text-center shadow-sm">
-                                  <div className="text-[10px] text-emerald-600 font-black uppercase tracking-wider mb-1">Individuals</div>
-                                  <div className="text-xl font-black text-emerald-700">{center.capacity_individuals}</div>
-                                </div>
-                                <div className="bg-amber-50 p-3 rounded-xl border border-amber-100 text-center shadow-sm">
-                                  <div className="text-[10px] text-amber-600 font-black uppercase tracking-wider mb-1">Families</div>
-                                  <div className="text-xl font-black text-amber-700">{center.capacity_family}</div>
-                                </div>
-                              </div>
-
-                              <div className="space-y-3 text-xs pt-4 border-t border-slate-100">
-                                <div className="flex flex-col gap-1.5">
-                                  <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-widest">Features & Facilities</span>
-                                  <span className="text-slate-700 italic leading-relaxed bg-slate-50 p-2.5 rounded-lg border border-slate-100">"{center.features}"</span>
-                                </div>
-                                <div className="flex flex-col gap-1.5">
-                                  <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-widest">Neighborhood Proximity</span>
-                                  <span className="text-slate-800 font-semibold">{center.proximity}</span>
-                                </div>
-                                <div className="flex flex-col gap-1.5 pt-1">
-                                  <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-widest">Additional Remarks</span>
-                                  <span className="text-slate-600 italic bg-amber-500/5 p-2.5 rounded-lg border border-amber-500/10">{center.remarks || "N/A"}</span>
-                                </div>
-                                <div className="flex flex-col gap-1.5 pt-1">
-                                  <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-widest">Source of Water</span>
-                                  <span className="text-blue-700 font-black text-sm bg-blue-50 p-2.5 rounded-lg border border-blue-100">{center.source_of_water}</span>
-                                </div>
-                                <div className="flex flex-col gap-1.5 pt-1">
-                                  <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-widest">Additional Remarks</span>
-                                  <span className="text-slate-600 italic bg-amber-500/5 p-2.5 rounded-lg border border-amber-500/10">{center.remarks}</span>
-                                </div>
-                                <div className="flex flex-col gap-1.5 pt-1">
-                                  <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-widest">Primary Contact</span>
-                                  <span className="text-cyan-700 font-black text-sm bg-cyan-50 p-2.5 rounded-lg border border-cyan-100">{center.contact_person_and_number}</span>
-                                </div>
-                              </div>
-
-                              <button
-                                onClick={() => setSelectedCenter(center)}
-                                className="w-full mt-5 py-3 bg-slate-900 text-white rounded-xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-cyan-600 transition-all shadow-lg active:scale-95"
-                              >
-                                Manage Detailed Profile
-                              </button>
-                            </div>
-                          </Popup>
-                        </Marker>
+                        />
                       ))}
                     </MapContainer>
 
