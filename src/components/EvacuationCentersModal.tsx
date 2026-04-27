@@ -333,8 +333,8 @@ export default function EvacuationCentersModal({
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 overflow-hidden flex">
-          <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 overflow-hidden flex min-h-0">
+          <div className="flex-1 flex flex-col overflow-hidden min-h-0">
             {error && (
               <div className="mx-6 mt-4 p-3 bg-rose-500/10 border border-rose-500/20 rounded-lg flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
@@ -360,7 +360,7 @@ export default function EvacuationCentersModal({
                 </button>
               </div>
             ) : (
-              <div className="flex-1 relative overflow-hidden">
+              <div className="flex-1 relative overflow-hidden min-h-0">
                 {activeView === 'table' ? (
                   <div className="h-full overflow-auto p-4 sm:p-6">
                     <div className="inline-block min-w-full align-middle">
@@ -450,13 +450,14 @@ export default function EvacuationCentersModal({
                     </div>
                   </div>
                 ) : (
-                  <div className="h-full w-full bg-slate-950">
+                  <div className="relative w-full bg-slate-950" style={{ height: 'calc(90vh - 180px)', minHeight: '400px' }}>
                     <MapContainer
                       center={[14.5995, 121.2483]} // Approx Rizal coordinates
                       zoom={11}
                       style={{
                         height: '100%',
                         width: '100%',
+                        minHeight: '400px',
                         backgroundColor: '#000'
                       }}
                       className="z-0"
