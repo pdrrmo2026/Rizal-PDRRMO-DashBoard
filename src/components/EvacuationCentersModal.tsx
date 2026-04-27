@@ -554,8 +554,8 @@ export default function EvacuationCentersModal({
                               localStorage.setItem('rizal_map_base_type', style.id);
                             }}
                             className={`px-3 py-1.5 rounded-lg text-[10px] font-bold text-left transition-all border ${baseMap === style.id
-                                ? 'bg-cyan-600 border-cyan-500 text-white'
-                                : 'bg-slate-800/40 border-slate-700 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                              ? 'bg-cyan-600 border-cyan-500 text-white'
+                              : 'bg-slate-800/40 border-slate-700 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
                               }`}
                           >
                             {style.name}
