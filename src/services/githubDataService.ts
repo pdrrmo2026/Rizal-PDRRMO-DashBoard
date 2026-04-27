@@ -18,7 +18,7 @@ export interface EvacuationCenter {
 
 export async function fetchMunicipalityEvacData(municipalityName: string): Promise<EvacuationCenter[]> {
   const fileName = `Evacuation_Centers_${municipalityName}.csv`;
-  const url = `${GITHUB_BASE_URL}/${encodeURIComponent(fileName)}`;
+  const url = `${GITHUB_BASE_URL}/${encodeURIComponent(fileName)}?t=${Date.now()}`;
   
   try {
     const response = await fetch(url);

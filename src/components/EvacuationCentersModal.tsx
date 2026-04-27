@@ -160,6 +160,14 @@ export default function EvacuationCentersModal({
 
         onDataUpdate(parsedData);
         if (fileInputRef.current) fileInputRef.current.value = '';
+        
+        // Sync to GitHub via local backend
+        fetch(`http://localhost:3001/api/github/evac/${encodeURIComponent(municipalityName)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: text
+        }).catch(err => console.error("Failed to sync to GitHub:", err));
+
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to parse CSV file.');
       } finally {
@@ -210,9 +218,14 @@ export default function EvacuationCentersModal({
   };
 
   const clearData = () => {
-    if (window.confirm('Are you sure you want to clear all data?')) {
+    if (window.confirm('Are you sure you want to clear all data? This will also delete the file from GitHub.')) {
       onDataUpdate([]);
       setSelectedCenter(null);
+      
+      // Delete from GitHub via local backend
+      fetch(`http://localhost:3001/api/github/evac/${encodeURIComponent(municipalityName)}`, {
+        method: 'DELETE'
+      }).catch(err => console.error("Failed to delete from GitHub:", err));
     }
   };
 
