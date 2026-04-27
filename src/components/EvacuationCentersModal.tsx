@@ -160,7 +160,7 @@ export default function EvacuationCentersModal({
 
         onDataUpdate(parsedData);
         if (fileInputRef.current) fileInputRef.current.value = '';
-        
+
         // Sync to GitHub via local backend
         fetch(`http://localhost:3001/api/github/evac/${encodeURIComponent(municipalityName)}`, {
           method: 'POST',
@@ -221,7 +221,7 @@ export default function EvacuationCentersModal({
     if (window.confirm('Are you sure you want to clear all data? This will also delete the file from GitHub.')) {
       onDataUpdate([]);
       setSelectedCenter(null);
-      
+
       // Delete from GitHub via local backend
       fetch(`http://localhost:3001/api/github/evac/${encodeURIComponent(municipalityName)}`, {
         method: 'DELETE'
