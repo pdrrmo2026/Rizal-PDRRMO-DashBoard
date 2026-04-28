@@ -73,6 +73,7 @@ app.post('/api/github/evac/:municipality', async (req, res) => {
     // Run git commands
     await execPromise(`git add "${filePath}"`, { cwd: __dirname });
     await execPromise(`git commit -m "Update evacuation centers for ${municipality}"`, { cwd: __dirname });
+    await execPromise(`git pull --rebase origin main`, { cwd: __dirname });
     await execPromise(`git push`, { cwd: __dirname });
 
     res.json({ success: true, message: `Successfully pushed ${fileName} to GitHub` });
@@ -104,6 +105,7 @@ app.delete('/api/github/evac/:municipality', async (req, res) => {
     // Run git commands
     await execPromise(`git add "${filePath}"`, { cwd: __dirname });
     await execPromise(`git commit -m "Remove evacuation centers for ${municipality}"`, { cwd: __dirname });
+    await execPromise(`git pull --rebase origin main`, { cwd: __dirname });
     await execPromise(`git push`, { cwd: __dirname });
 
     res.json({ success: true, message: `Successfully deleted and pushed ${fileName}` });
