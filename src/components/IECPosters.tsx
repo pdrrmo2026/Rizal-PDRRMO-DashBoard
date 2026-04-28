@@ -127,6 +127,30 @@ const POSTERS: Poster[] = [
       '/educational_posters/weather_advisory_poster/d8f95b17-baf7-4d36-8464-d32fc5b7b667.jpg'
     ],
     category: 'Weather'
+  },
+  {
+    id: 'heat-index',
+    title: 'Heat Index',
+    description: 'Guide and warnings for extreme heat index.',
+    images: [
+      '/educational_posters/heat_index/5220135d-e2ee-4002-b228-05a8b9b78075.jpg',
+      '/educational_posters/heat_index/f2185de8-5171-48db-bcc9-ccb7244569a5.jpg'
+    ],
+    category: 'Weather'
+  },
+  {
+    id: 'safe-house',
+    title: 'How Safe Is My House?',
+    description: 'Self-check guide for house earthquake safety.',
+    images: [
+      '/educational_posters/how_safe_is_my_house/459f709f-a8f2-408f-afa1-531d83b8d604.jpg',
+      '/educational_posters/how_safe_is_my_house/5fb0b4f1-f151-486a-b822-48661a018900.jpg',
+      '/educational_posters/how_safe_is_my_house/69cdaa65-93e4-492a-b54d-883ff817b59e.jpg',
+      '/educational_posters/how_safe_is_my_house/6e3d1513-7382-4507-8554-4c74c90d146b.jpg',
+      '/educational_posters/how_safe_is_my_house/9a7a6477-19b6-4676-bc59-ab0fc37db567.jpg',
+      '/educational_posters/how_safe_is_my_house/bae9ab04-9a7f-4403-8e5b-bd3496327cdc.jpg'
+    ],
+    category: 'Earthquake'
   }
 ];
 
