@@ -1,39 +1,40 @@
-Name,Location,Capacity,Capacity in family,Floor area,Type,Features,Proximity,Source of water,Remarks,Lat,Lng,Contact person and number
-"San Francisco Elementary School","San Francisco Floodway, Brgy. San Juan",0,140,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","3.48km","","",14.565,121.11,""
-"San Francisco Chapel","San Francisco Floodway, Brgy. San Juan",0,10,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","3.13km","","",14.564167,121.111667,""
-"AnakPawis I Covered Court","AnakPawis I, Brgy. San Juan",0,90,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","3.36km","","",14.560833,121.113056,""
-"Exodus Elementary School","Exodus Floodway, Brgy. San Juan",0,320,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","4.37km","","",14.555,121.116944,""
-"Exodus Day Care Center","Exodus Floodway, Brgy. San Juan",0,10,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","4.46km","","",14.555,121.1175,""
-"San Juan National High School","AnakPawis I, Brgy. San Juan",0,100,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","3.27km","","",14.563333,121.112222,""
-"L. Santos Day Care Center & Multipurpose Hall","L. Santos St., Brgy. San Juan",0,10,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","1.57km","","",14.578056,121.124722,""
-"Arinda Elementary School","SitioArinda, Brgy. San Juan",0,130,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","6.90km","","",14.534722,121.110833,""
-"Barangay Hall","Brgy. San Juan",0,44,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","1.27km","","",14.576111,121.122778,""
-"Kabisig Elementary School","Kabisig Floodway, Brgy. San Andres",0,130,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","4.1km","","",14.569722,121.106389,""
-"PFCI Covered Court","PFCI Floodway, Brgy. San Andres",0,90,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","4.7km","","",14.573889,121.103889,""
-"LakasBisig 1 Day Care Center","LakasBisig Floodway, Brgy. San Andres",0,9,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","6.1km","","",14.569167,121.103333,""
-"LakasBisig 2 Day Care Center","LakasBisig Floodway, Brgy. San Andres",0,9,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","7.1km","","",14.562222,121.107778,""
-"LakasBisig Elementary School","LakasBisig Floodway, Brgy. San Andres",0,150,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","6.4km","","",14.568889,121.103333,""
-"LakasBisig Covered Court","LakasBisig Floodway, Brgy. San Andres",0,80,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","7.1km","","",14.564722,121.106389,""
-"AnakPawis II Covered Court","BuklodMaralita Floodway, Brgy. San Andres",0,80,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","7.1km","","",14.564722,121.106389,""
-"Planters Elementary School","Planters Floodway, Brgy. San Andres",0,80,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","7.6km","","",14.556667,121.111389,""
-"Planters Covered Court","Planters Floodway, Brgy. San Andres",0,80,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","6.8km","","",14.557778,121.110833,""
-"One Cainta Shelter","Brgy. San Andres",0,65,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","600M","","",14.564959,121.106476,""
-"Planters Day Care Center","Planters Floodway, Brgy. San Andres",0,8,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","6.8km","","",14.557778,121.111111,""
-"Balanti Covered Court","Balanti, Brgy. San Isidro",0,90,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","8.3km","","",14.635833,121.108889,""
-"Balanti Elementary School","Balanti, Brgy. San Isidro",0,170,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","8.3km","","",14.636111,121.108333,""
-"SitioHalang Elementary School","SitioHalang, Brgy. San Isidro",0,80,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","9.6km","","",14.613889,121.127778,""
-"Brookside Health Center","Brookside Hills, Brgy. San Isidro",0,10,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","2.6km","","",14.591389,121.124722,""
-"Brookside Senior Citizen Office","Brookside Hills, Brgy. San Isidro",0,10,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","2.6km","","",14.591389,121.124722,""
-"Barangay Hall Satellite","KarangalanSub d., Brgy. San Isidro",0,20,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","3.6km","","",14.610556,121.103611,""
-"Karangalan Elementary School","KarangalanSub d., Brgy. San Isidro",0,44,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","3.9km","","",14.609444,121.106111,""
-"Marick Covered Court","Marick Subd., Brgy. StoDomingo",0,90,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","1.0km","","",14.583614,121.111564,""
-"Marick Elementary School","Marick Subd., Brgy. Sto.Domingo",0,300,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","1.0km","","",14.583367,121.111619,""
-"Riverside Covered Court","Riverside Subd.,Brgy. Sto.Domingo",0,80,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","1.5km","","",14.588889,121.111667,""
-"Gruar Covered Court","Gruar Subd., Brgy. Sto.Domingo",0,80,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","1.5km","","",14.588583,121.117239,""
-"Village East Day Care Center","Village East Subd., Brgy. Sto.Domingo",0,20,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","2.8km","","",14.600556,121.114444,""
-"Villa Rica Multi-Purpose Hall","Villa Rica Subd.,Brgy. Sto.Domingo",0,10,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","3.2km","","",14.591667,121.110556,""
-"Saint Joseph Elementary School","Saint Joseph Subd., Brgy. Sto.Domingo",0,160,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","2.6km","","",14.591111,121.105833,""
-"Sto. Nino Barangay Hall","Brgy. Sto Nino",0,20,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","550m","","",14.581856,121.117939,""
-"Sto. Nino Day Care Center","Brgy. Sto Nino",0,10,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","550m","","",14.581914,121.118183,""
-"San Roque Covered Court","Brgy. San Roque",0,90,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","650m","","",14.576422,121.117775,""
-"Cainta Elementary School","Brgy. San Roque",0,1300,0,"","Water Supply,Comfort Rooms,Solid Waste Mgt.","700m","","",14.575872,121.117844,""
+name,location,capacity,capacity_in_family,floor_area,type,features,proximity,source_of_water,remarks,lat,lng,contact_person_and_number
+San Francisco Elementary School,"San Francisco Floodway, Brgy. San Juan",,140,3.48km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",3.48km,,,"14.565000, 121.110000",121.11,Elepanor V.Igtibin- Child Development Worker-09690392114
+San Francisco Chapel,"San Francisco Floodway, Brgy. San Juan",,10,3.13km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",3.13km,,,"14.564167, 121.111667",121.111667,Eleanor V. Igtibin- Child Development Worker-09690392114
+AnakPawis I Covered Court,"AnakPawis I, Brgy. San Juan",,90,3.36km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",3.36km,,,"14.560833, 121.113056",121.113056,Nelida B. Bonayon- Child Development Worker-09103053088
+Exodus Elementary School,"Exodus Floodway, Brgy. San Juan",,320,4.37km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",4.37km,,,"14.555000, 121.116944",121.116944,Soledad O. Real- Child Development Worker-09283344733
+Exodus Day Care Center,"Exodus Floodway, Brgy. San Juan",,10,4.46km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",4.46km,,,"14.555000, 121.117500",121.1175,Soledad O. Real- Child Development Worker-09283344733
+San Juan National High School,"AnakPawis I, Brgy. San Juan",,100,3.27km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",3.27km,,,"14.563333, 121.112222",121.112222,Nelida B. Bonayon- Child Development Worker-09103053088
+L. Santos Day Care Center & Multipurpose Hall,"L. Santos St., Brgy. San Juan",,10,1.57km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",1.57km,,,"14.578056, 121.124722",121.124722,Cherizza Gaye A. Ramos- Child Development Worker-09752450434
+Arinda Elementary School,"SitioArinda, Brgy. San Juan",,130,6.90km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",6.90km,,,"14.534722, 121.110833",121.110833,Adelaida P. Ayap � Child Development Worker-09214006271
+Barangay Hall,Brgy. San Juan,,44,1.27km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",1.27km,,,"14.576111, 121.122778",121.122778,On Duty-6551679/6558158
+Kabisig Elementary School,"Kabisig Floodway, Brgy. San Andres",,130,4.1km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",4.1km,,,"14.569722, 121.106389",121.106389,Rowena G. Sicson-09305065375
+PFCI Covered Court,"PFCI Floodway, Brgy. San Andres",,90,4.7km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",4.7km,,,"14.573889, 121.103889",121.103889,Cristina Bernados � MSWD Staff-09610787997
+LakasBisig 1 Day Care Center,"LakasBisig Floodway, Brgy. San Andres",,9,6.1km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",6.1km,,,"14.569167, 121.103333",121.103333,Fatima Ortillo-Child Development Worker-09198363655
+LakasBisig 2 Day Care Center,"LakasBisig Floodway, Brgy. San Andres",,9,7.1km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",7.1km,,,"14.562222, 121.107778",121.107778,Jesusa A. Napuran- Child Development Worker-09336165085
+LakasBisig Elementary School,"LakasBisig Floodway, Brgy. San Andres",,150,6.4km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",6.4km,,,"14.568889, 121.103333",121.103333,Jesusa A. Napuran- Child Development Worker-09336165085
+LakasBisig Covered Court,"LakasBisig Floodway, Brgy. San Andres",,80,7.1km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",7.1km,,,"14.564722, 121.106389",121.106389,Fatima Ortillo-Child Development Worker-09198363655
+AnakPawis II Covered Court,"BuklodMaralita Floodway, Brgy. San Andres",,80,7.1km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",7.1km,,,"14.564722, 121.106389",121.106389,Anabelle O. Acol-MSWD Staff-09356973842/09103572549
+Planters Elementary School,"Planters Floodway, Brgy. San Andres",,80,7.6km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",7.6km,,,"14.556667, 121.111389",121.111389,Kimberly B. Correa- Child Development Worker-09512841049
+Planters Covered Court,"Planters Floodway, Brgy. San Andres",,80,6.8km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",6.8km,,,"14.557778, 121.110833",121.110833,Kimberly B. Correa- Child Development Worker-09512841049
+One Cainta Shelter,Brgy. San Andres,,65,600M,," Water Supply,Comfort Rooms,Solid Waste Mgt.",600M,,,"14.564959, 121.106476",121.106476,MSWD-8696-2619
+Planters Day Care Center,"Planters Floodway, Brgy. San Andres",,8,6.8km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",6.8km,,,"14.557778, 121.111111",121.111111,Kimberly B. Correa-Child Development Worker-09512841049
+Balanti Covered Court,"Balanti, Brgy. San Isidro",,90,8.3km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",8.3km,,,"14.635833, 121.108889",121.108889,Brgy. Staff-MA. Yolanda .Lagrimas-Child Development Worker-6824405/6818982
+Balanti Elementary School,"Balanti, Brgy. San Isidro",,170,8.3km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",8.3km,,,"14.636111, 121.108333",121.108333,Brgy. Staff-MA. Yolanda .Lagrimas-Child Development Worker-6824405/6818982
+SitioHalang Elementary School,"SitioHalang, Brgy. San Isidro",,80,9.6km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",9.6km,,,"14.613889, 121.127778",121.127778,Rachel Pascual-Child Development Worker-09284733246
+Brookside Health Center,"Brookside Hills, Brgy. San Isidro",,10,2.6km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",2.6km,,,"14.591389, 121.124722",121.124722,Desk Officer (On Duty)-656-06-81
+Brookside Senior Citizen Office,"Brookside Hills, Brgy. San Isidro",,10,2.6km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",2.6km,,,"14.591389, 121.124722",121.124722,Desk Officer (On Duty)-656-06-81
+Barangay Hall Satellite,"KarangalanSub d., Brgy. San Isidro",,20,3.6km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",3.6km,,,"14.610556, 121.103611",121.103611,Brgy. Staff-6818982/6824405
+Karangalan Elementary School,"KarangalanSub d., Brgy. San Isidro",,44,3.9km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",3.9km,,,"14.609444, 121.106111",121.106111,Alicia Andres- Child Development Worker-09303647412
+Marick Covered Court,"Marick Subd., Brgy. Sto.Domingo",,90,1.0km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",1.0km,,,"14.583614, 121.111564",121.111564,Brgy. Staff on Duty-6565462
+Marick Elementary School,"Marick Subd., Brgy. Sto.Domingo",,300,1.0km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",1.0km,,,"14.583367, 121.111619",121.111619,Odette R. Reyes-Child Development Worker-9213645099
+Barangay Hall-Marick,"Marick Subd., Brgy. Sto.Domingo",,20,1.1km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",1.1km,,,"14.583997, 121.111500",121.111667,Brgy. Staff on Duty-6565462
+Riverside Covered Court,"Riverside Subd.,Brgy. Sto.Domingo",,80,1.5km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",1.5km,,,"14.588889, 121.111667",121.117239,Lourdes A. Basada- Child Development Worker-09212271215
+Gruar Covered Court,"Gruar Subd., Brgy. Sto.Domingo",,80,1.5km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",1.5km,,,"14.588583, 121.117239",121.114444,Gina C. Tacadao- Child Development Worker-09174771657
+Village East Day Care Center,"Village East Subd., Brgy. Sto. Domingo",,20,2.8km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",2.8km,,,"14.600556, 121.114444",121.110556,Olivia G. Betonio- Child Development Worker-09208962062
+Villa Rica Multi-Purpose Hall,"Villa Rica Subd.,Brgy. Sto. Domingo",,10,3.2km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",3.2km,,,"14.591667, 121.110556",121.105833,Olivia G. Betonio- Child Development Worker-09273919561
+Saint Joseph Elementary School,"Saint Joseph Subd., Brgy. Sto. Domingo",,160,2.6km,," Water Supply,Comfort Rooms,Solid Waste Mgt.",2.6km,,,"14.591111, 121.105833",121.117939,Kristian Margaritte Radam- Child Development Worker-09770983240
+Sto. Nino Barangay Hall,Brgy. Sto Nino,,20,550m,," Water Supply,Comfort Rooms,Solid Waste Mgt.",550m,,,"14.581856, 121.117939",121.118183,Brgy. Staff Krizille Anne Agura-Child Development Worker-994-83-92/470-18-28/09215772987
+Sto. Nino Day Care Center,Brgy. Sto Nino,,10,550m,," Water Supply,Comfort Rooms,Solid Waste Mgt.",550m,,,"14.581914, 121.118183",121.117775,Brgy. Staff Krizille Anne Agura-Child Development Worker-994-83-92 / 470-18-28/09125772987
+San Roque Covered Court,Brgy. San Roque,,90,650m,," Water Supply,Comfort Rooms,Solid Waste Mgt.",650m,,,"14.576422, 127.051108",121.117844,Brgy. Staff on Duty-664-70-44/4978281
+Cainta Elementary School,Brgy. San Roque,,"1,300",700m,," Water Supply,Comfort Rooms,Solid Waste Mgt.",700m,,,"14.575872, 121.117844",,664-70-44 / 4978281
