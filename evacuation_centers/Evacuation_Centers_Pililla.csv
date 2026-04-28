@@ -1,130 +1,30 @@
-Name,Location,Capacity,Capacity in family,Floor area,Type,Features,Proximity,Source of water,Remarks,Lat,Lng,Contact person and number
-"Pililla CARE Facility","M.A. Roxas St., Brgy. Bagumbayan, Pililla, Rizal",0,20,0,"1 kitchen 5 comfort rooms 4 rooms","","","","Can be provided with modular tents",14.475703,121.315789,"General Services Office"
-"Malaya Covered Court (Libis)","Libis, Rizal Street, Malaya, Pililla, Rizal",0,135,5402,"2 comfort rooms","","","","Comfort Room Out of Order",14.398191,121.334355,"Brgy Chairperson Daniel M. Tirados-0956-8830149"
-"Malaya Covered Court (Brgy. Hall)","National Road, Brgy. Malaya, Pililla, Rizal (Beside Barangay Hall)",0,135,5402,"1 kitchen 2 comfort rooms 2 rooms","","","","With 4 tents as Isolation Facility for COVID-19 patients",14.39983,121.338941,"Brgy Chairperson Daniel M. Tirados-0956-8830149"
-"Niogan Multi-Purpose Covered Court","Manuyag Street, Brgy. Niogan, Pililla, Rizal",0,135,5402,"2 comfort rooms","","","","",14.407614,121.337772,"Brgy Chairperson Placido Quitiong-0970-04580221"
-"Niogan Day Care Center","Manuyag Street, Brgy. Niogan, Pililla, Rizal",0,12,482,"1 kitchen 1 comfort rooms 2 rooms","","","","Can be used as Isolation Facility for COVID-19 patients",14.406281,121.340269,"Brgy Chairperson Placido Quitiong-0970-04580221"
-"Niogan Agrarian Reform Beneficiaries Multipurpose Cooperative","T. Daria Street, Brgy. Niogan, Pililla, Rizal",0,35,14022,"1 kitchen 1 comfort rooms 2 rooms","","","","",14.40638,121.344925,"Bernadette Aguirre"
-"Quisao Covered Court (Libis)","G. Del Pilar St., Brgy. Quisao, Pililla, Rizal",0,135,5402,"2 comfort rooms","","","","",14.4332,121.331734,"Brgy Chairperson Alvin B. Ople-0975-1443163"
-"Quisao Multi-Purpose Building","A. Luna St., Brgy. Quisao, Pililla, Rizal",0,35,14022,"1 comfort rooms 2 rooms","","","","Can be used as Isolation Facility for COVID-19 patients",14.434658,121.331861,"Brgy Chairperson Alvin B. Ople-0975-1443163"
-"Quisao Covered Court (Ilaya)","G. Del Pilar St., Brgy. Quisao, Pililla, Rizal",0,135,5402,"2 comfort rooms","","","","",14.435544,121.335005,"Brgy Chairperson Alvin B. Ople-0975-1443163"
-"Family of Christ the King Chapel","RJL Street, Sitio Bulo-Bulo, Brgy.Quisao, Pililla, Rizal",0,25,1002,"1 kitchen 2 comfort rooms 1 rooms","","","","",14.453058,121.32702,"Ma.Teresa CantornaMarifa Cantorna-0955-14238970921-7028072"
-"Rafanan Day Care Center","Rafanan Blvd., Halayhayin, Pililla, Rizal",0,12,482,"4 comfort rooms 2 rooms","","","","",14.462417,121.32347,"Nazzer Nacuspag-0985-1223253"
-"Halayhayin Covered Court","Rafanan Blvd., Brgy. Halayhayin, Pililla, Rizal",0,135,5402,"2 comfort rooms","","","","",14.462475,121.323661,"Nevelyn Nacuspag-0905-4406227"
-"Halayhayin Barangay Hall","Manila East Road, Halayhayin, Pililla, Rizal",0,24,962,"2 comfort rooms","","","","",14.463419,121.326095,"Brgy Chairperson Rainier G. Juan-0927-8359898"
-"Miraculous Medal Church Covered Court","Miraculous Medal Parish Church, Sitio Bugarin, Brgy Halayhayin, Pililla, Rizal",0,135,5402,"1 kitchen 2 comfort rooms","","","","",14.455936,121.370642,"Kagawad Francis Piliin-0915-1729170"
-"Pililla People�s Park","M.A. Roxas St., Brgy. Bagumbayan, Pililla, Rizal (Open field)",0,2033,8134.562,"1 kitchen 2 comfort rooms","","","","",14.47607,121.315492,"General Services Office"
-"Matagbak Day Care Center","Sitio Matagbak, Brgy. Bagumbayan, Pililla, Rizal",0,12,482,"2 comfort rooms","","","","",14.481411,121.325942,"Brgy Chairperson Felipe P. Aliwalas-0917-1206307"
-"Pililla Public Market","Pililla Public Market, Brgy. Bagumbayan, Pililla, Rizal",0,731,29252,"1 kitchen 2 comfort rooms","","","","",14.475806,121.313317,"Arlene Rio-0997-2381317"
-"Veterans Building","M.A. Roxas St., Brgy. Bagumbayan, Pililla, Rizal",0,17,702,"1 kitchen 2 comfort rooms 1 rooms","","","","",14.475292,121.316256,"Esther Martinez-0905-6661430"
-"3-Storey Pililla Multi-Purpose Building","Market Road, Brgy. Bagumbayan, Pililla, Rizal",0,100,21023,"9 comfort rooms 3 rooms","","","","",14.47605,121.312897,"Brgy Chairperson Felipe P. Aliwalas-0917-1206307"
-"Bagumbayan BDRRM Building","F. Anero Street, Brgy. Bagumbayan, Pililla, Rizal",0,20,36022,"1 kitchen 4 comfort rooms 7 rooms","","","","",14.479842,121.311419,"Brgy Chairperson Felipe P. Aliwalas-0917-1206307"
-"Imatong Covered Court","Cor. M.A. Roxas � J.P. Rizal St., (Plaza) Brgy. Imatong, Pililla, RIzal",0,135,5402,"2 comfort rooms","","","","",14.481931,121.306911,"Brgy Chairperson Vicente G. Angeles-0968-7012307"
-"Imatong Barangay Hall","Talavera St., Brgy. Imatong, Pililla, Rizal",0,12,482,"1 kitchen 1 comfort rooms 1 rooms","","","","",14.48215,121.307,"Brgy Chairperson Vicente G. Angeles-0968-7012307"
-"Takungan Multi-Purpose Brgy. Hall (New)","Brgy. Takungan, Pililla, Rizal",0,24,962,"1 kitchen 1 comfort rooms 4 rooms","","","","",14.482734,121.304128,"Brgy Chairperson Roberto D. Orseno-0966-3694320"
-"Brgy. Hall (Old) BPAT Building","Brgy. Takungan, Pililla, Rizal",0,24,962,"1 kitchen 1 comfort rooms 1 rooms","","","","",14.482859,121.304089,"Brgy Chairperson Roberto D. Orseno-0966-3694320"
-"Takungan Senior Citizen Building","Brgy. Takungan, Pililla, Rizal",0,24,962,"1 kitchen 1 comfort rooms","","","","",14.482811,121.303975,"Brgy Chairperson Roberto D. Orseno-0966-3694320"
-"Hulo BPAT Head Quarters","Back of Brgy. Hall, Brgy, Hulo, Pililla, Rizal",0,24,962,"1 comfort rooms","","","","",14.488752,121.305803,"Brgy Chairperson Rizza M. Hogat-0976-3396427"
-"Brgy. Hulo Chapel","Brgy. Hulo, Pililla, Rizal",0,26,1052,"1 comfort rooms","","","","",14.489133,121.305772,"Brgy Chairperson Rizza M. Hogat-0976-3396427"
-"Brgy., Hulo Covered Court","Brgy. Hulo, Pililla, Rizal",0,135,5402,"1 comfort rooms","","","","",14.488972,121.305794,"Brgy Chairperson Rizza M. Hogat-0976-3396427"
-"Hulo Senior Citizen Building","Brgy. Hulo, Pililla, Rizal",0,24,962,"1 comfort rooms","","","","",14.488569,121.305689,"Brgy Chairperson Rizza M. Hogat-0976-3396427"
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
-"","",0,0,0,"","","","","",0,0,""
+name,location,capacity,capacity_in_family,floor_area,type,features,proximity,source_of_water,remarks,lat,lng,contact_person_and_number
+Pililla CARE Facility,"M.A. Roxas St., Brgy. Bagumbayan, Pililla, Rizal",,20,,,1 kitchen 5 comfort rooms 4 rooms,,,Can be provided with modular tents,14.475703,121.315789,General Services Office
+Malaya Covered Court (Libis),"Libis, Rizal Street, Malaya, Pililla, Rizal",,135,5402,,2 comfort rooms,,,Comfort Room Out of Order,14.398191,121.334355,Brgy Chairperson Daniel M. Tirados-0956-8830149
+Malaya Covered Court (Brgy. Hall),"National Road, Brgy. Malaya, Pililla, Rizal (Beside Barangay Hall)",,135,5402,,1 kitchen 2 comfort rooms 2 rooms,,,With 4 tents as Isolation Facility for COVID-19 patients,14.39983,121.338941,Brgy Chairperson Daniel M. Tirados-0956-8830149
+Niogan Multi-Purpose Covered Court,"Manuyag Street, Brgy. Niogan, Pililla, Rizal",,135,5402,,2 comfort rooms,,,,14.407614,121.337772,Brgy Chairperson Placido Quitiong-0970-04580221
+Niogan Day Care Center,"Manuyag Street, Brgy. Niogan, Pililla, Rizal",,12,482,,1 kitchen 1 comfort rooms 2 rooms,,,Can be used as Isolation Facility for COVID-19 patients,14.406281,121.340269,Brgy Chairperson Placido Quitiong-0970-04580221
+Niogan Agrarian Reform Beneficiaries Multipurpose Cooperative,"T. Daria Street, Brgy. Niogan, Pililla, Rizal",,35,14022,,1 kitchen 1 comfort rooms 2 rooms,,,,14.40638,121.344925,Bernadette Aguirre
+Quisao Covered Court (Libis),"G. Del Pilar St., Brgy. Quisao, Pililla, Rizal",,135,5402,,2 comfort rooms,,,,14.4332,121.331734,Brgy Chairperson Alvin B. Ople-0975-1443163
+Quisao Multi-Purpose Building,"A. Luna St., Brgy. Quisao, Pililla, Rizal",,35,14022,,1 comfort rooms 2 rooms,,,Can be used as Isolation Facility for COVID-19 patients,14.434658,121.331861,Brgy Chairperson Alvin B. Ople-0975-1443163
+Quisao Covered Court (Ilaya),"G. Del Pilar St., Brgy. Quisao, Pililla, Rizal",,135,5402,,2 comfort rooms,,,,14.435544,121.335005,Brgy Chairperson Alvin B. Ople-0975-1443163
+Family of Christ the King Chapel,"RJL Street, Sitio Bulo-Bulo, Brgy.Quisao, Pililla, Rizal",,25,1002,,1 kitchen 2 comfort rooms 1 rooms,,,,14.453058,121.32702,Ma.Teresa CantornaMarifa Cantorna-0955-14238970921-7028072
+Rafanan Day Care Center,"Rafanan Blvd., Halayhayin, Pililla, Rizal",,12,482,,4 comfort rooms 2 rooms,,,,14.462417,121.32347,Nazzer Nacuspag-0985-1223253
+Halayhayin Covered Court,"Rafanan Blvd., Brgy. Halayhayin, Pililla, Rizal",,135,5402,,2 comfort rooms,,,,14.462475,121.323661,Nevelyn Nacuspag-0905-4406227
+Halayhayin Barangay Hall,"Manila East Road, Halayhayin, Pililla, Rizal",,24,962,,2 comfort rooms,,,,14.463419,121.326095,Brgy Chairperson Rainier G. Juan-0927-8359898
+Miraculous Medal Church Covered Court,"Miraculous Medal Parish Church, Sitio Bugarin, Brgy Halayhayin, Pililla, Rizal",,135,5402,,1 kitchen 2 comfort rooms,,,,14.455936,121.370642,Kagawad Francis Piliin-0915-1729170
+Pililla People�s Park,"M.A. Roxas St., Brgy. Bagumbayan, Pililla, Rizal (Open field)",,2033,8134.562,,1 kitchen 2 comfort rooms,,,,14.47607,121.315492,General Services Office
+Matagbak Day Care Center,"Sitio Matagbak, Brgy. Bagumbayan, Pililla, Rizal",,12,482,,2 comfort rooms,,,,14.481411,121.325942,Brgy Chairperson Felipe P. Aliwalas-0917-1206307
+Pililla Public Market,"Pililla Public Market, Brgy. Bagumbayan, Pililla, Rizal",,731,29252,,1 kitchen 2 comfort rooms,,,,14.475806,121.313317,Arlene Rio-0997-2381317
+Veterans Building,"M.A. Roxas St., Brgy. Bagumbayan, Pililla, Rizal",,17,702,,1 kitchen 2 comfort rooms 1 rooms,,,,14.475292,121.316256,Esther Martinez-0905-6661430
+3-Storey Pililla Multi-Purpose Building,"Market Road, Brgy. Bagumbayan, Pililla, Rizal",,100,21023,,9 comfort rooms 3 rooms,,,,14.47605,121.312897,Brgy Chairperson Felipe P. Aliwalas-0917-1206307
+Bagumbayan BDRRM Building,"F. Anero Street, Brgy. Bagumbayan, Pililla, Rizal",,20,36022,,1 kitchen 4 comfort rooms 7 rooms,,,,14.479842,121.311419,Brgy Chairperson Felipe P. Aliwalas-0917-1206307
+Imatong Covered Court,"Cor. M.A. Roxas � J.P. Rizal St., (Plaza) Brgy. Imatong, Pililla, RIzal",,135,5402,,2 comfort rooms,,,,14.481931,121.306911,Brgy Chairperson Vicente G. Angeles-0968-7012307
+Imatong Barangay Hall,"Talavera St., Brgy. Imatong, Pililla, Rizal",,12,482,,1 kitchen 1 comfort rooms 1 rooms,,,,14.48215,121.307,Brgy Chairperson Vicente G. Angeles-0968-7012307
+Takungan Multi-Purpose Brgy. Hall (New),"Brgy. Takungan, Pililla, Rizal",,24,962,,1 kitchen 1 comfort rooms 4 rooms,,,,14.482734,121.304128,Brgy Chairperson Roberto D. Orseno-0966-3694320
+Brgy. Hall (Old) BPAT Building,"Brgy. Takungan, Pililla, Rizal",,24,962,,1 kitchen 1 comfort rooms 1 rooms,,,,14.482859,121.304089,Brgy Chairperson Roberto D. Orseno-0966-3694320
+Takungan Senior Citizen Building,"Brgy. Takungan, Pililla, Rizal",,24,962,,1 kitchen 1 comfort rooms,,,,14.482811,121.303975,Brgy Chairperson Roberto D. Orseno-0966-3694320
+Hulo BPAT Head Quarters,"Back of Brgy. Hall, Brgy, Hulo, Pililla, Rizal",,24,962,,1 comfort rooms,,,,14.488752,121.305803,Brgy Chairperson Rizza M. Hogat-0976-3396427
+Brgy. Hulo Chapel,"Brgy. Hulo, Pililla, Rizal",,26,1052,,1 comfort rooms,,,,14.489133,121.305772,Brgy Chairperson Rizza M. Hogat-0976-3396427
+"Brgy., Hulo Covered Court","Brgy. Hulo, Pililla, Rizal",,135,5402,,1 comfort rooms,,,,14.488972,121.305794,Brgy Chairperson Rizza M. Hogat-0976-3396427
+Hulo Senior Citizen Building,"Brgy. Hulo, Pililla, Rizal",,24,962,,1 comfort rooms,,,,14.488569,121.305689,Brgy Chairperson Rizza M. Hogat-0976-3396427
