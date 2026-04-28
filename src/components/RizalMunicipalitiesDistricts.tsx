@@ -681,32 +681,28 @@ export default function RizalMunicipalitiesDistricts() {
   useEffect(() => {
     const fetchAllData = async () => {
       for (const municipality of RIZAL_MUNICIPALITIES) {
-        // If local data is empty, try to fetch from GitHub
-        if (!evacuationDataMap[municipality.name] || evacuationDataMap[municipality.name].length === 0) {
-          const githubData = await fetchMunicipalityEvacData(municipality.name);
-          if (githubData.length > 0) {
-            const mappedData = githubData.map(item => ({
-              name: item.name,
-              location: item.location,
-              capacity_individuals: Number(item.capacity) || 0,
-              capacity_family: Number(item.capacityFamily) || 0,
-              floor_area: Number(item.floorArea) || 0,
-              type: item.type,
-              features: item.features,
-              proximity: item.proximity,
-              source_of_water: item.waterSource,
-              remarks: item.remarks,
-              lat: item.lat,
-              lng: item.lng,
-              contact_person_and_number: item.contact
-            }));
+        const githubData = await fetchMunicipalityEvacData(municipality.name);
+        
+        const mappedData = githubData.map(item => ({
+          name: item.name,
+          location: item.location,
+          capacity_individuals: Number(item.capacity) || 0,
+          capacity_family: Number(item.capacityFamily) || 0,
+          floor_area: Number(item.floorArea) || 0,
+          type: item.type,
+          features: item.features,
+          proximity: item.proximity,
+          source_of_water: item.waterSource,
+          remarks: item.remarks,
+          lat: item.lat,
+          lng: item.lng,
+          contact_person_and_number: item.contact
+        }));
 
-            setEvacuationDataMap(prev => ({
-              ...prev,
-              [municipality.name]: mappedData
-            }));
-          }
-        }
+        setEvacuationDataMap(prev => ({
+          ...prev,
+          [municipality.name]: mappedData
+        }));
       }
     };
 
