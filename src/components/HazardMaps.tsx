@@ -1,5 +1,31 @@
 import { useState } from 'react';
-import { Map as MapIcon, X, Maximize } from 'lucide-react';
+import { Map as MapIcon, X, Maximize, Copy, Check } from 'lucide-react';
+
+function CopyButton({ text, label }: { text: string; label: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="flex flex-col gap-1 text-left">
+      <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">{label}</span>
+      <div className="flex items-center gap-2 bg-slate-800/50 border border-slate-700 rounded-md px-3 py-1.5">
+        <code className="text-slate-300 font-mono text-sm">{text}</code>
+        <button
+          onClick={handleCopy}
+          className="ml-auto p-1 hover:bg-slate-700 rounded text-slate-400 hover:text-white transition-colors"
+          title={`Copy ${label}`}
+        >
+          {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function HazardMaps() {
   const [isMapOpen, setIsMapOpen] = useState(false);
@@ -16,9 +42,14 @@ export default function HazardMaps() {
             Hazard Map Viewer
           </h3>
 
-          <p className="text-slate-400 text-base max-w-md mb-8 leading-relaxed">
+          <p className="text-slate-400 text-base max-w-md mb-6 leading-relaxed">
             The hazard map opens in a full-screen pop-up window within the dashboard to provide you with the official GeoRiskPH platform without leaving the app.
           </p>
+
+          <div className="flex items-center gap-4 mb-8 bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+            <CopyButton label="Username" text="grip_riz_avpatag" />
+            <CopyButton label="Password" text="022070" />
+          </div>
 
           <button
             onClick={() => setIsMapOpen(true)}
@@ -35,9 +66,20 @@ export default function HazardMaps() {
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in zoom-in-95 duration-200">
           <div className="relative w-full h-full max-w-[1920px] bg-slate-900 rounded-xl overflow-hidden shadow-2xl border border-slate-700 flex flex-col">
             <div className="flex items-center justify-between px-4 py-3 bg-slate-950 border-b border-slate-800">
-              <div className="flex items-center gap-2">
-                <MapIcon className="w-5 h-5 text-rose-500" />
-                <h3 className="text-white font-semibold">GeoRiskPH Hazard Map</h3>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <MapIcon className="w-5 h-5 text-rose-500" />
+                  <h3 className="text-white font-semibold">GeoRiskPH Hazard Map</h3>
+                </div>
+                <div className="h-4 w-px bg-slate-800 mx-2" />
+                <div className="flex items-center gap-3 hidden sm:flex">
+                  <span className="text-xs text-slate-400">Login:</span>
+                  <div className="flex items-center gap-1">
+                    <code className="text-xs text-rose-300 bg-rose-950/50 px-1.5 py-0.5 rounded">grip_riz_avpatag</code>
+                    <span className="text-xs text-slate-600">/</span>
+                    <code className="text-xs text-rose-300 bg-rose-950/50 px-1.5 py-0.5 rounded">022070</code>
+                  </div>
+                </div>
               </div>
               <button
                 onClick={() => setIsMapOpen(false)}
@@ -49,7 +91,7 @@ export default function HazardMaps() {
             </div>
             <div className="flex-1 w-full h-full relative bg-white">
               <iframe
-                src="https://geoanalytics.georisk.gov.ph/"
+                src="https://geoanalytics.georisk.gov.ph/auth"
                 title="GeoRiskPH Hazard Map"
                 className="absolute inset-0 w-full h-full border-0"
                 allow="geolocation"
