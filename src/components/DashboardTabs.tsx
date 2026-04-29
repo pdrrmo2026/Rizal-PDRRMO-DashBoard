@@ -1,6 +1,7 @@
-import { CloudRain, Activity, Waves, MapPin, ChevronRight, Map, Video, Phone } from 'lucide-react';
+import { CloudRain, Activity, Waves, MapPin, ChevronRight, Map, Video, Phone, ShieldAlert } from 'lucide-react';
 
 export type DashboardTab =
+  | 'overview'
   | 'weather'
   | 'earthquake'
   | 'flood-rainfall'
@@ -27,6 +28,19 @@ const tabs: {
   dotColor: string;
   glow: string;
 }[] = [
+  {
+    id: 'overview',
+    label: 'Province Overview',
+    icon: ShieldAlert,
+    description: 'Risk Snapshot · Hotspots · Exposure',
+    pinned: true,
+    activeBg: 'from-rose-500/25 via-rose-500/10 to-red-500/15 border-rose-400/60',
+    accentColor: 'bg-rose-400',
+    iconActiveBg: 'bg-rose-500/30',
+    iconActiveText: 'text-rose-300',
+    dotColor: 'bg-rose-400',
+    glow: 'shadow-[0_0_20px_-4px_rgba(244,63,94,0.4)]',
+  },
   {
     id: 'weather',
     label: 'Weather Monitoring',

@@ -21,6 +21,7 @@ import MaghandaVideos from './components/MaghandaVideos';
 import WeatherLinkEmbed from './components/WeatherLinkEmbed';
 
 import DashboardTabs, { DashboardTab } from './components/DashboardTabs';
+import RizalProvinceOverview from './components/RizalProvinceOverview';
 import EarthquakeMonitoring from './components/EarthquakeMonitoring';
 import RizalMunicipalitiesDistricts from './components/RizalMunicipalitiesDistricts';
 import HazardMaps from './components/HazardMaps';
@@ -45,7 +46,7 @@ function App() {
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<DashboardTab>('weather');
+  const [activeTab, setActiveTab] = useState<DashboardTab>('overview');
   const [iecSubTab, setIecSubTab] = useState<'videos' | 'posters'>('videos');
 
   const fetchData = useCallback(async () => {
@@ -163,6 +164,8 @@ function App() {
                     </div>
                   )}
 
+                  {activeTab === 'overview' && <RizalProvinceOverview />}
+                  
                   {activeTab === 'weather' && (
                     <>
                       <WeatherLinkEmbed />

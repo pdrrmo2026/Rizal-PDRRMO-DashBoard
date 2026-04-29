@@ -682,7 +682,7 @@ export default function RizalMunicipalitiesDistricts() {
     const fetchAllData = async () => {
       for (const municipality of RIZAL_MUNICIPALITIES) {
         const githubData = await fetchMunicipalityEvacData(municipality.name);
-        
+
         const mappedData = githubData.map(item => ({
           name: item.name,
           location: item.location,

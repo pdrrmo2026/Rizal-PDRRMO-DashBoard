@@ -352,12 +352,12 @@ export default function RizalMunicipalitiesWeather() {
                         <div className="text-[8px] text-blue-300 uppercase font-semibold tracking-wider">Rainfall</div>
                         <div
                           className={`text-[11px] sm:text-xs font-bold ${(m.precipitation ?? 0) > 7.5
-                              ? 'text-red-400'
-                              : (m.precipitation ?? 0) > 2.5
-                                ? 'text-orange-300'
-                                : (m.precipitation ?? 0) > 0
-                                  ? 'text-yellow-300'
-                                  : 'text-white'
+                            ? 'text-red-400'
+                            : (m.precipitation ?? 0) > 2.5
+                              ? 'text-orange-300'
+                              : (m.precipitation ?? 0) > 0
+                                ? 'text-yellow-300'
+                                : 'text-white'
                             }`}
                         >
                           {(m.precipitation ?? 0).toFixed(1)}<span className="text-[8px] text-slate-400 ml-0.5">mm</span>
