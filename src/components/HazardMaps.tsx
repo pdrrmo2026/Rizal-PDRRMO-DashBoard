@@ -2,7 +2,15 @@ import { ExternalLink, Map as MapIcon } from 'lucide-react';
 
 export default function HazardMaps() {
   const handleOpenMap = () => {
-    window.open('https://geoanalytics.georisk.gov.ph/', '_blank');
+    const width = Math.round(window.screen.width * 0.95);
+    const height = Math.round(window.screen.height * 0.95);
+    const left = Math.round((window.screen.width - width) / 2);
+    const top = Math.round((window.screen.height - height) / 2);
+    window.open(
+      'https://geoanalytics.georisk.gov.ph/',
+      'HazardMapPopup',
+      `popup=yes,width=${width},height=${height},left=${left},top=${top}`
+    );
   };
 
   return (
@@ -11,13 +19,13 @@ export default function HazardMaps() {
         <div className="w-20 h-20 bg-rose-500/10 rounded-full flex items-center justify-center mb-6 shadow-[0_0_30px_-5px_rgba(251,113,133,0.3)]">
           <MapIcon className="w-10 h-10 text-rose-400" />
         </div>
-        
+
         <h3 className="text-2xl font-bold text-white mb-3">
           Hazard Map Viewer
         </h3>
-        
+
         <p className="text-slate-400 text-base max-w-md mb-8 leading-relaxed">
-          The hazard map opens in a new browser tab to provide you with the full functionality and tools of the official GeoRiskPH platform without embedding restrictions.
+          The hazard map opens in a pop-up window to provide you with the full functionality and tools of the official GeoRiskPH platform without embedding restrictions.
         </p>
 
         <button
