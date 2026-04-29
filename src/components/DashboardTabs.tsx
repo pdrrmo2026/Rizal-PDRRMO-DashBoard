@@ -138,20 +138,7 @@ export default function DashboardTabs({ activeTab, onChange }: DashboardTabsProp
             return (
               <button
                 key={tab.id}
-                onClick={() => {
-                  onChange(tab.id);
-                  if (tab.id === 'hazard-maps') {
-                    const width = Math.round(window.screen.width * 0.95);
-                    const height = Math.round(window.screen.height * 0.95);
-                    const left = Math.round((window.screen.width - width) / 2);
-                    const top = Math.round((window.screen.height - height) / 2);
-                    window.open(
-                      'https://geoanalytics.georisk.gov.ph/',
-                      'HazardMapPopup',
-                      `popup=yes,width=${width},height=${height},left=${left},top=${top}`
-                    );
-                  }
-                }}
+                onClick={() => onChange(tab.id)}
                 className={`group relative flex items-start gap-3 p-3 rounded-lg border-2 transition-all duration-200 text-left overflow-hidden ${
                   isActive
                     ? `bg-gradient-to-br ${tab.activeBg} ${tab.glow}`
