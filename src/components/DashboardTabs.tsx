@@ -46,7 +46,6 @@ const tabs: {
     label: 'Weather Monitoring',
     icon: CloudRain,
     description: 'Rainfall · Water Levels · Forecasts',
-    pinned: true,
     activeBg: 'from-cyan-500/25 via-cyan-500/10 to-blue-500/15 border-cyan-400/60',
     accentColor: 'bg-cyan-400',
     iconActiveBg: 'bg-cyan-500/30',
@@ -104,7 +103,7 @@ const tabs: {
   },
   {
     id: 'iec',
-    label: 'IEC',
+    label: 'IEC Materials',
     icon: Video,
     description: 'Educational Videos · Awareness Posters',
     activeBg: 'from-purple-500/25 via-purple-500/10 to-fuchsia-500/15 border-purple-400/60',
@@ -182,7 +181,7 @@ export default function DashboardTabs({ activeTab, onChange }: DashboardTabsProp
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5 mb-0.5">
-                    <div className="text-xs sm:text-sm font-semibold leading-tight truncate">
+                    <div className="text-xs sm:text-sm font-semibold leading-tight break-words">
                       {tab.label}
                     </div>
                     {isActive && (
