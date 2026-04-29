@@ -32,10 +32,7 @@ export default function RizalProvinceOverview() {
             </div>
             <p className="text-slate-400">Current overall susceptibility and threat level for Rizal Province</p>
           </div>
-
-
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 relative z-10">
+        </div>        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 relative z-10">
           <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4 flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
               <Waves className="w-5 h-5 text-blue-400" />
