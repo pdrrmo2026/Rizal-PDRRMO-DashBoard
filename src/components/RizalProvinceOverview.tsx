@@ -33,14 +33,37 @@ export default function RizalProvinceOverview() {
             <p className="text-slate-400">Current overall susceptibility and threat level for Rizal Province</p>
           </div>
 
-          <div className="flex items-center gap-4">
-            <div className="bg-slate-950/50 border border-rose-500/30 rounded-lg px-6 py-3 text-center">
-              <span className="block text-xs text-slate-400 uppercase tracking-wider mb-1">Overall Status</span>
-              <span className="text-xl font-bold text-rose-400 animate-pulse">HIGH RISK</span>
+
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 relative z-10">
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+              <Waves className="w-5 h-5 text-blue-400" />
+            </div>
+            <div>
+              <p className="text-xs text-slate-400 uppercase">Flood Indicator</p>
+              <p className="font-semibold text-blue-300">Moderate to High</p>
+            </div>
+          </div>
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center">
+              <Mountain className="w-5 h-5 text-amber-400" />
+            </div>
+            <div>
+              <p className="text-xs text-slate-400 uppercase">Landslide Indicator</p>
+              <p className="font-semibold text-amber-300">High Susceptibility</p>
+            </div>
+          </div>
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center">
+              <CloudRain className="w-5 h-5 text-cyan-400" />
+            </div>
+            <div>
+              <p className="text-xs text-slate-400 uppercase">Rainfall Alert</p>
+              <p className="font-semibold text-cyan-300">Active Monitoring</p>
             </div>
           </div>
         </div>
-
       </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -108,7 +131,20 @@ export default function RizalProvinceOverview() {
             </div>
           </section>
 
-
+          {/* 6. Hazard Map Access */}
+          <section className="bg-gradient-to-r from-rose-900/40 to-slate-900/60 border border-rose-500/20 rounded-xl p-6 backdrop-blur-sm shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <h3 className="text-lg font-bold text-white mb-1">Deep Dive into Hazard Analytics</h3>
+              <p className="text-sm text-slate-400">Access the full GeoRiskPH platform for high-resolution mapping.</p>
+            </div>
+            <button
+              onClick={handleOpenMap}
+              className="whitespace-nowrap flex items-center gap-2 px-5 py-2.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg font-semibold transition-all shadow-lg shadow-rose-900/20 active:scale-95"
+            >
+              <ExternalLink className="w-4 h-4" />
+              Open Full Hazard Map
+            </button>
+          </section>
         </div>
 
         {/* Right Column (Narrower) */}
@@ -152,39 +188,7 @@ export default function RizalProvinceOverview() {
             </div>
           </section>
 
-          {/* 5. Incident / Alert Feed */}
-          <section className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 backdrop-blur-sm shadow-lg h-[340px] flex flex-col">
-            <div className="flex items-center gap-2 mb-4 shrink-0">
-              <AlertTriangle className="w-5 h-5 text-rose-400" />
-              <h3 className="text-lg font-bold text-white">Recent Alerts</h3>
-            </div>
 
-            <div className="flex-1 overflow-y-auto pr-2 space-y-3 custom-scrollbar">
-              {[
-                { time: '10 mins ago', type: 'Flood Alert', desc: 'Marikina River water level rising rapidly. Level 2 Warning.', color: 'text-rose-400', bg: 'bg-rose-500/10' },
-                { time: '1 hour ago', type: 'Rainfall Advisory', desc: 'Heavy continuous rainfall observed in Antipolo and higher elevations.', color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
-                { time: '3 hours ago', type: 'Landslide Watch', desc: 'Saturated soil in eastern municipalities. Evacuation standby.', color: 'text-amber-400', bg: 'bg-amber-500/10' },
-                { time: '5 hours ago', type: 'Weather Update', desc: 'Typhoon signal #2 raised over Rizal Province.', color: 'text-blue-400', bg: 'bg-blue-500/10' },
-              ].map((alert, i) => (
-                <div key={i} className="flex gap-3 group relative">
-                  <div className="flex flex-col items-center">
-                    <div className={`w-2 h-2 rounded-full mt-1.5 ring-2 ring-slate-900 ${alert.bg.replace('/10', '')} shadow-[0_0_8px_rgba(0,0,0,0.5)]`} />
-                    {i !== 3 && <div className="w-px h-full bg-slate-700/50 mt-2" />}
-                  </div>
-                  <div className="pb-3 flex-1">
-                    <div className="flex items-center justify-between mb-0.5">
-                      <span className={`text-xs font-bold ${alert.color}`}>{alert.type}</span>
-                      <span className="text-[10px] text-slate-500 flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {alert.time}
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-300 leading-snug">{alert.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
 
         </div>
       </div>

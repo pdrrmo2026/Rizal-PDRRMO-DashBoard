@@ -181,7 +181,7 @@ export default function DashboardTabs({ activeTab, onChange }: DashboardTabsProp
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5 mb-0.5">
-                    <div className="text-xs sm:text-sm font-semibold leading-tight break-words">
+                    <div className="text-xs sm:text-sm font-semibold leading-tight">
                       {tab.label}
                     </div>
                     {isActive && (
