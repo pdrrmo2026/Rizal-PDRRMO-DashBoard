@@ -138,7 +138,12 @@ export default function DashboardTabs({ activeTab, onChange }: DashboardTabsProp
             return (
               <button
                 key={tab.id}
-                onClick={() => onChange(tab.id)}
+                onClick={() => {
+                  onChange(tab.id);
+                  if (tab.id === 'hazard-maps') {
+                    window.open('https://geoanalytics.georisk.gov.ph/', '_blank');
+                  }
+                }}
                 className={`group relative flex items-start gap-3 p-3 rounded-lg border-2 transition-all duration-200 text-left overflow-hidden ${
                   isActive
                     ? `bg-gradient-to-br ${tab.activeBg} ${tab.glow}`
