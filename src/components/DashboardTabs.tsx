@@ -67,7 +67,7 @@ const tabs: {
   },
   {
     id: 'hazard-maps',
-    label: 'Hazard Maps',
+    label: 'Maps',
     icon: Map,
     description: 'Liquefaction · Landslide · Flood',
     activeBg: 'from-rose-500/25 via-rose-500/10 to-pink-500/15 border-rose-400/60',
