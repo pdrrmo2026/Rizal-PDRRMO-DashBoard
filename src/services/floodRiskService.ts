@@ -1,4 +1,12 @@
 
+export interface PopulationAgeBreakdown {
+  ageGroup: string;
+  maleNotProne: string;
+  maleProne: string;
+  femaleNotProne: string;
+  femaleProne: string;
+}
+
 export interface FloodRiskData {
   municipality: string;
   totalLandArea: string;
@@ -10,6 +18,7 @@ export interface FloodRiskData {
     prone: string;
     percentage: string;
     breakdown: { assessment: string; count: number }[];
+    ageBreakdown: PopulationAgeBreakdown[];
   };
   schools: { name: string; risk: string }[];
   buildings: { name: string; risk: string }[];
@@ -48,7 +57,7 @@ export async function fetchFloodRiskData(municipalityName: string): Promise<Floo
           floodProneArea: '---',
           floodPronePercentage: '0%',
           barangays: fallbackList,
-          population: { total: '---', prone: '---', percentage: '0%', breakdown: [] },
+          population: { total: '---', prone: '---', percentage: '0%', breakdown: [], ageBreakdown: [] },
           schools: [],
           buildings: []
         };
@@ -69,7 +78,8 @@ export async function fetchFloodRiskData(municipalityName: string): Promise<Floo
         breakdown: parseReportCSV(pRes, 'Assessment,Population').map(p => ({
           assessment: p.name,
           count: parseInt(p.value.replace(/,/g, '')) || 0
-        }))
+        })),
+        ageBreakdown: parseAgeGroupCSV(pRes)
       },
       schools: parseReportCSV(sRes, 'Name,Assessment').map(s => ({ name: s.name, risk: s.value })),
       buildings: parseReportCSV(buildRes, 'Name,Assessment').map(b => ({ name: b.name, risk: b.value }))
@@ -104,6 +114,46 @@ export async function fetchFloodRiskData(municipalityName: string): Promise<Floo
     console.error('Error fetching flood risk data:', error);
     return null;
   }
+}
+
+function parseAgeGroupCSV(csvText: string): PopulationAgeBreakdown[] {
+  const lines = csvText.split(/\r?\n/);
+  const headerIndex = lines.findIndex(l => l.toLowerCase().includes('age group'));
+  if (headerIndex === -1) return [];
+
+  return lines.slice(headerIndex + 1)
+    .filter(l => l.trim() && l.includes(','))
+    .map(line => {
+      const values: string[] = [];
+      let current = '';
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === '"') {
+          if (inQuotes && line[i+1] === '"') {
+            current += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === ',' && !inQuotes) {
+          values.push(current.trim());
+          current = '';
+        } else {
+          current += char;
+        }
+      }
+      values.push(current.trim());
+      
+      return { 
+        ageGroup: values[0]?.replace(/^"|"$/g, '') || '', 
+        maleNotProne: values[1]?.replace(/^"|"$/g, '') || '0',
+        maleProne: values[2]?.replace(/^"|"$/g, '') || '0',
+        femaleNotProne: values[3]?.replace(/^"|"$/g, '') || '0',
+        femaleProne: values[4]?.replace(/^"|"$/g, '') || '0'
+      };
+    })
+    .filter(item => item.ageGroup && (item.maleProne !== '0' || item.femaleProne !== '0' || item.maleNotProne !== '0' || item.femaleNotProne !== '0'));
 }
 
 function parseReportCSV(csvText: string, headerMatch: string): { name: string; value: string }[] {

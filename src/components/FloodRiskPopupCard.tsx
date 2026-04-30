@@ -120,33 +120,68 @@ export default function FloodRiskPopupCard({ data, isOpen, onClose }: FloodRiskP
           </div>
 
           {/* POPULATION IMPACT SECTION */}
-          <div className="space-y-3">
-            <h3 className="text-sm font-bold text-slate-300 uppercase tracking-widest flex items-center gap-2">
-              <Users className="w-4 h-4 text-indigo-400" />
-              Population Exposure
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="bg-slate-950/40 border border-slate-800 rounded-lg p-3">
-                <p className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">Total Population</p>
-                <p className="text-lg font-bold text-white mt-1">{data.population.total}</p>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-bold text-slate-300 uppercase tracking-widest flex items-center gap-2">
+                <Users className="w-4 h-4 text-indigo-400" />
+                Population Impact Details
+              </h3>
+              <div className="flex gap-4">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-slate-950/40 border border-slate-800"></div>
+                  <span className="text-[10px] text-slate-500 font-bold uppercase">Total: {data.population.total}</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-rose-500/20 border border-rose-500/40"></div>
+                  <span className="text-[10px] text-rose-400 font-bold uppercase">Prone: {data.population.prone}</span>
+                </div>
               </div>
-              {data.population.breakdown.map((item, idx) => {
-                const isVeryHigh = item.assessment.toLowerCase() === 'very high';
-                const isHigh = item.assessment.toLowerCase() === 'high';
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {data.population.ageBreakdown?.map((age, idx) => (
+                <div key={idx} className="bg-slate-950/40 border border-slate-800 rounded-xl p-3 flex flex-col gap-2 group hover:border-slate-700 transition-all">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
+                    <p className="text-[11px] font-bold text-indigo-400 uppercase tracking-tight">Age Group: {age.ageGroup}</p>
+                    <span className="text-[9px] font-bold text-slate-500">{(parseInt(age.maleProne.replace(/,/g, '')) + parseInt(age.femaleProne.replace(/,/g, ''))).toLocaleString()} Prone</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-3 gap-y-2">
+                    <div>
+                      <p className="text-[8px] text-slate-500 uppercase font-bold leading-none">Male (Prone)</p>
+                      <p className="text-sm font-bold text-rose-400 mt-1">{age.maleProne}</p>
+                    </div>
+                    <div>
+                      <p className="text-[8px] text-slate-500 uppercase font-bold leading-none">Male (Not Prone)</p>
+                      <p className="text-sm font-bold text-slate-400 mt-1">{age.maleNotProne}</p>
+                    </div>
+                    <div>
+                      <p className="text-[8px] text-slate-500 uppercase font-bold leading-none">Female (Prone)</p>
+                      <p className="text-sm font-bold text-rose-400 mt-1">{age.femaleProne}</p>
+                    </div>
+                    <div>
+                      <p className="text-[8px] text-slate-500 uppercase font-bold leading-none">Female (Not Prone)</p>
+                      <p className="text-sm font-bold text-slate-400 mt-1">{age.femaleNotProne}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {data.population.breakdown?.map((item, idx) => {
+                const isVeryHigh = item.assessment.toLowerCase().includes('very high');
+                const isHigh = item.assessment.toLowerCase().includes('high');
                 const isNotProne = item.assessment.toLowerCase().includes('not prone');
                 
                 return (
-                  <div key={idx} className="bg-slate-950/40 border border-slate-800 rounded-lg p-3">
-                    <p className={`text-[10px] uppercase font-bold tracking-tighter ${isVeryHigh ? 'text-rose-400' : isHigh ? 'text-amber-400' : isNotProne ? 'text-emerald-400' : 'text-slate-500'}`}>
+                  <div key={idx} className="bg-slate-800/20 border border-slate-800/50 rounded-lg p-2 flex flex-col items-center">
+                    <p className={`text-[9px] uppercase font-bold tracking-tighter ${isVeryHigh ? 'text-rose-400' : isHigh ? 'text-amber-400' : isNotProne ? 'text-emerald-400' : 'text-slate-500'}`}>
                       {item.assessment}
                     </p>
-                    <p className="text-lg font-bold text-white mt-1">{item.count.toLocaleString()}</p>
+                    <p className="text-sm font-bold text-white">{item.count.toLocaleString()}</p>
                   </div>
                 );
               })}
-            </div>
-            <div className="text-[10px] text-slate-500 italic text-right">
-              {data.population.prone} individuals ({data.population.percentage}) are prone to flooding.
             </div>
           </div>
 
