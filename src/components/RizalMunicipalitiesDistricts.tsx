@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { MapPin, Home, Info, X, ChevronRight, Search, Download, Upload, ExternalLink, RefreshCw } from 'lucide-react';
 import { fetchMunicipalityEvacData } from '../services/githubDataService';
+import { fetchFloodRiskData, FloodRiskData } from '../services/floodRiskService';
 import EvacuationCentersModal, { EvacuationCenter } from './EvacuationCentersModal';
+import FloodRiskPopupCard from './FloodRiskPopupCard';
 
 interface BarangayPopulation {
   name: string;
@@ -656,6 +658,8 @@ export default function RizalMunicipalitiesDistricts() {
   const [selectedMunicipality, setSelectedMunicipality] = useState<MunicipalityProfile | null>(null);
   const [selectedFloodRiskMunicipality, setSelectedFloodRiskMunicipality] = useState<MunicipalityProfile | null>(null);
   const [selectedEvacMunicipality, setSelectedEvacMunicipality] = useState<MunicipalityProfile | null>(null);
+  const [floodRiskData, setFloodRiskData] = useState<FloodRiskData | null>(null);
+  const [isFloodRiskLoading, setIsFloodRiskLoading] = useState(false);
 
   // Load data from LocalStorage on mount
   const [evacuationDataMap, setEvacuationDataMap] = useState<Record<string, EvacuationCenter[]>>(() => {
@@ -769,6 +773,14 @@ export default function RizalMunicipalitiesDistricts() {
     }
   };
 
+  const handleOpenFloodRisk = async (municipality: MunicipalityProfile) => {
+    setSelectedFloodRiskMunicipality(municipality);
+    setIsFloodRiskLoading(true);
+    const data = await fetchFloodRiskData(municipality.name);
+    setFloodRiskData(data);
+    setIsFloodRiskLoading(false);
+  };
+
   const formatPopulation = (value: number) => value.toLocaleString('en-PH');
 
   return (
@@ -848,7 +860,7 @@ export default function RizalMunicipalitiesDistricts() {
                 <p className="text-slate-400 uppercase tracking-wide text-[11px] sm:text-xs">Flood:</p>
                 <button
                   type="button"
-                  onClick={() => setSelectedFloodRiskMunicipality(item)}
+                  onClick={() => handleOpenFloodRisk(item)}
                   className={`rounded-md border px-2 py-0.5 text-xs font-semibold transition-colors hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-300/40 ${floodRiskNeutralStyle}`}
                 >
                   Risk
@@ -909,108 +921,47 @@ export default function RizalMunicipalitiesDistricts() {
       )}
 
       {selectedFloodRiskMunicipality && (
-        <div
-          className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={() => setSelectedFloodRiskMunicipality(null)}
-        >
-          <div
-            className="w-full max-w-xl rounded-xl border border-slate-200 bg-white shadow-2xl"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="px-4 py-3 border-b border-slate-200 flex items-center justify-between gap-3">
-              <div>
-                <h3 className="text-base sm:text-lg font-semibold text-slate-900">{selectedFloodRiskMunicipality.name}</h3>
-                <p className="text-xs text-slate-600 mt-0.5">Flood Hazard Susceptibility · Source: GeoRiskPH</p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setSelectedFloodRiskMunicipality(null)}
-                className="rounded-md p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors"
-                aria-label="Close popup"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="p-4">
-              <a
-                href={floodRiskSourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block text-xs text-cyan-700 hover:text-cyan-800 underline decoration-cyan-500/50"
-              >
-                Source: geoanalytics.georisk.gov.ph
-              </a>
-
-              <div className="mt-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
-                <div className="text-[11px] font-semibold tracking-[0.14em] text-slate-700 uppercase mb-2">
-                  Barangays
-                </div>
-                <div className="max-h-56 overflow-y-auto rounded-md border border-slate-200 bg-white p-2">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-                    {selectedFloodRiskMunicipality.barangays.map((barangay) => {
-                      const hazardLabel = (() => {
-                        const normalized = normalizeBarangayName(barangay.name);
-                        if (selectedFloodRiskMunicipality.name === 'Angono') {
-                          return ANGONO_FLOOD_HAZARD[normalized];
-                        }
-                        if (selectedFloodRiskMunicipality.name === 'Antipolo City') {
-                          return ANTIPOLO_FLOOD_HAZARD[normalized];
-                        }
-                        if (selectedFloodRiskMunicipality.name === 'Baras') {
-                          return BARAS_FLOOD_HAZARD[normalized];
-                        }
-                        if (selectedFloodRiskMunicipality.name === 'Binangonan') {
-                          return BINANGONAN_FLOOD_HAZARD[normalized];
-                        }
-                        if (selectedFloodRiskMunicipality.name === 'Cainta') {
-                          return CAINTA_FLOOD_HAZARD[normalized];
-                        }
-                        if (selectedFloodRiskMunicipality.name === 'Cardona') {
-                          return CARDONA_FLOOD_HAZARD[normalized];
-                        }
-                        if (selectedFloodRiskMunicipality.name === 'Jalajala') {
-                          return JALAJALA_FLOOD_HAZARD[normalized];
-                        }
-                        if (selectedFloodRiskMunicipality.name === 'Morong') {
-                          return MORONG_FLOOD_HAZARD[normalized];
-                        }
-                        if (selectedFloodRiskMunicipality.name === 'Pililla') {
-                          return PILILLA_FLOOD_HAZARD[normalized];
-                        }
-                        if (selectedFloodRiskMunicipality.name === 'Rodriguez (Montalban)') {
-                          return RODRIGUEZ_FLOOD_HAZARD[normalized];
-                        }
-                        if (selectedFloodRiskMunicipality.name === 'San Mateo') {
-                          return SAN_MATEO_FLOOD_HAZARD[normalized];
-                        }
-                        if (selectedFloodRiskMunicipality.name === 'Tanay') {
-                          return TANAY_FLOOD_HAZARD[normalized];
-                        }
-                        if (selectedFloodRiskMunicipality.name === 'Taytay') {
-                          return TAYTAY_FLOOD_HAZARD[normalized];
-                        }
-                        return undefined;
-                      })();
-
-                      return (
-                        <div
-                          key={barangay.name}
-                          className={`rounded-md border px-2 py-1.5 text-xs font-medium ${floodRiskNeutralStyle} flex items-center justify-between gap-2`}
-                        >
-                          <span>{barangay.name}</span>
-                          {hazardLabel && (
-                            <span className="font-semibold text-slate-900">{hazardLabel}</span>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
+        <>
+          {isFloodRiskLoading ? (
+            <div className="fixed inset-0 z-[9999] bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+              <div className="bg-slate-900 border border-slate-700 rounded-2xl p-8 flex flex-col items-center gap-4 shadow-2xl">
+                <RefreshCw className="w-8 h-8 text-blue-400 animate-spin" />
+                <p className="text-white font-medium">Loading flood data for {selectedFloodRiskMunicipality.name}...</p>
               </div>
             </div>
-          </div>
-        </div>
+          ) : floodRiskData ? (
+            <FloodRiskPopupCard 
+              data={floodRiskData}
+              isOpen={!!selectedFloodRiskMunicipality}
+              onClose={() => {
+                setSelectedFloodRiskMunicipality(null);
+                setFloodRiskData(null);
+              }}
+            />
+          ) : (
+            <div className="fixed inset-0 z-[9999] bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setSelectedFloodRiskMunicipality(null)}>
+              <div className="bg-slate-900 border border-slate-700 rounded-2xl p-8 max-w-md w-full flex flex-col items-center gap-4 shadow-2xl relative">
+                 <button 
+                  onClick={() => setSelectedFloodRiskMunicipality(null)}
+                  className="absolute top-4 right-4 text-slate-400 hover:text-white"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                <AlertTriangle className="w-12 h-12 text-amber-500" />
+                <div className="text-center">
+                  <h3 className="text-white text-lg font-bold">Data Unavailable</h3>
+                  <p className="text-slate-400 mt-2 text-sm">Flood risk reports are currently unavailable for {selectedFloodRiskMunicipality.name}. Please check back later or access the full map.</p>
+                </div>
+                <button 
+                  onClick={() => setSelectedFloodRiskMunicipality(null)}
+                  className="mt-2 px-6 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
+                >
+                  Dismiss
+                </button>
+              </div>
+            </div>
+          )}
+        </>
       )}
       {selectedEvacMunicipality && (
         <EvacuationCentersModal
