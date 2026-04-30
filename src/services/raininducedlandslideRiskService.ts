@@ -34,7 +34,7 @@ export async function fetchLandslideRiskData(municipalityName: string): Promise<
     ]);
 
     const isMatchingMunicipality = bRes.toLowerCase().includes(municipalityName.toLowerCase());
-    
+
     if (!isMatchingMunicipality) {
       // For now, if not matching, we return null or handle fallback
       // Since landslide specific fallback isn't provided yet, we'll return null or a basic structure
@@ -104,7 +104,7 @@ function parseReportCSV(csvText: string, headerMatch: string): { name: string; v
       for (let i = 0; i < line.length; i++) {
         const char = line[i];
         if (char === '"') {
-          if (inQuotes && line[i+1] === '"') {
+          if (inQuotes && line[i + 1] === '"') {
             current += '"';
             i++;
           } else {
@@ -118,10 +118,10 @@ function parseReportCSV(csvText: string, headerMatch: string): { name: string; v
         }
       }
       values.push(current.trim());
-      
-      return { 
-        name: values[0]?.replace(/^"|"$/g, '') || '', 
-        value: values[1]?.replace(/^"|"$/g, '') || '' 
+
+      return {
+        name: values[0]?.replace(/^"|"$/g, '') || '',
+        value: values[1]?.replace(/^"|"$/g, '') || ''
       };
     })
     .filter(item => item.name && item.value);

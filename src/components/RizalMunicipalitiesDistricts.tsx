@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { MapPin, Home, Info, X, ChevronRight, Search, Download, Upload, ExternalLink, RefreshCw } from 'lucide-react';
 import { fetchMunicipalityEvacData } from '../services/githubDataService';
 import { fetchFloodRiskData, FloodRiskData } from '../services/floodRiskService';
-import { fetchLandslideRiskData, LandslideRiskData } from '../services/landslideRiskService';
+import { fetchLandslideRiskData, LandslideRiskData } from '../services/raininducedlandslideRiskService';
 import EvacuationCentersModal, { EvacuationCenter } from './EvacuationCentersModal';
 import FloodRiskPopupCard from './FloodRiskPopupCard';
-import LandslideRiskPopupCard from './LandslideRiskPopupCard';
+import LandslideRiskPopupCard from './RainInducedLandslideRiskPopupCard';
 
 interface BarangayPopulation {
   name: string;
@@ -367,7 +367,7 @@ export default function RizalMunicipalitiesDistricts() {
       for (const municipality of RIZAL_MUNICIPALITIES) {
         // Try fetching with the full name (e.g., "Antipolo City")
         let githubData = await fetchMunicipalityEvacData(municipality.name);
-        
+
         // Fallback for "Antipolo City" -> "Antipolo" if the first one returns empty
         if (githubData.length === 0 && municipality.name === 'Antipolo City') {
           githubData = await fetchMunicipalityEvacData('Antipolo');
@@ -414,7 +414,7 @@ export default function RizalMunicipalitiesDistricts() {
 
   const handleManualSync = async (municipalityName: string) => {
     let githubData = await fetchMunicipalityEvacData(municipalityName);
-    
+
     // Fallback for Antipolo City
     if (githubData.length === 0 && municipalityName === 'Antipolo City') {
       githubData = await fetchMunicipalityEvacData('Antipolo');
@@ -546,8 +546,8 @@ export default function RizalMunicipalitiesDistricts() {
 
               <div className="mt-2 rounded-md border border-slate-700/70 bg-slate-900/50 px-2.5 py-2 flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
-                   <p className="text-slate-400 uppercase tracking-wide text-[11px] sm:text-xs">Flood:</p>
-                   <button
+                  <p className="text-slate-400 uppercase tracking-wide text-[11px] sm:text-xs">Flood:</p>
+                  <button
                     type="button"
                     onClick={() => handleOpenFloodRisk(item)}
                     className={`rounded-md border px-2 py-0.5 text-xs font-semibold transition-colors hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-300/40 ${floodRiskNeutralStyle}`}
@@ -556,8 +556,8 @@ export default function RizalMunicipalitiesDistricts() {
                   </button>
                 </div>
                 <div className="flex items-center gap-2">
-                   <p className="text-slate-400 uppercase tracking-wide text-[11px] sm:text-xs">Rain Induced Land Slide:</p>
-                   <button
+                  <p className="text-slate-400 uppercase tracking-wide text-[11px] sm:text-xs">Rain Induced Land Slide:</p>
+                  <button
                     type="button"
                     onClick={() => handleOpenLandslideRisk(item)}
                     className={`rounded-md border px-2 py-0.5 text-xs font-semibold transition-colors hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-300/40 ${floodRiskNeutralStyle}`}
@@ -630,7 +630,7 @@ export default function RizalMunicipalitiesDistricts() {
               </div>
             </div>
           ) : floodRiskData ? (
-            <FloodRiskPopupCard 
+            <FloodRiskPopupCard
               data={floodRiskData}
               isOpen={!!selectedFloodRiskMunicipality}
               onClose={() => {
@@ -641,7 +641,7 @@ export default function RizalMunicipalitiesDistricts() {
           ) : (
             <div className="fixed inset-0 z-[9999] bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setSelectedFloodRiskMunicipality(null)}>
               <div className="bg-slate-900 border border-slate-700 rounded-2xl p-8 max-w-md w-full flex flex-col items-center gap-4 shadow-2xl relative">
-                 <button 
+                <button
                   onClick={() => setSelectedFloodRiskMunicipality(null)}
                   className="absolute top-4 right-4 text-slate-400 hover:text-white"
                 >
@@ -652,7 +652,7 @@ export default function RizalMunicipalitiesDistricts() {
                   <h3 className="text-white text-lg font-bold">Data Unavailable</h3>
                   <p className="text-slate-400 mt-2 text-sm">Flood risk reports are currently unavailable for {selectedFloodRiskMunicipality.name}. Please check back later or access the full map.</p>
                 </div>
-                <button 
+                <button
                   onClick={() => setSelectedFloodRiskMunicipality(null)}
                   className="mt-2 px-6 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
                 >
@@ -673,7 +673,7 @@ export default function RizalMunicipalitiesDistricts() {
               </div>
             </div>
           ) : landslideRiskData ? (
-            <LandslideRiskPopupCard 
+            <LandslideRiskPopupCard
               data={landslideRiskData}
               isOpen={!!selectedLandslideMunicipality}
               onClose={() => {
@@ -684,7 +684,7 @@ export default function RizalMunicipalitiesDistricts() {
           ) : (
             <div className="fixed inset-0 z-[9999] bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setSelectedLandslideMunicipality(null)}>
               <div className="bg-slate-900 border border-slate-700 rounded-2xl p-8 max-w-md w-full flex flex-col items-center gap-4 shadow-2xl relative">
-                 <button 
+                <button
                   onClick={() => setSelectedLandslideMunicipality(null)}
                   className="absolute top-4 right-4 text-slate-400 hover:text-white"
                 >
@@ -695,7 +695,7 @@ export default function RizalMunicipalitiesDistricts() {
                   <h3 className="text-white text-lg font-bold">Data Unavailable</h3>
                   <p className="text-slate-400 mt-2 text-sm">Rain Induced Land Slide reports are currently unavailable for {selectedLandslideMunicipality.name}. Please check back later.</p>
                 </div>
-                <button 
+                <button
                   onClick={() => setSelectedLandslideMunicipality(null)}
                   className="mt-2 px-6 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
                 >

@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, Mountain, Users, School, Building2, AlertTriangle, AreaChart, Clock } from 'lucide-react';
-import { LandslideRiskData } from '../services/landslideRiskService';
+import { LandslideRiskData } from '../services/raininducedlandslideRiskService';
 
 interface LandslideRiskPopupCardProps {
   data: LandslideRiskData;
@@ -11,15 +11,15 @@ interface LandslideRiskPopupCardProps {
 export default function LandslideRiskPopupCard({ data, isOpen, onClose }: LandslideRiskPopupCardProps) {
   if (!isOpen) return null;
 
-  const currentDateTime = new Date().toLocaleString('en-PH', { 
-    dateStyle: 'medium', 
-    timeStyle: 'short' 
+  const currentDateTime = new Date().toLocaleString('en-PH', {
+    dateStyle: 'medium',
+    timeStyle: 'short'
   });
 
   const getRiskLevel = () => {
     const hasVeryHigh = data.barangays?.some(b => b.risk?.toLowerCase().includes('very high')) || false;
     const percentage = parseFloat(data.pronePercentage || '0');
-    
+
     if (hasVeryHigh || percentage > 50) return { label: 'CRITICAL', color: 'text-rose-400', bg: 'bg-rose-500/20', border: 'border-rose-500/40' };
     if (percentage > 25) return { label: 'HIGH', color: 'text-amber-400', bg: 'bg-amber-500/20', border: 'border-amber-500/40' };
     return { label: 'MODERATE', color: 'text-yellow-400', bg: 'bg-yellow-500/20', border: 'border-yellow-500/40' };
@@ -32,7 +32,7 @@ export default function LandslideRiskPopupCard({ data, isOpen, onClose }: Landsl
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-300">
-      <div 
+      <div
         className="w-full max-w-4xl max-h-[90vh] bg-slate-900/90 border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 duration-300"
         onClick={(e) => e.stopPropagation()}
       >
@@ -54,7 +54,7 @@ export default function LandslideRiskPopupCard({ data, isOpen, onClose }: Landsl
               </div>
             </div>
           </div>
-          <button 
+          <button
             onClick={onClose}
             className="p-2 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white transition-all border border-transparent hover:border-slate-700"
           >
@@ -87,8 +87,8 @@ export default function LandslideRiskPopupCard({ data, isOpen, onClose }: Landsl
               </div>
               <p className={`text-2xl font-bold ${risk.color}`}>{risk.label}</p>
               <div className="w-full bg-slate-700 h-1.5 rounded-full mt-2 overflow-hidden">
-                <div 
-                  className={`h-full ${risk.label === 'CRITICAL' ? 'bg-rose-500' : risk.label === 'HIGH' ? 'bg-amber-500' : 'bg-yellow-500'}`} 
+                <div
+                  className={`h-full ${risk.label === 'CRITICAL' ? 'bg-rose-500' : risk.label === 'HIGH' ? 'bg-amber-500' : 'bg-yellow-500'}`}
                   style={{ width: data.pronePercentage }}
                 />
               </div>
@@ -132,7 +132,7 @@ export default function LandslideRiskPopupCard({ data, isOpen, onClose }: Landsl
                 const isVeryHigh = item.assessment.toLowerCase().includes('very high');
                 const isHigh = item.assessment.toLowerCase().includes('high');
                 const isNotProne = item.assessment.toLowerCase().includes('not prone');
-                
+
                 return (
                   <div key={idx} className="bg-slate-950/40 border border-slate-800 rounded-lg p-3">
                     <p className={`text-[10px] uppercase font-bold tracking-tighter ${isVeryHigh ? 'text-rose-400' : isHigh ? 'text-amber-400' : isNotProne ? 'text-emerald-400' : 'text-slate-500'}`}>
