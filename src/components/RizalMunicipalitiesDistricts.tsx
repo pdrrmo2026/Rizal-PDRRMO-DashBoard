@@ -545,26 +545,25 @@ export default function RizalMunicipalitiesDistricts() {
               </div>
 
               <div className="mt-2 rounded-md border border-slate-700/70 bg-slate-900/50 px-2.5 py-2 flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <p className="text-slate-400 uppercase tracking-wide text-[11px] sm:text-xs">Flood:</p>
-                  <button
-                    type="button"
-                    onClick={() => handleOpenFloodRisk(item)}
-                    className={`rounded-md border px-2 py-0.5 text-xs font-semibold transition-colors hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-300/40 ${floodRiskNeutralStyle}`}
-                  >
-                    Risk
-                  </button>
-                </div>
-                <div className="flex items-center gap-2">
-                  <p className="text-slate-400 uppercase tracking-wide text-[11px] sm:text-xs">Rain Induced Land Slide:</p>
-                  <button
-                    type="button"
-                    onClick={() => handleOpenLandslideRisk(item)}
-                    className={`rounded-md border px-2 py-0.5 text-xs font-semibold transition-colors hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-300/40 ${floodRiskNeutralStyle}`}
-                  >
-                    Risk
-                  </button>
-                </div>
+                <p className="text-slate-400 uppercase tracking-wide text-[11px] sm:text-xs">Flood Risk:</p>
+                <button
+                  type="button"
+                  onClick={() => handleOpenFloodRisk(item)}
+                  className={`rounded-md border px-2.5 py-1 text-xs font-semibold transition-colors hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-300/40 ${floodRiskNeutralStyle}`}
+                >
+                  Risk Analysis
+                </button>
+              </div>
+
+              <div className="mt-2 rounded-md border border-slate-700/70 bg-slate-900/50 px-2.5 py-2 flex items-center justify-between gap-2">
+                <p className="text-slate-400 uppercase tracking-wide text-[11px] sm:text-xs">Rain Induced Land Slide:</p>
+                <button
+                  type="button"
+                  onClick={() => handleOpenLandslideRisk(item)}
+                  className={`rounded-md border px-2.5 py-1 text-xs font-semibold transition-colors hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-300/40 ${floodRiskNeutralStyle}`}
+                >
+                  Risk Analysis
+                </button>
               </div>
             </article>
           ))}
