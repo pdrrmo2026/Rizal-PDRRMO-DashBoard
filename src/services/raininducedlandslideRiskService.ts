@@ -145,18 +145,25 @@ function parseReportCSV(csvText: string, headerMatch: string): { name: string; v
   const tableHeaderIndex = lines.findIndex(l => l.toLowerCase().includes(headerMatch.toLowerCase()));
   if (tableHeaderIndex === -1) return [];
 
-  return lines.slice(tableHeaderIndex + 1)
-    .filter(l => l.trim() && l.includes(','))
-    .map(line => {
+  const results: { name: string; value: string }[] = [];
+  
+  // Start from the line after the header
+  for (let i = tableHeaderIndex + 1; i < lines.length; i++) {
+    const line = lines[i].trim();
+    
+    // STOP if we hit an empty line or a line that only contains commas
+    if (!line || line.replace(/,/g, '').trim() === '') break;
+    
+    if (line.includes(',')) {
       const values: string[] = [];
       let current = '';
       let inQuotes = false;
-      for (let i = 0; i < line.length; i++) {
-        const char = line[i];
+      for (let j = 0; j < line.length; j++) {
+        const char = line[j];
         if (char === '"') {
-          if (inQuotes && line[i + 1] === '"') {
+          if (inQuotes && line[j+1] === '"') {
             current += '"';
-            i++;
+            j++;
           } else {
             inQuotes = !inQuotes;
           }
@@ -168,11 +175,15 @@ function parseReportCSV(csvText: string, headerMatch: string): { name: string; v
         }
       }
       values.push(current.trim());
-
-      return {
-        name: values[0]?.replace(/^"|"$/g, '') || '',
-        value: values[1]?.replace(/^"|"$/g, '') || ''
-      };
-    })
-    .filter(item => item.name && item.value);
+      
+      const name = values[0]?.replace(/^"|"$/g, '') || '';
+      const value = values[1]?.replace(/^"|"$/g, '') || '';
+      
+      if (name && value) {
+        results.push({ name, value });
+      }
+    }
+  }
+  
+  return results;
 }
