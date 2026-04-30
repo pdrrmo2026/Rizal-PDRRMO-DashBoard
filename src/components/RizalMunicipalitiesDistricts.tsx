@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import { MapPin, Home, Info, X, ChevronRight, Search, Download, Upload, ExternalLink, RefreshCw } from 'lucide-react';
 import { fetchMunicipalityEvacData } from '../services/githubDataService';
 import { fetchFloodRiskData, FloodRiskData } from '../services/floodRiskService';
+import { fetchLandslideRiskData, LandslideRiskData } from '../services/landslideRiskService';
 import EvacuationCentersModal, { EvacuationCenter } from './EvacuationCentersModal';
 import FloodRiskPopupCard from './FloodRiskPopupCard';
+import LandslideRiskPopupCard from './LandslideRiskPopupCard';
 
 interface BarangayPopulation {
   name: string;
@@ -332,9 +334,12 @@ function normalizeBarangayName(name: string): string {
 export default function RizalMunicipalitiesDistricts() {
   const [selectedMunicipality, setSelectedMunicipality] = useState<MunicipalityProfile | null>(null);
   const [selectedFloodRiskMunicipality, setSelectedFloodRiskMunicipality] = useState<MunicipalityProfile | null>(null);
+  const [selectedLandslideMunicipality, setSelectedLandslideMunicipality] = useState<MunicipalityProfile | null>(null);
   const [selectedEvacMunicipality, setSelectedEvacMunicipality] = useState<MunicipalityProfile | null>(null);
   const [floodRiskData, setFloodRiskData] = useState<FloodRiskData | null>(null);
+  const [landslideRiskData, setLandslideRiskData] = useState<LandslideRiskData | null>(null);
   const [isFloodRiskLoading, setIsFloodRiskLoading] = useState(false);
+  const [isLandslideRiskLoading, setIsLandslideRiskLoading] = useState(false);
 
   // Load data from LocalStorage on mount
   const [evacuationDataMap, setEvacuationDataMap] = useState<Record<string, EvacuationCenter[]>>(() => {
@@ -456,6 +461,14 @@ export default function RizalMunicipalitiesDistricts() {
     setIsFloodRiskLoading(false);
   };
 
+  const handleOpenLandslideRisk = async (municipality: MunicipalityProfile) => {
+    setSelectedLandslideMunicipality(municipality);
+    setIsLandslideRiskLoading(true);
+    const data = await fetchLandslideRiskData(municipality.name);
+    setLandslideRiskData(data);
+    setIsLandslideRiskLoading(false);
+  };
+
   const formatPopulation = (value: number) => value.toLocaleString('en-PH');
 
   return (
@@ -532,14 +545,26 @@ export default function RizalMunicipalitiesDistricts() {
               </div>
 
               <div className="mt-2 rounded-md border border-slate-700/70 bg-slate-900/50 px-2.5 py-2 flex items-center justify-between gap-2">
-                <p className="text-slate-400 uppercase tracking-wide text-[11px] sm:text-xs">Flood:</p>
-                <button
-                  type="button"
-                  onClick={() => handleOpenFloodRisk(item)}
-                  className={`rounded-md border px-2 py-0.5 text-xs font-semibold transition-colors hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-300/40 ${floodRiskNeutralStyle}`}
-                >
-                  Risk
-                </button>
+                <div className="flex items-center gap-2">
+                   <p className="text-slate-400 uppercase tracking-wide text-[11px] sm:text-xs">Flood:</p>
+                   <button
+                    type="button"
+                    onClick={() => handleOpenFloodRisk(item)}
+                    className={`rounded-md border px-2 py-0.5 text-xs font-semibold transition-colors hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-300/40 ${floodRiskNeutralStyle}`}
+                  >
+                    Risk
+                  </button>
+                </div>
+                <div className="flex items-center gap-2">
+                   <p className="text-slate-400 uppercase tracking-wide text-[11px] sm:text-xs">Rain Induced Land Slide:</p>
+                   <button
+                    type="button"
+                    onClick={() => handleOpenLandslideRisk(item)}
+                    className={`rounded-md border px-2 py-0.5 text-xs font-semibold transition-colors hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-300/40 ${floodRiskNeutralStyle}`}
+                  >
+                    Risk
+                  </button>
+                </div>
               </div>
             </article>
           ))}
@@ -629,6 +654,49 @@ export default function RizalMunicipalitiesDistricts() {
                 </div>
                 <button 
                   onClick={() => setSelectedFloodRiskMunicipality(null)}
+                  className="mt-2 px-6 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
+                >
+                  Dismiss
+                </button>
+              </div>
+            </div>
+          )}
+        </>
+      )}
+      {selectedLandslideMunicipality && (
+        <>
+          {isLandslideRiskLoading ? (
+            <div className="fixed inset-0 z-[9999] bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+              <div className="bg-slate-900 border border-slate-700 rounded-2xl p-8 flex flex-col items-center gap-4 shadow-2xl">
+                <RefreshCw className="w-8 h-8 text-amber-400 animate-spin" />
+                <p className="text-white font-medium">Loading Rain Induced Land Slide data for {selectedLandslideMunicipality.name}...</p>
+              </div>
+            </div>
+          ) : landslideRiskData ? (
+            <LandslideRiskPopupCard 
+              data={landslideRiskData}
+              isOpen={!!selectedLandslideMunicipality}
+              onClose={() => {
+                setSelectedLandslideMunicipality(null);
+                setLandslideRiskData(null);
+              }}
+            />
+          ) : (
+            <div className="fixed inset-0 z-[9999] bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setSelectedLandslideMunicipality(null)}>
+              <div className="bg-slate-900 border border-slate-700 rounded-2xl p-8 max-w-md w-full flex flex-col items-center gap-4 shadow-2xl relative">
+                 <button 
+                  onClick={() => setSelectedLandslideMunicipality(null)}
+                  className="absolute top-4 right-4 text-slate-400 hover:text-white"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                <AlertTriangle className="text-amber-500 w-12 h-12" />
+                <div className="text-center">
+                  <h3 className="text-white text-lg font-bold">Data Unavailable</h3>
+                  <p className="text-slate-400 mt-2 text-sm">Rain Induced Land Slide reports are currently unavailable for {selectedLandslideMunicipality.name}. Please check back later.</p>
+                </div>
+                <button 
+                  onClick={() => setSelectedLandslideMunicipality(null)}
                   className="mt-2 px-6 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
                 >
                   Dismiss
