@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { Image, ExternalLink, Download, Search, MapPin, X, ChevronLeft, ChevronRight, Map as MapIcon } from 'lucide-react';
 
 interface Poster {
@@ -660,6 +661,16 @@ export default function HazardMaps({ renderTabs }: { renderTabs?: React.ReactNod
     }
   }, [selectedPoster]);
 
+  // Handle body scroll lock
+  useEffect(() => {
+    if (selectedPoster) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [selectedPoster]);
+
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -758,22 +769,22 @@ export default function HazardMaps({ renderTabs }: { renderTabs?: React.ReactNod
       </div>
 
       {/* Full Resolution Modal Viewer */}
-      {selectedPoster && (
+      {selectedPoster && createPortal(
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10 bg-gray-950/90 backdrop-blur-md animate-in fade-in duration-300"
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 md:p-10 bg-gray-950/90 backdrop-blur-md animate-in fade-in duration-300"
           onClick={() => setSelectedPoster(null)}
         >
           {/* Navigation Arrows */}
           {selectedPoster.images.length > 1 && (
             <>
               <button
-                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/40 text-white hover:bg-black/60 transition-all z-[110] border border-white/10 hidden sm:flex"
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/40 text-white hover:bg-black/60 transition-all z-[10000] border border-white/10 hidden sm:flex"
                 onClick={handlePrev}
               >
                 <ChevronLeft className="w-8 h-8" />
               </button>
               <button
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/40 text-white hover:bg-black/60 transition-all z-[110] border border-white/10 hidden sm:flex"
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/40 text-white hover:bg-black/60 transition-all z-[10000] border border-white/10 hidden sm:flex"
                 onClick={handleNext}
               >
                 <ChevronRight className="w-8 h-8" />
@@ -789,7 +800,7 @@ export default function HazardMaps({ renderTabs }: { renderTabs?: React.ReactNod
             <div className="relative group bg-gray-900 rounded-lg overflow-hidden shadow-2xl border border-white/10">
               {/* Close Button on Image */}
               <button
-                className="absolute top-2 right-2 p-1.5 rounded-full bg-black/60 text-white hover:bg-red-600 transition-colors z-[120] border border-white/20 backdrop-blur-sm"
+                className="absolute top-2 right-2 p-1.5 rounded-full bg-black/60 text-white hover:bg-red-600 transition-colors z-[10010] border border-white/20 backdrop-blur-sm"
                 onClick={(e) => {
                   e.stopPropagation();
                   setSelectedPoster(null);
@@ -835,7 +846,8 @@ export default function HazardMaps({ renderTabs }: { renderTabs?: React.ReactNod
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );

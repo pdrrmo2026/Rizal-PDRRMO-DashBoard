@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Phone, X, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 
 export default function EmergencyContacts() {
@@ -20,6 +21,16 @@ export default function EmergencyContacts() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isModalOpen]);
+
+  // Handle body scroll lock
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
   }, [isModalOpen]);
 
   // Reset scale & position when modal closes
@@ -117,9 +128,9 @@ export default function EmergencyContacts() {
       </div>
 
       {/* Full View Modal */}
-      {isModalOpen && (
+      {isModalOpen && createPortal(
         <div
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-300 overflow-hidden"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-300 overflow-hidden"
           onClick={(e) => {
             if (hasDragged) {
               setHasDragged(false);
@@ -133,7 +144,7 @@ export default function EmergencyContacts() {
           onMouseLeave={handleMouseLeave}
         >
           {/* Controls - Upper Left */}
-          <div className="absolute top-4 left-4 sm:top-6 sm:left-6 flex items-center gap-2 sm:gap-3 z-[210] animate-in slide-in-from-top-4 duration-500 delay-100 fade-in fill-mode-both">
+          <div className="absolute top-4 left-4 sm:top-6 sm:left-6 flex items-center gap-2 sm:gap-3 z-[10000] animate-in slide-in-from-top-4 duration-500 delay-100 fade-in fill-mode-both">
             <button
               onClick={(e) => { e.stopPropagation(); setIsModalOpen(false); }}
               className="p-2.5 sm:p-3 rounded-full bg-gray-900/80 text-white hover:bg-red-600 transition-colors border border-white/10 backdrop-blur-md shadow-2xl group"
@@ -200,7 +211,8 @@ export default function EmergencyContacts() {
               }}
             />
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
