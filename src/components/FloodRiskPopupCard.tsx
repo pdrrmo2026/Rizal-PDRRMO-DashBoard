@@ -18,8 +18,8 @@ export default function FloodRiskPopupCard({ data, isOpen, onClose }: FloodRiskP
 
   // Risk Level determination based on percentage or max severity
   const getRiskLevel = () => {
-    const hasVeryHigh = data.barangays.some(b => b.risk.toLowerCase().includes('very high'));
-    const percentage = parseFloat(data.floodPronePercentage);
+    const hasVeryHigh = data.barangays?.some(b => b.risk?.toLowerCase().includes('very high')) || false;
+    const percentage = parseFloat(data.floodPronePercentage || '0');
     
     if (hasVeryHigh || percentage > 30) return { label: 'CRITICAL', color: 'text-rose-400', bg: 'bg-rose-500/20', border: 'border-rose-500/40' };
     if (percentage > 15) return { label: 'HIGH', color: 'text-amber-400', bg: 'bg-amber-500/20', border: 'border-amber-500/40' };
@@ -29,8 +29,8 @@ export default function FloodRiskPopupCard({ data, isOpen, onClose }: FloodRiskP
   const risk = getRiskLevel();
 
   // Sort and filter barangays
-  const veryHighRiskBarangays = data.barangays.filter(b => b.risk.toLowerCase().includes('very high'));
-  const highRiskBarangays = data.barangays.filter(b => b.risk.toLowerCase() === 'high');
+  const veryHighRiskBarangays = data.barangays?.filter(b => b.risk?.toLowerCase().includes('very high')) || [];
+  const highRiskBarangays = data.barangays?.filter(b => b.risk?.toLowerCase() === 'high') || [];
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-300">
@@ -166,17 +166,17 @@ export default function FloodRiskPopupCard({ data, isOpen, onClose }: FloodRiskP
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-800/50">
-                    {data.schools.filter(s => s.risk.toLowerCase() !== 'not prone').map((s, idx) => (
+                    {data.schools?.filter(s => s.risk?.toLowerCase() !== 'not prone').map((s, idx) => (
                       <tr key={idx} className="hover:bg-white/5 transition-colors">
                         <td className="px-4 py-2.5 text-slate-300 font-medium">{s.name}</td>
                         <td className="px-4 py-2.5 text-right">
-                          <span className={`px-2 py-0.5 rounded text-[9px] font-bold ${s.risk.toLowerCase().includes('very high') ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'}`}>
+                          <span className={`px-2 py-0.5 rounded text-[9px] font-bold ${s.risk?.toLowerCase().includes('very high') ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'}`}>
                             {s.risk}
                           </span>
                         </td>
                       </tr>
                     ))}
-                    {data.schools.filter(s => s.risk.toLowerCase() !== 'not prone').length === 0 && (
+                    {(data.schools?.filter(s => s.risk?.toLowerCase() !== 'not prone').length || 0) === 0 && (
                       <tr>
                         <td colSpan={2} className="px-4 py-4 text-center text-slate-500 italic">No schools reported in high-risk zones.</td>
                       </tr>
@@ -200,8 +200,8 @@ export default function FloodRiskPopupCard({ data, isOpen, onClose }: FloodRiskP
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-800/50">
-                    {data.buildings.filter(b => b.risk.toLowerCase() !== 'not prone').map((b, idx) => {
-                      const isGov = b.name.toLowerCase().includes('barangay') || b.name.toLowerCase().includes('provincial') || b.name.toLowerCase().includes('rural health');
+                    {data.buildings?.filter(b => b.risk?.toLowerCase() !== 'not prone').map((b, idx) => {
+                      const isGov = b.name?.toLowerCase().includes('barangay') || b.name?.toLowerCase().includes('provincial') || b.name?.toLowerCase().includes('rural health');
                       return (
                         <tr key={idx} className="hover:bg-white/5 transition-colors">
                           <td className="px-4 py-2.5">
@@ -213,14 +213,14 @@ export default function FloodRiskPopupCard({ data, isOpen, onClose }: FloodRiskP
                             </div>
                           </td>
                           <td className="px-4 py-2.5 text-right">
-                            <span className={`px-2 py-0.5 rounded text-[9px] font-bold ${b.risk.toLowerCase().includes('very high') ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'}`}>
+                            <span className={`px-2 py-0.5 rounded text-[9px] font-bold ${b.risk?.toLowerCase().includes('very high') ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'}`}>
                               {b.risk}
                             </span>
                           </td>
                         </tr>
                       );
                     })}
-                    {data.buildings.filter(b => b.risk.toLowerCase() !== 'not prone').length === 0 && (
+                    {(data.buildings?.filter(b => b.risk?.toLowerCase() !== 'not prone').length || 0) === 0 && (
                       <tr>
                         <td colSpan={2} className="px-4 py-4 text-center text-slate-500 italic">No critical buildings reported in high-risk zones.</td>
                       </tr>

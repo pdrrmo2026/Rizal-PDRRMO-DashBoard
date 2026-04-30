@@ -15,6 +15,8 @@ export interface FloodRiskData {
   buildings: { name: string; risk: string }[];
 }
 
+import { FALLBACK_HAZARDS } from './floodRiskFallbackData';
+
 export async function fetchFloodRiskData(municipalityName: string): Promise<FloodRiskData | null> {
   const endpoints = {
     barangays: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQrrRhqUirLX4bQXFYT_AqRRCH7yA4Ef1KVUfZIXoEg0ktR89Uk7nq4Ar97bQZX9hGYSyLVAVBQyDSi/pub?gid=671810359&single=true&output=csv',
@@ -32,32 +34,45 @@ export async function fetchFloodRiskData(municipalityName: string): Promise<Floo
     ]);
 
     // Check if the CSV is for the requested municipality
-    // Line 7 or 6 usually has the location
-    if (!bRes.toLowerCase().includes(municipalityName.toLowerCase())) {
-      // If the CSV doesn't match the municipality, we might be using the wrong sheets
-      // For now, if it's Angono, we proceed. For others, we might return null or handle differently.
-      if (municipalityName.toLowerCase() !== 'angono') {
-         // return null; // Or return mocked/empty data if user expects a card for all
+    const isMatchingMunicipality = bRes.toLowerCase().includes(municipalityName.toLowerCase());
+    
+    if (!isMatchingMunicipality) {
+      // Fallback to hardcoded data if live data is not for this municipality
+      const fallbackBarangays = FALLBACK_HAZARDS[municipalityName] || FALLBACK_HAZARDS[municipalityName.replace(' City', '')] || {};
+      const fallbackList = Object.entries(fallbackBarangays).map(([name, risk]) => ({ name, risk }));
+      
+      if (fallbackList.length > 0) {
+        return {
+          municipality: municipalityName,
+          totalLandArea: '---',
+          floodProneArea: '---',
+          floodPronePercentage: '0%',
+          barangays: fallbackList,
+          population: { total: '---', prone: '---', percentage: '0%', breakdown: [] },
+          schools: [],
+          buildings: []
+        };
       }
+      return null;
     }
 
     const data: FloodRiskData = {
       municipality: municipalityName,
-      totalLandArea: '14.66 sqkm',
-      floodProneArea: '3.06 sqkm',
-      floodPronePercentage: '20.88%',
-      barangays: parseReportCSV(bRes, 'Name,Assessment'),
+      totalLandArea: '---',
+      floodProneArea: '---',
+      floodPronePercentage: '0%',
+      barangays: parseReportCSV(bRes, 'Name,Assessment').map(b => ({ name: b.name, risk: b.value })),
       population: {
-        total: '130,494',
-        prone: '51,223',
-        percentage: '39.253%',
+        total: '---',
+        prone: '---',
+        percentage: '0%',
         breakdown: parseReportCSV(pRes, 'Assessment,Population').map(p => ({
           assessment: p.name,
           count: parseInt(p.value.replace(/,/g, '')) || 0
         }))
       },
-      schools: parseReportCSV(sRes, 'Name,Assessment'),
-      buildings: parseReportCSV(buildRes, 'Name,Assessment')
+      schools: parseReportCSV(sRes, 'Name,Assessment').map(s => ({ name: s.name, risk: s.value })),
+      buildings: parseReportCSV(buildRes, 'Name,Assessment').map(b => ({ name: b.name, risk: b.value }))
     };
 
     // Extract area metadata if available in the CSV
