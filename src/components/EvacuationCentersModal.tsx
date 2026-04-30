@@ -413,12 +413,12 @@ export default function EvacuationCentersModal({
                               </td>
                               <td className="px-6 py-5 whitespace-nowrap text-center">
                                 <div className="flex flex-col items-center gap-1.5">
-                                  <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20 w-full">{center.capacity_individuals} Ind.</span>
-                                  <span className="text-xs font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20 w-full">{center.capacity_family} Fam.</span>
+                                  <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20 w-full">{(center.capacity_individuals || 0).toLocaleString()} Ind.</span>
+                                  <span className="text-xs font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20 w-full">{(center.capacity_family || 0).toLocaleString()} Fam.</span>
                                 </div>
                               </td>
                               <td className="px-6 py-5 whitespace-nowrap text-right">
-                                <div className="text-sm text-cyan-300 font-mono font-black">{center.floor_area} sqm</div>
+                                <div className="text-sm text-cyan-300 font-mono font-black">{(center.floor_area || 0).toLocaleString()} sqm</div>
                               </td>
                               <td className="px-6 py-5">
                                 <span className="text-[10px] font-bold px-3 py-1.5 bg-slate-800 text-slate-300 rounded-lg uppercase border border-slate-700">
@@ -562,11 +562,11 @@ export default function EvacuationCentersModal({
                 <div className="grid grid-cols-2 gap-3">
                   <div className="p-3 bg-slate-950/50 rounded-xl border border-slate-800">
                     <div className="text-[10px] font-bold text-slate-500 uppercase mb-1">Individuals</div>
-                    <div className="text-xl font-black text-emerald-400">{selectedCenter.capacity_individuals}</div>
+                    <div className="text-xl font-black text-emerald-400">{(selectedCenter.capacity_individuals || 0).toLocaleString()}</div>
                   </div>
                   <div className="p-3 bg-slate-950/50 rounded-xl border border-slate-800">
                     <div className="text-[10px] font-bold text-slate-500 uppercase mb-1">Families</div>
-                    <div className="text-xl font-black text-amber-400">{selectedCenter.capacity_family}</div>
+                    <div className="text-xl font-black text-amber-400">{(selectedCenter.capacity_family || 0).toLocaleString()}</div>
                   </div>
                 </div>
 
@@ -577,7 +577,7 @@ export default function EvacuationCentersModal({
                   </div>
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-slate-500 flex items-center gap-2"><Maximize2 className="w-4 h-4" /> Area</span>
-                    <span className="text-cyan-400 font-bold font-mono">{selectedCenter.floor_area} sqm</span>
+                    <span className="text-cyan-400 font-bold font-mono">{(selectedCenter.floor_area || 0).toLocaleString()} sqm</span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-slate-500 flex items-center gap-2"><Navigation className="w-4 h-4" /> Proximity</span>

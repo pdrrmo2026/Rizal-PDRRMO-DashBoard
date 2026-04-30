@@ -35,7 +35,8 @@ export async function fetchMunicipalityEvacData(municipalityName: string): Promi
 }
 
 function parseEvacCSV(csvText: string): EvacuationCenter[] {
-  const lines = csvText.split('\n');
+  // Handle different line endings (\r\n or \n)
+  const lines = csvText.split(/\r?\n/);
   if (lines.length < 2) return [];
   
   // Skip header
@@ -54,28 +55,35 @@ function parseEvacCSV(csvText: string): EvacuationCenter[] {
         if (char === '"') {
           inQuotes = !inQuotes;
         } else if (char === ',' && !inQuotes) {
-          values.push(currentValue);
+          values.push(currentValue.trim());
           currentValue = '';
         } else {
           currentValue += char;
         }
       }
-      values.push(currentValue);
+      values.push(currentValue.trim());
       
+      // Helper to clean numeric strings (remove commas, spaces, etc.)
+      const cleanNum = (val: any) => {
+        if (typeof val !== 'string') return val;
+        const cleaned = val.replace(/[^\d.-]/g, '');
+        return cleaned || 0;
+      };
+
       return {
-        name: values[0] || '',
-        location: values[1] || '',
-        capacity: values[2] || 0,
-        capacityFamily: values[3] || 0,
-        floorArea: values[4] || 0,
-        type: values[5] || '',
-        features: values[6] || '',
-        proximity: values[7] || '',
-        waterSource: values[8] || '',
-        remarks: values[9] || '',
-        lat: parseFloat(values[10]) || 0,
-        lng: parseFloat(values[11]) || 0,
-        contact: values[12] || ''
+        name: values[0]?.replace(/^"|"$/g, '') || '',
+        location: values[1]?.replace(/^"|"$/g, '') || '',
+        capacity: cleanNum(values[2]),
+        capacityFamily: cleanNum(values[3]),
+        floorArea: cleanNum(values[4]),
+        type: values[5]?.replace(/^"|"$/g, '') || '',
+        features: values[6]?.replace(/^"|"$/g, '') || '',
+        proximity: values[7]?.replace(/^"|"$/g, '') || '',
+        waterSource: values[8]?.replace(/^"|"$/g, '') || '',
+        remarks: values[9]?.replace(/^"|"$/g, '') || '',
+        lat: parseFloat(cleanNum(values[10])) || 0,
+        lng: parseFloat(cleanNum(values[11])) || 0,
+        contact: values[12]?.replace(/^"|"$/g, '') || ''
       };
     });
 }

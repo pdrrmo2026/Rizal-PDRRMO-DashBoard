@@ -681,28 +681,46 @@ export default function RizalMunicipalitiesDistricts() {
   useEffect(() => {
     const fetchAllData = async () => {
       for (const municipality of RIZAL_MUNICIPALITIES) {
-        const githubData = await fetchMunicipalityEvacData(municipality.name);
+        // Try fetching with the full name (e.g., "Antipolo City")
+        let githubData = await fetchMunicipalityEvacData(municipality.name);
+        
+        // Fallback for "Antipolo City" -> "Antipolo" if the first one returns empty
+        if (githubData.length === 0 && municipality.name === 'Antipolo City') {
+          githubData = await fetchMunicipalityEvacData('Antipolo');
+        }
 
-        const mappedData = githubData.map(item => ({
-          name: item.name,
-          location: item.location,
-          capacity_individuals: Number(item.capacity) || 0,
-          capacity_family: Number(item.capacityFamily) || 0,
-          floor_area: Number(item.floorArea) || 0,
-          type: item.type,
-          features: item.features,
-          proximity: item.proximity,
-          source_of_water: item.waterSource,
-          remarks: item.remarks,
-          lat: item.lat,
-          lng: item.lng,
-          contact_person_and_number: item.contact
-        }));
+        if (githubData.length > 0) {
+          const mappedData = githubData.map(item => {
+            // Helper to safely parse numbers from strings with commas
+            const safeParseNum = (val: any) => {
+              if (typeof val === 'number') return val;
+              if (!val) return 0;
+              const cleaned = String(val).replace(/[^\d.-]/g, '');
+              return cleaned ? parseFloat(cleaned) : 0;
+            };
 
-        setEvacuationDataMap(prev => ({
-          ...prev,
-          [municipality.name]: mappedData
-        }));
+            return {
+              name: item.name,
+              location: item.location,
+              capacity_individuals: safeParseNum(item.capacity),
+              capacity_family: safeParseNum(item.capacityFamily),
+              floor_area: safeParseNum(item.floorArea),
+              type: item.type,
+              features: item.features,
+              proximity: item.proximity,
+              source_of_water: item.waterSource,
+              remarks: item.remarks,
+              lat: item.lat,
+              lng: item.lng,
+              contact_person_and_number: item.contact
+            };
+          });
+
+          setEvacuationDataMap(prev => ({
+            ...prev,
+            [municipality.name]: mappedData
+          }));
+        }
       }
     };
 
@@ -711,23 +729,38 @@ export default function RizalMunicipalitiesDistricts() {
   }, []); // Only on mount
 
   const handleManualSync = async (municipalityName: string) => {
-    const githubData = await fetchMunicipalityEvacData(municipalityName);
+    let githubData = await fetchMunicipalityEvacData(municipalityName);
+    
+    // Fallback for Antipolo City
+    if (githubData.length === 0 && municipalityName === 'Antipolo City') {
+      githubData = await fetchMunicipalityEvacData('Antipolo');
+    }
+
     if (githubData.length > 0) {
-      const mappedData = githubData.map(item => ({
-        name: item.name,
-        location: item.location,
-        capacity_individuals: Number(item.capacity) || 0,
-        capacity_family: Number(item.capacityFamily) || 0,
-        floor_area: Number(item.floorArea) || 0,
-        type: item.type,
-        features: item.features,
-        proximity: item.proximity,
-        source_of_water: item.waterSource,
-        remarks: item.remarks,
-        lat: item.lat,
-        lng: item.lng,
-        contact_person_and_number: item.contact
-      }));
+      const mappedData = githubData.map(item => {
+        const safeParseNum = (val: any) => {
+          if (typeof val === 'number') return val;
+          if (!val) return 0;
+          const cleaned = String(val).replace(/[^\d.-]/g, '');
+          return cleaned ? parseFloat(cleaned) : 0;
+        };
+
+        return {
+          name: item.name,
+          location: item.location,
+          capacity_individuals: safeParseNum(item.capacity),
+          capacity_family: safeParseNum(item.capacityFamily),
+          floor_area: safeParseNum(item.floorArea),
+          type: item.type,
+          features: item.features,
+          proximity: item.proximity,
+          source_of_water: item.waterSource,
+          remarks: item.remarks,
+          lat: item.lat,
+          lng: item.lng,
+          contact_person_and_number: item.contact
+        };
+      });
 
       setEvacuationDataMap(prev => ({
         ...prev,
